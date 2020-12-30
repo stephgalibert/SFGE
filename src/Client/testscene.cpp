@@ -2,7 +2,7 @@
 
 #include "testgameobject.hpp"
 
-#include <sfge/components.hpp>
+#include <ecge/components.hpp>
 
 #include <iostream>
 
@@ -17,6 +17,6 @@ void TestScene::init()
     shape->setPosition(10, 10);
     auto &obj = instantiate<TestGameObject>();
 
-    obj->addComponent<sfge::ecs::Renderable>(shape);
-    obj->addComponent<sfge::ecs::RigidBody>(obj.get());
+    obj->addComponent<ecge::ecs::Renderable>(shape);
+    obj->addComponent<ecge::ecs::RigidBody>(obj.get());
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "sfge/ascene.hpp"
+#include "ecge/ascene.hpp"
 
-class TestScene : public sfge::AScene
+class TestScene : public ecge::AScene
 {
 public:
 

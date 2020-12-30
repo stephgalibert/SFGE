@@ -1,8 +1,8 @@
 #pragma once
 
-#include <sfge/agameobject.hpp>
+#include <ecge/agameobject.hpp>
 
-class TestGameObject : public sfge::AGameObject
+class TestGameObject : public ecge::AGameObject
 {
 public:
     TestGameObject();
