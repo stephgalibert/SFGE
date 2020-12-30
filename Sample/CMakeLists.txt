@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-set (TARGET "client")
+set (TARGET "sample")
 
 set (SRCS "main.cpp"
     "testscene.cpp"
