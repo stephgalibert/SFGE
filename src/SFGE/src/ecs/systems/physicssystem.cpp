@@ -2,6 +2,13 @@
 
 #include <box2d/b2_body.h>
 
+/**
+ * RigidBody MUST have Transformable
+ * Rigidbody retrieve Transformable after the pass and update them
+ * RenderSystem MUST have Transformable
+ * RenderSystem retrieve Transformable and apply
+ */
+
 namespace sfge
 {
     PhysicsSystem::PhysicsSystem()

@@ -18,7 +18,7 @@ namespace sfge
 		AScene();
 		virtual ~AScene();
 
-		virtual void init() = 0;
+		virtual void init();
 
 		void setRenderTarget(sf::RenderTarget* target);
 

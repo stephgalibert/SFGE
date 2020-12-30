@@ -8,6 +8,8 @@
 
 void TestScene::init()
 {
+    AScene::init();
+
     std::clog << "init test scene" << std::endl;
 
     sf::Shape *shape = new sf::RectangleShape(sf::Vector2f(20, 10));
@@ -15,6 +17,6 @@ void TestScene::init()
     shape->setPosition(10, 10);
     auto &obj = instantiate<TestGameObject>();
 
-    /* auto &r =*/ obj->addComponent<sfge::ecs::Renderable>(shape);
-    // obj->addComponent<sfge::ecs::RigidBody>();
+    obj->addComponent<sfge::ecs::Renderable>(shape);
+    obj->addComponent<sfge::ecs::RigidBody>(obj.get());
 }

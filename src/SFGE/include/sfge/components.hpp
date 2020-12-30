@@ -25,10 +25,14 @@ namespace sfge::ecs
      */
     struct Transformable
     {
+        Transformable()
+        {
+            std::clog << "ctor transf" << std::endl;
+        }
         // parent (id?entity?..)
         // relation between children -> parent => joints?
         sf::Vector2f position;
-        sf::Vector2f relativePosition; // 0 means same as parent pos
+        // sf::Vector2f relativePosition; // 0 means same as parent pos
         sf::Vector2f size;
         int rotationZ = 0;
     };
@@ -42,7 +46,7 @@ namespace sfge::ecs
         // b2Body *body = nullptr;
         // b2BodyType type = b2_dynamicBody; // b2_staticBody, b2_kinematicBody
 
-        AGameObject *gameObject = nullptr;
+        AGameObject *gameObject;
     };
 
     struct Scriptable

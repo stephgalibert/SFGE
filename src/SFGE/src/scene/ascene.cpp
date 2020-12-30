@@ -11,7 +11,10 @@ namespace sfge
 	AScenePrivate::AScenePrivate(AScene* qq)
 		: q_ptr(qq)
 	{
-	}
+        // Setup components dependencies
+        m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::emplace_or_replace<ecs::Transformable>>();
+        m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::emplace_or_replace<ecs::Transformable>>();
+    }
 
 	AScene::AScene()
 		: AScene(new AScenePrivate(this))
@@ -31,6 +34,12 @@ namespace sfge
             d->m_registry.destroy( gameObject->entity() );
         }
 	}
+
+    void AScene::init()
+    {
+        PIMPL_D(AScene);
+        std::clog << "ascene init" << std::endl;
+    }
 
     void AScene::setRenderTarget(sf::RenderTarget *target)
     {
