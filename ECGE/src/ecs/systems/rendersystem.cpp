@@ -23,12 +23,9 @@ namespace ecge
             const auto &r = view.get<const ecs::Renderable>(entity);
             // Maybe having an observer instead of setting this every frame is better..
             const auto &t = view.get<const ecs::Transformable>(entity);
-            // Transformable is stocking meters coordinate
             // Using 50 pixels per meter
-            // Position referring to its center
-            r.shape->setScale(t.scale.x * 50, t.scale.y * 50);
-            r.shape->setPosition(t.position.x * 50 - r.shape->getScale().x / 2,
-                                 t.position.y * 50 - r.shape->getScale().y / 2);
+            r.shape->setOrigin(t.scale.x * 50.f / 2.f, t.scale.y * 50.f / 2.f);
+            r.shape->setPosition(t.position.x * 50, t.position.y * 50);
             r.shape->setRotation(t.angle * 180 / b2_pi);
             m_renderTarget->draw(*r.shape);
         }

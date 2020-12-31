@@ -34,7 +34,7 @@ namespace ecge
                 r.def.position.y = t.position.y;
                 r.body = createBody(r.def);
 
-                r.shape.SetAsBox(t.scale.x / 2, t.scale.y / 2);
+                r.shape.SetAsBox(t.scale.x / 2.f, t.scale.y / 2.f);
 
                 r.fixtureDef.shape = &r.shape;
                 r.fixtureDef.density = 1.0f;
@@ -51,8 +51,6 @@ namespace ecge
             auto &t = view.get<ecs::Transformable>(entity);
 
             assert(r.body != nullptr);
-            // SFML refers to top-left, box2d center-center
-            // SFML refers to pixel, bow2d to meters
             t.position.x = r.body->GetPosition().x;
             t.position.y = r.body->GetPosition().y;
 //            if (t.position.y * 50 > 720)

@@ -12,17 +12,46 @@ void TestScene::init()
 
     std::clog << "init test scene" << std::endl;
 
-    // Size should always be 1.
-    sf::Shape *shape = new sf::RectangleShape({1,1});
-    shape->setFillColor(sf::Color::Green);
-    auto &obj = instantiate<TestGameObject>();
+    {
+        sf::Shape *shape = new sf::RectangleShape({50, 50});
+        shape->setFillColor(sf::Color::Green);
+        auto &obj = instantiate<TestGameObject>();
 
-    obj->addComponent<ecge::ecs::Renderable>(shape);
-    obj->addComponent<ecge::ecs::RigidBody>(obj.get());
+        obj->addComponent<ecge::ecs::Renderable>(shape);
+        obj->addComponent<ecge::ecs::RigidBody>(obj.get());
 
-    auto &transformable = obj->component<ecge::ecs::Transformable>();
-    transformable.position.x = 0;
-    transformable.position.y = -7;
-    transformable.scale.x = 1;
-    transformable.scale.y = 1;
+        auto &transformable = obj->component<ecge::ecs::Transformable>();
+        transformable.position.x = 0;
+        transformable.position.y = -7;
+        transformable.scale.x = shape->getLocalBounds().width * 0.02f;
+        transformable.scale.y = shape->getLocalBounds().height * 0.02f;
+    }
+    {
+        sf::Shape *shape = new sf::RectangleShape({50, 50});
+        shape->setFillColor(sf::Color::Yellow);
+        auto &obj = instantiate<TestGameObject>();
+
+        obj->addComponent<ecge::ecs::Renderable>(shape);
+        obj->addComponent<ecge::ecs::RigidBody>(obj.get());
+
+        auto &transformable = obj->component<ecge::ecs::Transformable>();
+        transformable.position.x = 2.2;
+        transformable.position.y = -7;
+        transformable.scale.x = shape->getLocalBounds().width * 0.02f;
+        transformable.scale.y = shape->getLocalBounds().height * 0.02f;
+    }
+    {
+        sf::Shape *shape = new sf::RectangleShape({100, 25});
+        shape->setFillColor(sf::Color::Red);
+        auto &obj = instantiate<TestGameObject>();
+
+        obj->addComponent<ecge::ecs::Renderable>(shape);
+        obj->addComponent<ecge::ecs::RigidBody>(obj.get()).def.type = b2_staticBody;
+
+        auto &transformable = obj->component<ecge::ecs::Transformable>();
+        transformable.position.x = 1.1;
+        transformable.position.y = 0;
+        transformable.scale.x = shape->getLocalBounds().width * 0.02f;
+        transformable.scale.y = shape->getLocalBounds().height * 0.02f;
+    }
 }

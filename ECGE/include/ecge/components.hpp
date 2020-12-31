@@ -24,7 +24,7 @@ namespace ecge::ecs
 //        meters = {0.02f * xPixels, 0.02f * yPixels};
 //        pixels = {50.0f * xMeters, 50.0f * yMeters};
         sf::Vector2f position; // meters
-        sf::Vector2f scale; // meters
+        sf::Vector2f scale = {1,1}; // meters
         float angle = 0.f; // radians
     };
 
