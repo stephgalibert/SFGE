@@ -18,15 +18,9 @@
 namespace ecge
 {
     PhysicsSystem::PhysicsSystem()
-        : m_world({0.0f, 981.0f})
+        : m_world({0.0f, 10.0f})
     {
     }
-
-    // quand on crée un component RigidBody
-    // 1. on l'assigne à un gameobject (done by addComponent<>())
-    // 2. faire une procédure d'initialisation
-    //      => créer le body
-    // agameobject / ascene => physicssystem
 
     void PhysicsSystem::update(entt::registry &registry, float dt)
     {
@@ -36,8 +30,8 @@ namespace ecge
             auto &r = view.get<ecs::RigidBody>(entity);
             auto &t = view.get<ecs::Transformable>(entity);
             if (!r.body) {
-                r.def.position.Set(t.position.x, t.position.y);
-                // r.def.gravityScale = 0;
+                r.def.position.x = t.position.x;
+                r.def.position.y = t.position.y;
                 r.body = createBody(r.def);
 
                 r.shape.SetAsBox(t.scale.x / 2, t.scale.y / 2);
@@ -46,8 +40,6 @@ namespace ecge
                 r.fixtureDef.density = 1.0f;
                 r.fixtureDef.friction = 0.3f;
                 r.body->CreateFixture(&r.fixtureDef);
-
-                r.body->ApplyAngularImpulse(100, true);
             }
         }
 
@@ -59,11 +51,13 @@ namespace ecge
             auto &t = view.get<ecs::Transformable>(entity);
 
             assert(r.body != nullptr);
+            // SFML refers to top-left, box2d center-center
+            // SFML refers to pixel, bow2d to meters
             t.position.x = r.body->GetPosition().x;
             t.position.y = r.body->GetPosition().y;
-            t.angle = r.body->GetAngle() * 180 / b2_pi;
-            // std::clog << t.angle << std::endl;
-            // rotations... in RenderSystem too
+//            if (t.position.y * 50 > 720)
+//                r.body->SetTransform(r.def.position, r.def.angle);
+            t.angle = r.body->GetAngle();
         }
     }
 
