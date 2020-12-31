@@ -9,12 +9,13 @@ namespace ecge
     class PhysicsSystem : public ISystem
     {
     private:
-        static const int32_t VELOCITY_ITERATIONS = 6;
-        static const int32_t POSITION_ITERATIONS = 2;
+        static const int32_t VELOCITY_ITERATIONS = 8;
+        static const int32_t POSITION_ITERATIONS = 3;
 
     public:
         PhysicsSystem();
         void update(entt::registry &registry, float dt) override;
+        b2Body *createBody(const b2BodyDef &def);
 
     private:
         b2World m_world;

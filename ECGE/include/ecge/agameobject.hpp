@@ -33,6 +33,13 @@ namespace ecge
             return reg->template emplace<T>( entity(), std::forward<Args>(args)... );
         }
 
+        template <typename T>
+        decltype(auto) component()
+        {
+            entt::registry *reg = componentRegistry();
+            return reg->template get<T>( entity() );
+        }
+
     private:
         explicit AGameObject(AGameObjectPrivate *dd);
         PIMPL_DECLARE_PRIVATE(AGameObject);

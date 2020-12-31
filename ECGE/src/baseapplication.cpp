@@ -35,7 +35,7 @@ namespace ecge
     {
         // TODO: user config
         PIMPL_D(BaseApplication);
-        d->m_window.create(sf::VideoMode(200, 200), "SFML works!");
+        d->m_window.create(sf::VideoMode(1280, 720), "SFML works!");
         d->m_window.setFramerateLimit(60);
         d->m_window.setVerticalSyncEnabled(true);
 

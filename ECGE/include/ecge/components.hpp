@@ -3,7 +3,10 @@
 #include "agameobject.hpp"
 
 #include <SFML/Graphics.hpp>
+
 #include <box2d/b2_body.h>
+#include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_fixture.h>
 
 #include <memory>
 #include <iostream>
@@ -33,8 +36,8 @@ namespace ecge::ecs
         // relation between children -> parent => joints?
         sf::Vector2f position;
         // sf::Vector2f relativePosition; // 0 means same as parent pos
-        sf::Vector2f size;
-        int rotationZ = 0;
+        sf::Vector2f scale;
+        float angle = 0.f;
     };
 
     // Check if entt can calls a function when a specific component is added
@@ -43,10 +46,12 @@ namespace ecge::ecs
     {
         explicit RigidBody(AGameObject *gameObject);
 
-        // b2Body *body = nullptr;
+        b2Body *body = nullptr;
         // b2BodyType type = b2_dynamicBody; // b2_staticBody, b2_kinematicBody
-
-        AGameObject *gameObject;
+        b2BodyDef def;
+        b2PolygonShape shape;
+        b2FixtureDef fixtureDef;
+        // AGameObject *gameObject = nullptr;
     };
 
     struct Scriptable

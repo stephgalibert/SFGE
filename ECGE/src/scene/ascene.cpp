@@ -12,8 +12,9 @@ namespace ecge
 		: q_ptr(qq)
 	{
         // Setup components dependencies
-        m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::emplace_or_replace<ecs::Transformable>>();
-        m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::emplace_or_replace<ecs::Transformable>>();
+        m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
+        m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
+        // m_registry.on_construct<ecs::RigidBody>().connect<entt::invoke<&ecs::RigidBody::test>>();
     }
 
 	AScene::AScene()
