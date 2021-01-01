@@ -2,7 +2,9 @@
 
 #include "testgameobject.hpp"
 
-#include <ecge/components.hpp>
+#include <ecge/components/transformable.hpp>
+#include <ecge/components/renderable.hpp>
+#include <ecge/components/rigidbody.hpp>
 
 #include <iostream>
 
@@ -19,18 +21,13 @@ void TestScene::init()
         shape->setFillColor(sf::Color::Green);
         auto &obj = instantiate<TestGameObject>();
 
+        // transformable should be mandatory
+        // agameobject without transform is nonsense??
         auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
-        // check registry.path<component>(entity, fn)
-        // could be encapsulated in the agameobject
-        // and encapsulate attributes to private
-        transformable.position.x = 0;
-        transformable.position.y = -7;
+        transformable.setPosition({0, -7});
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
         obj->addComponent<ecge::ecs::RigidBody>(obj.get());
-
-        // if we reset transformable position here,
-        // not changes in rigidbody...
     }
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
@@ -38,8 +35,7 @@ void TestScene::init()
         auto &obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
-        transformable.position.x = 2.2;
-        transformable.position.y = -7;
+        transformable.setPosition({2.2, -7});
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
         obj->addComponent<ecge::ecs::RigidBody>(obj.get());
@@ -50,8 +46,7 @@ void TestScene::init()
         auto &obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
-        transformable.position.x = 1.1;
-        transformable.position.y = 0;
+        transformable.setPosition({1.1, 0});
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
 

@@ -1,10 +1,9 @@
 #include "physicssystem.hpp"
 
-#include "ecge/components.hpp"
+#include "ecge/components/transformable.hpp"
+#include "ecge/components/rigidbody.hpp"
 
 #include <box2d/b2_body.h>
-
-#include <iostream>
 
 namespace ecge
 {
@@ -20,13 +19,12 @@ namespace ecge
 
         auto view = registry.view<ecs::RigidBody, ecs::Transformable>();
         for (const auto entity : view) {
-            const auto &r = view.get<ecs::RigidBody>(entity);
-            auto &t = view.get<ecs::Transformable>(entity);
+            const auto &rigidBody = view.get<ecs::RigidBody>(entity);
+            auto &transform = view.get<ecs::Transformable>(entity);
 
-            assert(r.body != nullptr);
-            t.position.x = r.body->GetPosition().x;
-            t.position.y = r.body->GetPosition().y;
-            t.angle = r.body->GetAngle();
+            assert(rigidBody.body() != nullptr);
+            const b2Vec2 &b2Pos = rigidBody.body()->GetPosition();
+            transform.setTransform({b2Pos.x, b2Pos.y}, rigidBody.body()->GetAngle());
         }
     }
 

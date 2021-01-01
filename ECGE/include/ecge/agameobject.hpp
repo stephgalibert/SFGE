@@ -26,11 +26,16 @@ namespace ecge
         [[nodiscard]] entt::registry *componentRegistry();
         [[nodiscard]] const entt::registry *componentRegistry() const;
 
+    public:
         template <typename T, typename... Args>
         decltype(auto) addComponent(Args&&... args)
         {
             entt::registry *reg = componentRegistry();
-            return reg->template emplace<T>( entity(), std::forward<Args>(args)... );
+            entt::entity entt = entity();
+            auto &component = reg->template emplace<T>( entt, std::forward<Args>(args)... );
+            component.setRegistry(reg);
+            component.setEntity(entt);
+            return component;
         }
 
         template <typename T>

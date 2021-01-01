@@ -14,7 +14,9 @@ set (SRCS
 	"src/gameobject/agameobject.cpp"
 	"src/scene/scenegraph.cpp"
 	"src/ecs/systems/rendersystem.cpp"
-	"src/ecs/components.cpp" src/ecs/systems/physicssystem.cpp src/ecs/systems/physicssystem.hpp)
+        "src/ecs/components/component.cpp"
+	"src/ecs/systems/physicssystem.cpp"
+	"src/ecs/components/transformable.cpp" src/ecs/components/renderable.cpp src/ecs/components/rigidbody.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

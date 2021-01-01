@@ -2,7 +2,10 @@
 #include "scene/ascene_p.hpp"
 
 #include "ecge/agameobject.hpp"
-#include "ecge/components.hpp"
+
+#include "ecge/components/transformable.hpp"
+#include "ecge/components/renderable.hpp"
+#include "ecge/components/rigidbody.hpp"
 
 #include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_fixture.h>
@@ -18,26 +21,32 @@ namespace ecge
         // m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
         // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
 
-        // Setup change listeners
+        // Setup construct listeners
         m_registry.on_construct<ecs::Renderable>().connect<&AScenePrivate::renderableCreated>(this);
         m_registry.on_construct<ecs::RigidBody>().connect<&AScenePrivate::rigidBodyCreated>(this);
+
+        // Setup change listeners
+        m_registry.on_update<ecs::Transformable>().connect<&AScenePrivate::transformableChanged>(this);
+        // entt::observer observer(m_registry, entt::collector.update<ecs::Transformable>());
     }
 
     void AScenePrivate::rigidBodyCreated(entt::registry &registry, entt::entity entity)
     {
-        ecs::RigidBody &r = registry.get<ecs::RigidBody>(entity);
-        ecs::Transformable &t = registry.get<ecs::Transformable>(entity);
+        ecs::RigidBody &rigidBody = registry.get<ecs::RigidBody>(entity);
+        ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
 
-        r.config.bodyDef.position.x = t.position.x;
-        r.config.bodyDef.position.y = t.position.y;
-        r.body = m_physicsSystem.createBody(r.config.bodyDef);
+        ecs::RigidBody::Config config = rigidBody.config();
+        config.bodyDef.position.x = transform.position().x;
+        config.bodyDef.position.y = transform.position().y;
+        rigidBody.setBody(m_physicsSystem.createBody(config.bodyDef));
 
-        r.config.shape.SetAsBox(t.scale.x / 2.f, t.scale.y / 2.f);
+        config.shape.SetAsBox(transform.scale().x / 2.f, transform.scale().y / 2.f);
 
-        r.config.fixtureDef.shape = &r.config.shape;
-        r.config.fixtureDef.density = 1.0f;
-        r.config.fixtureDef.friction = 0.3f;
-        r.body->CreateFixture(&r.config.fixtureDef);
+        config.fixtureDef.shape = &config.shape;
+        config.fixtureDef.density = 1.0f;
+        config.fixtureDef.friction = 0.3f;
+        rigidBody.body()->CreateFixture(&config.fixtureDef);
+        rigidBody.setConfig(config);
     }
 
     void AScenePrivate::renderableCreated(entt::registry &registry, entt::entity entity)
@@ -45,9 +54,38 @@ namespace ecge
         ecs::Renderable &r = registry.get<ecs::Renderable>(entity);
         ecs::Transformable &t = registry.get<ecs::Transformable>(entity);
 
-        // Set the scale according to the shape size
-        t.scale.x = r.shape->getLocalBounds().width * 0.02f;
-        t.scale.y = r.shape->getLocalBounds().height * 0.02f;
+        t.setScale({
+           r.shape()->getLocalBounds().width * 0.02f,
+           r.shape()->getLocalBounds().height * 0.02f
+        });
+    }
+
+    void AScenePrivate::transformableChanged(entt::registry &registry, entt::entity entity)
+    {
+        // Using 50 pixels per meter
+        // TODO: make an user config
+        const float meterPerPixel = 50.f;
+        const float pixelsPerMeter = 0.02f;
+
+        ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
+        // Update all dependant components... could be refactorized
+
+        ecs::Renderable *renderable = registry.try_get<ecs::Renderable>(entity);
+        if (renderable) {
+            renderable->shape()->setOrigin(transform.scale().x * meterPerPixel / 2.f, transform.scale().y * meterPerPixel / 2.f);
+            renderable->shape()->setPosition(transform.position().x * meterPerPixel, transform.position().y * meterPerPixel);
+            renderable->shape()->setRotation(transform.angle() * 180 / b2_pi);
+        }
+
+        ecs::RigidBody *rigidBody = registry.try_get<ecs::RigidBody>(entity);
+        if (rigidBody) {
+            b2Vec2 b2Pos = rigidBody->body()->GetPosition();
+            if (b2Pos.x != transform.position().x || b2Pos.y != transform.position().y
+                || rigidBody->body()->GetAngle() != transform.angle()) {
+                b2Pos = {transform.position().x, transform.position().y};
+                rigidBody->body()->SetTransform(b2Pos, transform.angle());
+            }
+        }
     }
 
 	AScene::AScene()

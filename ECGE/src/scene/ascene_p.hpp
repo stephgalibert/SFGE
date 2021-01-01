@@ -19,6 +19,8 @@ namespace ecge
         void rigidBodyCreated(entt::registry &registry, entt::entity entity);
         void renderableCreated(entt::registry &registry, entt::entity entity);
 
+        void transformableChanged(entt::registry &registry, entt::entity entity);
+
 		entt::registry m_registry;
 		SceneGraph m_graph;
 		RenderSystem m_renderSystem;
