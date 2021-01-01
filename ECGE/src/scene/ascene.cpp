@@ -4,6 +4,9 @@
 #include "ecge/agameobject.hpp"
 #include "ecge/components.hpp"
 
+#include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_fixture.h>
+
 #include <iostream>
 
 namespace ecge
@@ -12,9 +15,39 @@ namespace ecge
 		: q_ptr(qq)
 	{
         // Setup components dependencies
-        m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
-        m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
-        // m_registry.on_construct<ecs::RigidBody>().connect<entt::invoke<&ecs::RigidBody::test>>();
+        // m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
+        // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
+
+        // Setup change listeners
+        m_registry.on_construct<ecs::Renderable>().connect<&AScenePrivate::renderableCreated>(this);
+        m_registry.on_construct<ecs::RigidBody>().connect<&AScenePrivate::rigidBodyCreated>(this);
+    }
+
+    void AScenePrivate::rigidBodyCreated(entt::registry &registry, entt::entity entity)
+    {
+        ecs::RigidBody &r = registry.get<ecs::RigidBody>(entity);
+        ecs::Transformable &t = registry.get<ecs::Transformable>(entity);
+
+        r.config.bodyDef.position.x = t.position.x;
+        r.config.bodyDef.position.y = t.position.y;
+        r.body = m_physicsSystem.createBody(r.config.bodyDef);
+
+        r.config.shape.SetAsBox(t.scale.x / 2.f, t.scale.y / 2.f);
+
+        r.config.fixtureDef.shape = &r.config.shape;
+        r.config.fixtureDef.density = 1.0f;
+        r.config.fixtureDef.friction = 0.3f;
+        r.body->CreateFixture(&r.config.fixtureDef);
+    }
+
+    void AScenePrivate::renderableCreated(entt::registry &registry, entt::entity entity)
+    {
+        ecs::Renderable &r = registry.get<ecs::Renderable>(entity);
+        ecs::Transformable &t = registry.get<ecs::Transformable>(entity);
+
+        // Set the scale according to the shape size
+        t.scale.x = r.shape->getLocalBounds().width * 0.02f;
+        t.scale.y = r.shape->getLocalBounds().height * 0.02f;
     }
 
 	AScene::AScene()

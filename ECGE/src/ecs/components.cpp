@@ -7,15 +7,14 @@ namespace ecge::ecs
     {
     }
 
-    RigidBody::RigidBody(AGameObject *gameObject)
-//        : gameObject(gameObject)
+    RigidBody::Config::Config()
     {
-        def.type = b2_dynamicBody;
-//         def.position.Set(x, y);
-        def.linearDamping = 0.00f;
-        def.angularDamping = 0.01f;
-        // def.fixedRotation = true;
-        def.userData.pointer = reinterpret_cast<uintptr_t>(gameObject);
-//         b2Body *dynBody = m_world.CreateBody(&def);
+        bodyDef.type = b2_dynamicBody;
+    }
+
+    RigidBody::RigidBody(AGameObject *gameObject, Config config)
+        : config(std::move(config))
+    {
+        this->config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(gameObject);
     }
 }

@@ -16,6 +16,9 @@ namespace ecge
 		explicit AScenePrivate(AScene *qq);
         PIMPL_DECLARE_PUBLIC(AScene);
 
+        void rigidBodyCreated(entt::registry &registry, entt::entity entity);
+        void renderableCreated(entt::registry &registry, entt::entity entity);
+
 		entt::registry m_registry;
 		SceneGraph m_graph;
 		RenderSystem m_renderSystem;

@@ -30,11 +30,17 @@ namespace ecge::ecs
 
     struct RigidBody
     {
-        explicit RigidBody(AGameObject *gameObject);
+        struct Config
+        {
+            Config();
+            b2BodyDef bodyDef;
+            b2PolygonShape shape;
+            b2FixtureDef fixtureDef;
+        };
+
+        RigidBody(AGameObject *gameObject, Config config = Config());
         b2Body *body = nullptr;
-        b2BodyDef def;
-        b2PolygonShape shape;
-        b2FixtureDef fixtureDef;
+        Config config;
     };
 
     struct Scriptable

@@ -43,5 +43,6 @@ namespace ecge
     private:
         explicit AGameObject(AGameObjectPrivate *dd);
         PIMPL_DECLARE_PRIVATE(AGameObject);
+
     };
 }
