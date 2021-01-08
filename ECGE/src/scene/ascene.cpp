@@ -68,7 +68,8 @@ namespace ecge
         const float pixelsPerMeter = 0.02f;
 
         ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
-        // Update all dependant components... could be refactorized
+        // Update all dependant components...
+        // TODO: refactor
 
         ecs::Renderable *renderable = registry.try_get<ecs::Renderable>(entity);
         if (renderable) {

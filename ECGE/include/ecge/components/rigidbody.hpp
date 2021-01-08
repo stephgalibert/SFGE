@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ecge/components/component.hpp"
+#include "component.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_polygon_shape.h>

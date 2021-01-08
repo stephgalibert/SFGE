@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ecge/components/component.hpp"
+#include "component.hpp"
 
 #include <SFML/Graphics.hpp>
 

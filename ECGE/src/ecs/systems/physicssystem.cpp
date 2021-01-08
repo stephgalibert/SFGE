@@ -10,12 +10,12 @@ namespace ecge
     PhysicsSystem::PhysicsSystem()
         : m_world({0.0f, 10.0f})
     {
+        // m_world.SetContactListener()
     }
 
     void PhysicsSystem::update(entt::registry &registry, float dt)
     {
         m_world.Step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-        // m_world.SetContactListener()
 
         auto view = registry.view<ecs::RigidBody, ecs::Transformable>();
         for (const auto entity : view) {
