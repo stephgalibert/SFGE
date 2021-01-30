@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 namespace ecge
 {
@@ -14,4 +14,4 @@ namespace ecge
         // TODO: ECS Scene Graph
         std::vector<std::unique_ptr<AGameObject>> gameObjects;
     };
-}
+}// namespace ecge

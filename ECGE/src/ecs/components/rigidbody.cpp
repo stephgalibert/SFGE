@@ -10,20 +10,20 @@ namespace ecge::ecs
     }
 
     RigidBody::RigidBody(AGameObject *gameObject, Config config)
-            : m_config(std::move(config))
+        : m_config(std::move(config))
     {
         m_config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(gameObject);
     }
 
     RigidBody::RigidBody(const RigidBody &rhs)
-            : Component(rhs)
+        : Component(rhs)
     {
         std::clog << "rigidbody copy ctor" << std::endl;
         *this = rhs;
     }
 
     RigidBody::RigidBody(RigidBody &&rhs) noexcept
-            : Component(std::move(rhs))
+        : Component(std::move(rhs))
     {
         std::clog << "rigidbody move ctor" << std::endl;
         *this = std::move(rhs);
@@ -67,4 +67,4 @@ namespace ecge::ecs
     {
         return m_config;
     }
-}
+}// namespace ecge::ecs

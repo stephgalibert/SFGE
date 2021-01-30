@@ -20,4 +20,4 @@ namespace ecge
         std::unique_ptr<EventProcessor> m_eventProcessor;
         sf::RenderWindow m_window;
     };
-}
+}// namespace ecge

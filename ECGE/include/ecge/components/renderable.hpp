@@ -26,4 +26,4 @@ namespace ecge::ecs
     private:
         std::unique_ptr<sf::Shape> m_shape;
     };
-}
+}// namespace ecge::ecs

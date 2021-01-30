@@ -2,9 +2,9 @@
 
 #include "testgameobject.hpp"
 
-#include <ecge/components/transformable.hpp>
 #include <ecge/components/renderable.hpp>
 #include <ecge/components/rigidbody.hpp>
+#include <ecge/components/transformable.hpp>
 
 #include <iostream>
 

@@ -1,19 +1,19 @@
 #pragma once
 
 #include "ecge/ascene.hpp"
-#include "ecs/systems/rendersystem.hpp"
 #include "ecs/systems/physicssystem.hpp"
+#include "ecs/systems/rendersystem.hpp"
 #include "scenegraph.hpp"
 
 #include <memory>
 
 namespace ecge
 {
-	class AScenePrivate
-	{
-	public:
-	private:
-		explicit AScenePrivate(AScene *qq);
+    class AScenePrivate
+    {
+    public:
+    private:
+        explicit AScenePrivate(AScene *qq);
         PIMPL_DECLARE_PUBLIC(AScene);
 
         void rigidBodyCreated(entt::registry &registry, entt::entity entity);
@@ -21,9 +21,9 @@ namespace ecge
 
         void transformableChanged(entt::registry &registry, entt::entity entity);
 
-		entt::registry m_registry;
-		SceneGraph m_graph;
-		RenderSystem m_renderSystem;
+        entt::registry m_registry;
+        SceneGraph m_graph;
+        RenderSystem m_renderSystem;
         PhysicsSystem m_physicsSystem;
-	};
-}
+    };
+}// namespace ecge

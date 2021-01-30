@@ -1,7 +1,7 @@
 #include "rendersystem.hpp"
 
-#include "ecge/components/transformable.hpp"
 #include "ecge/components/renderable.hpp"
+#include "ecge/components/transformable.hpp"
 
 namespace ecge
 {
@@ -25,4 +25,4 @@ namespace ecge
             m_renderTarget->draw(*r.shape());
         }
     }
-}
+}// namespace ecge

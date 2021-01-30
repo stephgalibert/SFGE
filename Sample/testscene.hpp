@@ -5,9 +5,7 @@
 class TestScene : public ecge::AScene
 {
 public:
-
     void init() override;
 
 private:
-
 };

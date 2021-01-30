@@ -6,8 +6,7 @@ class TestGameObject : public ecge::AGameObject
 {
 public:
     TestGameObject();
-    ~TestGameObject();
+    ~TestGameObject() override;
 
 private:
-
 };

@@ -86,4 +86,4 @@ namespace ecge::ecs
     {
         return m_angle;
     }
-}
+}// namespace ecge::ecs

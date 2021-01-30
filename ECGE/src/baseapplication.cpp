@@ -1,9 +1,9 @@
 #include "ecge/baseapplication.hpp"
 #include "baseapplication_p.h"
 
+#include "ecge/ascene.hpp"
 #include "input/eventprocessor.hpp"
 #include "scene/scenemanager.hpp"
-#include "ecge/ascene.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -44,14 +44,13 @@ namespace ecge
     }
 
     int32_t BaseApplication::run()
-	{
+    {
         if (!isRunnable())
             return -1;
 
         sf::Clock clock;
         PIMPL_D(BaseApplication);
-        while (d->m_window.isOpen())
-        {
+        while (d->m_window.isOpen()) {
             float dt = clock.restart().asSeconds();
 
             // 1. Retrieve and process input(s)
@@ -70,11 +69,11 @@ namespace ecge
             d->m_sceneManager->draw();
             d->m_window.display();
         }
-		return 0;
-	}
+        return 0;
+    }
 
-	void BaseApplication::loadScene(std::unique_ptr<AScene> scene)
-	{
+    void BaseApplication::loadScene(std::unique_ptr<AScene> scene)
+    {
         PIMPL_D(BaseApplication);
         d->m_sceneManager->setScene(std::move(scene));
     }
@@ -88,4 +87,4 @@ namespace ecge
         }
         return true;
     }
-}
+}// namespace ecge

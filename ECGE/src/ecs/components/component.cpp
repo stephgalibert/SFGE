@@ -40,4 +40,4 @@ namespace ecge::ecs
         m_entity = entity;
     }
 
-}
+}// namespace ecge::ecs

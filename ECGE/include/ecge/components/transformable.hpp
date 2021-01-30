@@ -33,4 +33,4 @@ namespace ecge::ecs
         sf::Vector2f m_scale = {1, 1};// meters
         float m_angle = 0.f;          // radians
     };
-}
+}// namespace ecge::ecs

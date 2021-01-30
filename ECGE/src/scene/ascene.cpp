@@ -3,20 +3,20 @@
 
 #include "ecge/agameobject.hpp"
 
-#include "ecge/components/transformable.hpp"
 #include "ecge/components/renderable.hpp"
 #include "ecge/components/rigidbody.hpp"
+#include "ecge/components/transformable.hpp"
 
-#include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
 
 #include <iostream>
 
 namespace ecge
 {
-	AScenePrivate::AScenePrivate(AScene* qq)
-		: q_ptr(qq)
-	{
+    AScenePrivate::AScenePrivate(AScene *qq)
+        : q_ptr(qq)
+    {
         // Setup components dependencies
         // m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
         // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
@@ -54,10 +54,8 @@ namespace ecge
         ecs::Renderable &r = registry.get<ecs::Renderable>(entity);
         ecs::Transformable &t = registry.get<ecs::Transformable>(entity);
 
-        t.setScale({
-           r.shape()->getLocalBounds().width * 0.02f,
-           r.shape()->getLocalBounds().height * 0.02f
-        });
+        t.setScale({r.shape()->getLocalBounds().width * 0.02f,
+                    r.shape()->getLocalBounds().height * 0.02f});
     }
 
     void AScenePrivate::transformableChanged(entt::registry &registry, entt::entity entity)
@@ -81,32 +79,31 @@ namespace ecge
         ecs::RigidBody *rigidBody = registry.try_get<ecs::RigidBody>(entity);
         if (rigidBody) {
             b2Vec2 b2Pos = rigidBody->body()->GetPosition();
-            if (b2Pos.x != transform.position().x || b2Pos.y != transform.position().y
-                || rigidBody->body()->GetAngle() != transform.angle()) {
+            if (b2Pos.x != transform.position().x || b2Pos.y != transform.position().y || rigidBody->body()->GetAngle() != transform.angle()) {
                 b2Pos = {transform.position().x, transform.position().y};
                 rigidBody->body()->SetTransform(b2Pos, transform.angle());
             }
         }
     }
 
-	AScene::AScene()
-		: AScene(new AScenePrivate(this))
-	{
-	}
+    AScene::AScene()
+        : AScene(new AScenePrivate(this))
+    {
+    }
 
-	AScene::AScene(AScenePrivate* dd)
-		: d_ptr(dd)
-	{
-	}
+    AScene::AScene(AScenePrivate *dd)
+        : d_ptr(dd)
+    {
+    }
 
-	AScene::~AScene()
-	{
+    AScene::~AScene()
+    {
         PIMPL_D(AScene);
         for (auto &gameObject : d->m_graph.gameObjects) {
             gameObject->onDestroyed();
-            d->m_registry.destroy( gameObject->entity() );
+            d->m_registry.destroy(gameObject->entity());
         }
-	}
+    }
 
     void AScene::init()
     {
@@ -138,21 +135,21 @@ namespace ecge
     }
 
     void AScene::update(float dt)
-	{
+    {
         PIMPL_D(AScene);
         d->m_physicsSystem.update(d->m_registry, dt);
-	}
+    }
 
-	void AScene::draw()
-	{
-		PIMPL_D(AScene);
-		d->m_renderSystem.update(d->m_registry, 0);
-	}
+    void AScene::draw()
+    {
+        PIMPL_D(AScene);
+        d->m_renderSystem.update(d->m_registry, 0);
+    }
 
     entt::registry &AScene::registry()
     {
-	    PIMPL_D(AScene);
-	    return d->m_registry;
+        PIMPL_D(AScene);
+        return d->m_registry;
     }
 
     const entt::registry &AScene::registry() const
@@ -165,8 +162,8 @@ namespace ecge
     {
         PIMPL_D(AScene);
         obj->setComponentRegistry(&d->m_registry);
-        obj->setEntity( d->m_registry.create() );
+        obj->setEntity(d->m_registry.create());
         d->m_graph.gameObjects.push_back(std::move(obj));
         return d->m_graph.gameObjects.back();
     }
-}
+}// namespace ecge

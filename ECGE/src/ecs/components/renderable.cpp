@@ -11,7 +11,7 @@ namespace ecge::ecs
     }
 
     Renderable::Renderable(Renderable &&rhs) noexcept
-            : Component(std::move(rhs))
+        : Component(std::move(rhs))
     {
         std::clog << "renderable move ctor" << std::endl;
         m_shape = std::move(rhs.m_shape);
@@ -34,4 +34,4 @@ namespace ecge::ecs
     {
         return m_shape;
     }
-}
+}// namespace ecge::ecs

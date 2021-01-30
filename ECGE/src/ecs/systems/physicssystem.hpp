@@ -20,4 +20,4 @@ namespace ecge
     private:
         b2World m_world;
     };
-}
+}// namespace ecge

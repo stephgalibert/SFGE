@@ -63,4 +63,4 @@ namespace ecge
         const PIMPL_D(AGameObject);
         return d->m_registry;
     }
-}
+}// namespace ecge

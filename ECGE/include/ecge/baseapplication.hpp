@@ -4,30 +4,30 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <memory>
 #include <cstdint>
+#include <memory>
 
 namespace ecge
 {
     class BaseApplicationPrivate;
     class AScene;
 
-	class BaseApplication
-	{
-	public:
-	    BaseApplication();
-	    virtual ~BaseApplication();
+    class BaseApplication
+    {
+    public:
+        BaseApplication();
+        virtual ~BaseApplication();
 
-	    virtual bool init();
-		int32_t run();
+        virtual bool init();
+        int32_t run();
 
-		void loadScene(std::unique_ptr<AScene> scene);
+        void loadScene(std::unique_ptr<AScene> scene);
 
     protected:
-//        virtual void onWindowClosing();
-//	    virtual void onKeyboardEvent(sf::Keyboard::Key key, bool pressed);
-//	    virtual void onMouseButtonEvent(sf::Mouse::Button button, int x, int y, bool pressed);
-	    // ...
+        //        virtual void onWindowClosing();
+        //	    virtual void onKeyboardEvent(sf::Keyboard::Key key, bool pressed);
+        //	    virtual void onMouseButtonEvent(sf::Mouse::Button button, int x, int y, bool pressed);
+        // ...
 
     private:
         explicit BaseApplication(BaseApplicationPrivate *dd);
@@ -36,4 +36,4 @@ namespace ecge
     private:
         [[nodiscard]] bool isRunnable() const;
     };
-}
+}// namespace ecge

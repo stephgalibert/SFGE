@@ -1,7 +1,7 @@
 #include "physicssystem.hpp"
 
-#include "ecge/components/transformable.hpp"
 #include "ecge/components/rigidbody.hpp"
+#include "ecge/components/transformable.hpp"
 
 #include <box2d/b2_body.h>
 
@@ -32,4 +32,4 @@ namespace ecge
     {
         return m_world.CreateBody(&def);
     }
-}
+}// namespace ecge

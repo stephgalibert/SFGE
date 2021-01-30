@@ -16,4 +16,4 @@ namespace ecge
         entt::registry *m_registry = nullptr;
         entt::entity m_entity;
     };
-}
+}// namespace ecge

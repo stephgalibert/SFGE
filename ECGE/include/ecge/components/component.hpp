@@ -4,8 +4,7 @@
 
 namespace ecge::ecs
 {
-    struct Component
-    {
+    struct Component {
     public:
         Component() = default;
         Component(const Component &rhs);
@@ -22,4 +21,4 @@ namespace ecge::ecs
         entt::registry *m_registry = nullptr;
         entt::entity m_entity = entt::null;
     };
-}
+}// namespace ecge::ecs

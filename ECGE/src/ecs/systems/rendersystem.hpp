@@ -17,4 +17,4 @@ namespace ecge
         sf::RenderTarget *m_renderTarget = nullptr;
         sf::View m_view;
     };
-}
+}// namespace ecge

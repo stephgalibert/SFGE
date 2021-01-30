@@ -3,8 +3,8 @@
 #include "component.hpp"
 
 #include <box2d/b2_body.h>
-#include <box2d/b2_polygon_shape.h>
 #include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
 
 namespace ecge
 {
@@ -21,6 +21,7 @@ namespace ecge
                 b2PolygonShape shape;
                 b2FixtureDef fixtureDef;
             };
+
         public:
             RigidBody() = default;
             explicit RigidBody(AGameObject *gameObject, Config config = Config());
@@ -41,5 +42,5 @@ namespace ecge
             b2Body *m_body = nullptr;
             Config m_config;
         };
-    }
-}
+    }// namespace ecs
+}// namespace ecge

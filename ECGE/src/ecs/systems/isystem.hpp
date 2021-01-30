@@ -4,9 +4,8 @@
 
 namespace ecge
 {
-    struct ISystem
-    {
+    struct ISystem {
         virtual ~ISystem() = default;
         virtual void update(entt::registry &registry, float dt) = 0;
     };
-}
+}// namespace ecge
