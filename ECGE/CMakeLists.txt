@@ -5,6 +5,7 @@ project ("ecge" VERSION 0.1.0 DESCRIPTION "Simple & Fast Game Engine Library")
 # On windows, SFML_DIR needs to be set manually in the CMakeCache
 find_package (SFML 2.5.1 COMPONENTS system graphics window audio REQUIRED)
 find_package (box2d 2.4 REQUIRED)
+find_package (spdlog 1.8 REQUIRED)
 
 set (SRCS
 	"src/baseapplication.cpp"
@@ -38,4 +39,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVE
 
 target_link_libraries (${PROJECT_NAME} PUBLIC
 		sfml-system sfml-graphics sfml-window sfml-audio
-		box2d)
+		box2d spdlog::spdlog)
