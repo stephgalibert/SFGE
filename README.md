@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/stephgalibert/ECGE.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/ECGE)
+
 # ECGE
 Entity Component Game Engine
 
