@@ -1,9 +1,14 @@
-language: cpp
+os: linux
 dist: focal
+language: cpp
 compiler: gcc
 
+addons:
+  apt:
+    update: true
+
 before_install:
-  - ./scripts/deps.sh
+  - scripts/deps.sh
 
 script:
-  - echo $PWD
+  - scripts/build.sh
