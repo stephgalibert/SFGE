@@ -1,7 +1,7 @@
 # ECGE
 Entity Component Game Engine
 
-## Dependancies
+## Dependencies
 
 * https://github.com/erincatto/box2d/tree/v2.4.1   
 * https://github.com/skypjack/entt/tree/v3.6.0
