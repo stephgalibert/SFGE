@@ -3,10 +3,7 @@ dist: focal
 compiler: gcc
 
 before_install:
-  - sudo apt-get install xorg-dev libglu1-mesa-dev -y
+  - ./scripts/deps.sh
 
 script:
-  - git clone --depth 1 --branch v2.4.1 https://github.com/erincatto/box2d.git
-  - cd box2d && mkdir build && cd build
-  - cmake ../ && sudo make install && cd ../../
-
+  - echo $PWD
