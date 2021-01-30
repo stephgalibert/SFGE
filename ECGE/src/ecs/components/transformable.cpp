@@ -6,26 +6,22 @@ namespace ecge::ecs
 {
     Transformable::Transformable()
     {
-        std::clog << "tf ctor" << std::endl;
     }
 
     Transformable::Transformable(const Transformable &rhs)
         : Component(rhs)
     {
-        std::clog << "tf copy ctor" << std::endl;
         *this = rhs;
     }
 
     Transformable::Transformable(Transformable &&rhs) noexcept
         : Component(std::move(rhs))
     {
-        std::clog << "tf move ctor" << std::endl;
         *this = std::move(rhs);
     }
 
     Transformable &Transformable::operator=(const Transformable &rhs)
     {
-        std::clog << "tf assign op" << std::endl;
         if (this != &rhs) {
             Component::operator=(rhs);
             m_position = rhs.m_position;

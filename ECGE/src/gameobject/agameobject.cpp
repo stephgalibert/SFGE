@@ -3,20 +3,26 @@
 
 #include <iostream>
 
+#include "logger/Logger.h"
+
 namespace ecge
 {
+    static auto Logger = Logger::CreateLogger(CLASSNAME(AGameObject));
+
     AGameObjectPrivate::AGameObjectPrivate(AGameObject *qq)
-        : q_ptr(qq)
+        : q_ptr(qq), m_entity(entt::null)
     {
     }
 
     AGameObject::AGameObject()
         : AGameObject(new AGameObjectPrivate(this))
     {
+        Logger->debug("Ctor");
     }
 
     AGameObject::~AGameObject()
     {
+        Logger->debug("Dtor");
     }
 
     AGameObject::AGameObject(AGameObjectPrivate *dd)
@@ -26,12 +32,10 @@ namespace ecge
 
     void AGameObject::onCreated()
     {
-        std::clog << "agameobject oncreated" << std::endl;
     }
 
     void AGameObject::onDestroyed()
     {
-        std::clog << "agameobject ondestroyed" << std::endl;
     }
 
     void AGameObject::setEntity(entt::entity entity)

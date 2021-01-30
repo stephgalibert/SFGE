@@ -19,7 +19,8 @@ set (SRCS
 	"src/ecs/systems/physicssystem.cpp"
 	"src/ecs/components/transformable.cpp"
 	"src/ecs/components/renderable.cpp"
-	"src/ecs/components/rigidbody.cpp")
+	"src/ecs/components/rigidbody.cpp"
+	"src/logger/Logger.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

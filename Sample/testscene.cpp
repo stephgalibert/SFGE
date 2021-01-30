@@ -15,7 +15,6 @@ void TestScene::init()
     // 1. Transformable
     // 2. Renderable
     // 3. RigidBody
-    std::clog << "init test scene" << std::endl;
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Green);

@@ -18,20 +18,17 @@ namespace ecge::ecs
     RigidBody::RigidBody(const RigidBody &rhs)
         : Component(rhs)
     {
-        std::clog << "rigidbody copy ctor" << std::endl;
         *this = rhs;
     }
 
     RigidBody::RigidBody(RigidBody &&rhs) noexcept
         : Component(std::move(rhs))
     {
-        std::clog << "rigidbody move ctor" << std::endl;
         *this = std::move(rhs);
     }
 
     RigidBody &RigidBody::operator=(const RigidBody &rhs)
     {
-        std::clog << "rigidbody assign" << std::endl;
         if (this != &rhs) {
             Component::operator=(rhs);
             m_body = rhs.m_body;
@@ -42,7 +39,6 @@ namespace ecge::ecs
 
     RigidBody &RigidBody::operator=(RigidBody &&rhs) noexcept
     {
-        std::clog << "rigidbody move assign" << std::endl;
         m_body = rhs.m_body;
         m_config = rhs.m_config;
         return *this;

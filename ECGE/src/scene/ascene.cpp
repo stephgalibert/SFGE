@@ -7,6 +7,8 @@
 #include "ecge/components/rigidbody.hpp"
 #include "ecge/components/transformable.hpp"
 
+#include "logger/Logger.h"
+
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
 
@@ -14,6 +16,8 @@
 
 namespace ecge
 {
+    static auto Logger = Logger::CreateLogger(CLASSNAME(AScene));
+
     AScenePrivate::AScenePrivate(AScene *qq)
         : q_ptr(qq)
     {
@@ -108,7 +112,7 @@ namespace ecge
     void AScene::init()
     {
         PIMPL_D(AScene);
-        std::clog << "ascene init" << std::endl;
+        Logger->info("Init");
     }
 
     void AScene::setRenderTarget(sf::RenderTarget *target)
@@ -119,19 +123,19 @@ namespace ecge
 
     void AScene::stop()
     {
-        std::clog << "ascene::stop" << std::endl;
+        Logger->info("Stop");
     }
 
     void AScene::onKeyboardEvent(sf::Keyboard::Key key, bool pressed)
     {
         // TODO: input system
-        std::clog << "ascene::onkbdevent" << std::endl;
+        Logger->info("onKeyboardEvent");
     }
 
     void AScene::onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed)
     {
         // TODO: input system
-        std::clog << "ascene::onmousebuttonevent" << std::endl;
+        Logger->info("onMouseButtonEvent");
     }
 
     void AScene::update(float dt)

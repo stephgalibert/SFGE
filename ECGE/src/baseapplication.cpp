@@ -7,7 +7,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <spdlog/spdlog.h>
 
 namespace ecge
 {
@@ -16,7 +15,6 @@ namespace ecge
           m_sceneManager(new SceneManager),
           m_eventProcessor(new EventProcessor(m_sceneManager.get()))
     {
-        spdlog::info("Creating app");
     }
 
     BaseApplication::BaseApplication()
