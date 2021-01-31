@@ -3,12 +3,8 @@
 
 #include <iostream>
 
-#include "logger/logger.h"
-
 namespace ecge
 {
-    static auto Logger = Logger::CreateLogger(CLASSNAME(AGameObject));
-
     AGameObjectPrivate::AGameObjectPrivate(AGameObject *qq)
         : q_ptr(qq), m_entity(entt::null)
     {
@@ -17,12 +13,10 @@ namespace ecge
     AGameObject::AGameObject()
         : AGameObject(new AGameObjectPrivate(this))
     {
-        Logger->debug("Ctor");
     }
 
     AGameObject::~AGameObject()
     {
-        Logger->debug("Dtor");
     }
 
     AGameObject::AGameObject(AGameObjectPrivate *dd)

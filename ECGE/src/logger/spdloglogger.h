@@ -2,6 +2,7 @@
 
 #include "ilogger.h"
 
+#include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/spdlog.h>
 
 #include <memory>
@@ -10,9 +11,14 @@ namespace ecge
 {
     class SpdlogLogger : public ILogger
     {
+    private:
+        static auto &GetFilesLogger();
+        static auto CreateFileSink(const std::string &filename);
+
     public:
-        SpdlogLogger(const std::string &category);
-        ~SpdlogLogger();
+        explicit SpdlogLogger(const std::string &category);
+
+        bool addLoggingFile(const std::string &filename) override;
 
         void trace(const std::string &msg) const override;
         void debug(const std::string &msg) const override;

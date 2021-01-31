@@ -7,33 +7,57 @@
 
 namespace ecge
 {
-    // TODO:
-    // There is a problem with multiple SpdLogLogger when writing to the same file.
-    // Must be refactored to allow multiple logger on console, and only one for a given file.
+    auto &SpdlogLogger::GetFilesLogger()
+    {
+        static std::unordered_map<std::string, std::shared_ptr<spdlog::sinks::basic_file_sink_mt>> filesLogger;
+        return filesLogger;
+    }
+
+    auto SpdlogLogger::CreateFileSink(const std::string &filename)
+    {
+        std::shared_ptr<spdlog::sinks::basic_file_sink_mt> sink;
+
+        try {
+            sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(filename, true);
+            sink->set_level(spdlog::level::debug);
+        } catch (spdlog::spdlog_ex &exception) {
+            std::cerr << exception.what() << std::endl;
+        }
+        return sink;
+    }
 
     SpdlogLogger::SpdlogLogger(const std::string &category)
     {
-        std::clog << "spdlogger ctor";
-
         try {
-            auto loggerConsole = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-            loggerConsole->set_level(spdlog::level::debug);
+            auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+            consoleSink->set_level(spdlog::level::debug);
 
-            auto loggerFile = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs/log.txt", true);
-            loggerFile->set_level(spdlog::level::debug);
-
-            spdlog::sinks_init_list loggers = {loggerConsole, loggerFile};
-
-            m_logger = std::make_shared<spdlog::logger>(category, loggers.begin(), loggers.end());
+            m_logger = std::make_shared<spdlog::logger>(category, consoleSink);
             m_logger->set_level(spdlog::level::debug);
         } catch (const spdlog::spdlog_ex &exception) {
             std::cerr << exception.what() << std::endl;
         }
     }
 
-    SpdlogLogger::~SpdlogLogger()
+    bool SpdlogLogger::addLoggingFile(const std::string &filename)
     {
-        std::clog << "spdlogger dtor" << std::endl;
+        if (!m_logger)
+            return false;
+
+        auto &filesLogger = GetFilesLogger();
+        auto found = filesLogger.find(filename);
+
+        if (found == filesLogger.end()) {
+            auto sink = CreateFileSink(filename);
+            const auto [iterator, success] = filesLogger.insert({filename, sink});
+            found = iterator;
+        }
+
+        if (found == filesLogger.end()) {
+            return false;
+        }
+        m_logger->sinks().push_back(found->second);
+        return true;
     }
 
     void SpdlogLogger::trace(const std::string &msg) const

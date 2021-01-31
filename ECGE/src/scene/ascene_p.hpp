@@ -3,6 +3,7 @@
 #include "ecge/ascene.hpp"
 #include "ecs/systems/physicssystem.hpp"
 #include "ecs/systems/rendersystem.hpp"
+#include "logger/logger.h"
 #include "scenegraph.hpp"
 
 #include <memory>
@@ -25,5 +26,7 @@ namespace ecge
         SceneGraph m_graph;
         RenderSystem m_renderSystem;
         PhysicsSystem m_physicsSystem;
+
+        std::shared_ptr<ILogger> m_logger;
     };
 }// namespace ecge

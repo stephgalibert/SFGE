@@ -7,8 +7,6 @@
 #include "ecge/components/rigidbody.hpp"
 #include "ecge/components/transformable.hpp"
 
-#include "logger/logger.h"
-
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
 
@@ -16,11 +14,12 @@
 
 namespace ecge
 {
-    static auto Logger = Logger::CreateLogger(CLASSNAME(AScene));
-
     AScenePrivate::AScenePrivate(AScene *qq)
         : q_ptr(qq)
     {
+        m_logger = Logger::CreateLogger("AScene");
+        m_logger->addLoggingFile("logs/log.txt");
+
         // Setup components dependencies
         // m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
         // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
@@ -104,6 +103,8 @@ namespace ecge
     {
         PIMPL_D(AScene);
         for (auto &gameObject : d->m_graph.gameObjects) {
+            const auto id = static_cast<uint32_t>(gameObject->entity());
+            d->m_logger->info("Destroying GameObject #" + std::to_string(id));
             gameObject->onDestroyed();
             d->m_registry.destroy(gameObject->entity());
         }
@@ -112,7 +113,7 @@ namespace ecge
     void AScene::init()
     {
         PIMPL_D(AScene);
-        Logger->info("Init");
+        d->m_logger->info("Init");
     }
 
     void AScene::setRenderTarget(sf::RenderTarget *target)
@@ -123,19 +124,22 @@ namespace ecge
 
     void AScene::stop()
     {
-        Logger->info("Stop");
+        PIMPL_D(AScene);
+        d->m_logger->info("Stop");
     }
 
     void AScene::onKeyboardEvent(sf::Keyboard::Key key, bool pressed)
     {
+        PIMPL_D(AScene);
         // TODO: input system
-        Logger->info("onKeyboardEvent");
+        d->m_logger->info("onKeyboardEvent");
     }
 
     void AScene::onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed)
     {
+        PIMPL_D(AScene);
         // TODO: input system
-        Logger->info("onMouseButtonEvent");
+        d->m_logger->info("onMouseButtonEvent");
     }
 
     void AScene::update(float dt)
@@ -167,6 +171,10 @@ namespace ecge
         PIMPL_D(AScene);
         obj->setComponentRegistry(&d->m_registry);
         obj->setEntity(d->m_registry.create());
+
+        const auto id = static_cast<uint32_t>(obj->entity());
+        d->m_logger->info("Spawing GameObject #" + std::to_string(id));
+
         d->m_graph.gameObjects.push_back(std::move(obj));
         return d->m_graph.gameObjects.back();
     }
