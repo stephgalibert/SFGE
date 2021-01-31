@@ -8,6 +8,12 @@
 
 #include <iostream>
 
+TestScene::TestScene()
+{
+    m_logger = ecge::Logger::CreateLogger("TestScene");
+    m_logger->addLoggingFile("logs/sample.txt");
+}
+
 void TestScene::init()
 {
     AScene::init();
@@ -15,6 +21,7 @@ void TestScene::init()
     // 1. Transformable
     // 2. Renderable
     // 3. RigidBody
+    m_logger->info("Init");
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Green);

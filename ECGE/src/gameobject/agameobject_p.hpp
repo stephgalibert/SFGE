@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ecge/agameobject.hpp"
-#include "logger/logger.h"
 
 #include <entt/entt.hpp>
 

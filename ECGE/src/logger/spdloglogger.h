@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ilogger.h"
+#include "ecge/logger/ilogger.h"
 
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/spdlog.h>

@@ -1,5 +1,5 @@
-#include "logger.h"
-#include "ilogger.h"
+#include "ecge/logger/logger.h"
+#include "ecge/logger/ilogger.h"
 
 #include "spdloglogger.h"
 

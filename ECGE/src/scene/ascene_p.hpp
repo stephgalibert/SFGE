@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ecge/ascene.hpp"
+#include "ecge/logger/logger.h"
 #include "ecs/systems/physicssystem.hpp"
 #include "ecs/systems/rendersystem.hpp"
-#include "logger/logger.h"
 #include "scenegraph.hpp"
 
 #include <memory>
