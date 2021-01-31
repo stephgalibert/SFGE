@@ -16,8 +16,7 @@ namespace ecge
         static auto CreateFileSink(const std::string &filename);
 
     public:
-        explicit SpdlogLogger(const std::string &category);
-
+        bool create(const std::string &category) override;
         bool addLoggingFile(const std::string &filename) override;
 
         void trace(const std::string &msg) const override;

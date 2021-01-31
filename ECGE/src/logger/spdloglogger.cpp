@@ -26,7 +26,7 @@ namespace ecge
         return sink;
     }
 
-    SpdlogLogger::SpdlogLogger(const std::string &category)
+    bool SpdlogLogger::create(const std::string &category)
     {
         try {
             auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -36,7 +36,9 @@ namespace ecge
             m_logger->set_level(spdlog::level::debug);
         } catch (const spdlog::spdlog_ex &exception) {
             std::cerr << exception.what() << std::endl;
+            return false;
         }
+        return true;
     }
 
     bool SpdlogLogger::addLoggingFile(const std::string &filename)

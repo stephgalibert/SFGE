@@ -10,6 +10,9 @@ namespace ecge
 {
     class Logger
     {
+    private:
+        static auto &getLoggers();
+
     public:
         static std::shared_ptr<ILogger> CreateLogger(const std::string &category);
         static bool RemoveLogger(const std::string &category);
@@ -17,12 +20,5 @@ namespace ecge
         static bool AddLoggingFile(const std::string &category, const std::string &filename);
 
         static std::shared_ptr<ILogger> GetLogger(const std::string &category);
-
-    private:
-        inline static auto &getLoggers()
-        {
-            static std::unordered_map<std::string, std::shared_ptr<ILogger>> loggers;
-            return loggers;
-        }
     };
 }// namespace ecge

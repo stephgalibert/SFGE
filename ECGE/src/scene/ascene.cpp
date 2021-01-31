@@ -104,7 +104,7 @@ namespace ecge
         PIMPL_D(AScene);
         for (auto &gameObject : d->m_graph.gameObjects) {
             const auto id = static_cast<uint32_t>(gameObject->entity());
-            d->m_logger->info("Destroying GameObject #" + std::to_string(id));
+            d->m_logger->debug("Destroying GameObject #" + std::to_string(id));
             gameObject->onDestroyed();
             d->m_registry.destroy(gameObject->entity());
         }
@@ -173,7 +173,7 @@ namespace ecge
         obj->setEntity(d->m_registry.create());
 
         const auto id = static_cast<uint32_t>(obj->entity());
-        d->m_logger->info("Spawing GameObject #" + std::to_string(id));
+        d->m_logger->debug("Spawning GameObject #" + std::to_string(id));
 
         d->m_graph.gameObjects.push_back(std::move(obj));
         return d->m_graph.gameObjects.back();

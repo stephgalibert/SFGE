@@ -12,7 +12,7 @@ namespace ecge
         virtual void onKeyboardEvent(sf::Keyboard::Key key, bool pressed) = 0;
         virtual void onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed) = 0;
 
-        //		virtual void onWindowResized(int newWidth, int newHeight) = 0;
-        //		virtual void onFocusChanged(bool isFocused) = 0;
+        // virtual void onWindowResized(int newWidth, int newHeight) = 0;
+        // virtual void onFocusChanged(bool isFocused) = 0;
     };
 }// namespace ecge
