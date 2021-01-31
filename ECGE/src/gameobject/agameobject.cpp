@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "logger/Logger.h"
+#include "logger/logger.h"
 
 namespace ecge
 {

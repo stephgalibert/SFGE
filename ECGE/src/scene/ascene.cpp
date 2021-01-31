@@ -7,7 +7,7 @@
 #include "ecge/components/rigidbody.hpp"
 #include "ecge/components/transformable.hpp"
 
-#include "logger/Logger.h"
+#include "logger/logger.h"
 
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
