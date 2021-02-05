@@ -21,7 +21,8 @@ set (SRCS
 	"src/ecs/components/renderable.cpp"
 	"src/ecs/components/rigidbody.cpp"
 	"src/logger/logger.cpp"
-	"src/logger/spdloglogger.cpp")
+	"src/logger/spdloglogger.cpp"
+	"src/ecs/componentsevents.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 
