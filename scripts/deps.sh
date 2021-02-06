@@ -22,3 +22,4 @@ cd ../../
 
 # Installs project deps
 sudo apt-get -y install libsfml-dev
+sudo apt-get -y install libboost-all-dev

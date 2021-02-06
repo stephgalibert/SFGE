@@ -7,6 +7,8 @@ find_package (SFML 2.5.1 COMPONENTS system graphics window audio REQUIRED)
 find_package (box2d 2.4.1 REQUIRED)
 find_package (spdlog 1.8.2 REQUIRED)
 
+find_package (Boost 1.71 REQUIRED COMPONENTS system)
+
 set (SRCS
 	"src/baseapplication.cpp"
 	"src/scene/scenemanager.cpp"
@@ -22,7 +24,10 @@ set (SRCS
 	"src/ecs/components/rigidbody.cpp"
 	"src/logger/logger.cpp"
 	"src/logger/spdloglogger.cpp"
-	"src/ecs/componentsevents.cpp")
+	"src/ecs/componentsevents.cpp"
+	"src/config/inifile.cpp"
+	"src/config/configurationmanager.cpp"
+	"src/config/rendererconfiguration.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 
@@ -42,4 +47,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVE
 
 target_link_libraries (${PROJECT_NAME} PUBLIC
 		sfml-system sfml-graphics sfml-window sfml-audio
+		Boost::system
 		box2d spdlog::spdlog)

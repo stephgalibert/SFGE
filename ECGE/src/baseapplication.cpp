@@ -5,6 +5,8 @@
 #include "input/eventprocessor.hpp"
 #include "scene/scenemanager.hpp"
 
+#include "config/configurationmanager.h"
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -33,8 +35,11 @@ namespace ecge
 
     bool BaseApplication::init()
     {
-        // TODO: user config
         PIMPL_D(BaseApplication);
+
+        config::ConfigurationManager configMgr;
+        configMgr.load();
+
         d->m_window.create(sf::VideoMode(1280, 720), "SFML works!");
         d->m_window.setFramerateLimit(60);
         d->m_window.setVerticalSyncEnabled(true);
