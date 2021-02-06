@@ -60,15 +60,21 @@ namespace ecge
         setEntity(d->m_registry->create());
     }
 
-    entt::registry *AGameObject::componentRegistry()
-    {
-        PIMPL_D(AGameObject);
-        return d->m_registry;
-    }
-
-    const entt::registry *AGameObject::componentRegistry() const
+    entt::registry *AGameObject::componentRegistry() const
     {
         const PIMPL_D(AGameObject);
         return d->m_registry;
+    }
+
+    void AGameObject::setScene(AScene *scene)
+    {
+        PIMPL_D(AGameObject);
+        d->m_scene = scene;
+    }
+
+    AScene *AGameObject::getScene() const
+    {
+        const PIMPL_D(AGameObject);
+        return d->m_scene;
     }
 }// namespace ecge

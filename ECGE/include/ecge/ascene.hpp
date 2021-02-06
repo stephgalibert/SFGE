@@ -30,9 +30,9 @@ namespace ecge
         void update(float dt);
         void draw();
 
-    protected:
+    public:
         template<typename T, typename... Args>
-        std::shared_ptr<T> Instantiate(Args &&... args);
+        std::shared_ptr<T> instantiate(Args &&... args);
 
     private:
         explicit AScene(AScenePrivate *dd);

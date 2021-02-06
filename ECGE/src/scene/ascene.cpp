@@ -106,6 +106,7 @@ namespace ecge
     void AScene::addGameObject(const std::shared_ptr<AGameObject> &obj)
     {
         PIMPL_D(AScene);
+        obj->setScene(this);
         obj->setComponentRegistry(&d->m_registry);
         obj->addComponent<ecs::Transformable>();
         d->m_graph->insert(obj);

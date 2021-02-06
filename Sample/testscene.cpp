@@ -24,7 +24,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Green);
-        auto obj = Instantiate<TestGameObject>();
+        auto obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({0, -7});
@@ -35,7 +35,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Yellow);
-        auto obj = Instantiate<TestGameObject>();
+        auto obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({2.2, -7});
@@ -46,7 +46,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({100, 25});
         shape->setFillColor(sf::Color::Red);
-        auto obj = Instantiate<TestGameObject>();
+        auto obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({1.1, 0});

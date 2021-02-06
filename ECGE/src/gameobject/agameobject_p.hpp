@@ -14,6 +14,7 @@ namespace ecge
         PIMPL_DECLARE_PUBLIC(AGameObject);
 
         entt::registry *m_registry = nullptr;
+        AScene *m_scene = nullptr;
         entt::entity m_entity;
     };
 }// namespace ecge

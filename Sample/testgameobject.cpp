@@ -4,6 +4,7 @@
 
 TestGameObject::TestGameObject()
 {
+    // Instanciate<FireBullet>();
 }
 
 TestGameObject::~TestGameObject()
