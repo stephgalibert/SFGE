@@ -5,7 +5,7 @@
 
 #include <box2d/b2_body.h>
 
-namespace ecge
+namespace ecge::ecs
 {
     PhysicsSystem::PhysicsSystem()
         : m_world({0.0f, 10.0f})
@@ -32,4 +32,4 @@ namespace ecge
     {
         return m_world.CreateBody(&def);
     }
-}// namespace ecge
+}// namespace ecge::ecs

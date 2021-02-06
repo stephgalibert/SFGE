@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace ecge
+namespace ecge::ecs
 {
     class RenderSystem : public ISystem
     {
@@ -17,4 +17,4 @@ namespace ecge
         sf::RenderTarget *m_renderTarget = nullptr;
         sf::View m_view;
     };
-}// namespace ecge
+}// namespace ecge::ecs

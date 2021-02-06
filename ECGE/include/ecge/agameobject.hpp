@@ -35,6 +35,8 @@ namespace ecge
         T &component();
 
     protected:
+        // Only a Scene shall be able to instantiate a game object.
+        // Allow the user to subclass it.
         AGameObject();
 
     private:

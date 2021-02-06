@@ -22,9 +22,9 @@ namespace ecge
 
         std::shared_ptr<ILogger> m_logger;
         std::unique_ptr<SceneGraph> m_graph;
-        std::unique_ptr<RenderSystem> m_renderSystem;
-        std::unique_ptr<PhysicsSystem> m_physicsSystem;
 
+        std::unique_ptr<ecs::RenderSystem> m_renderSystem;
+        std::unique_ptr<ecs::PhysicsSystem> m_physicsSystem;
         std::unique_ptr<ecs::RigidbodyEvents> m_rigidbodyEvents;
     };
 }// namespace ecge

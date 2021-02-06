@@ -23,8 +23,8 @@ namespace ecge
         m_logger->addLoggingFile("logs/log.txt");
 
         m_graph = std::make_unique<SceneGraph>();
-        m_renderSystem = std::make_unique<RenderSystem>();
-        m_physicsSystem = std::make_unique<PhysicsSystem>();
+        m_renderSystem = std::make_unique<ecs::RenderSystem>();
+        m_physicsSystem = std::make_unique<ecs::PhysicsSystem>();
 
         m_rigidbodyEvents = std::make_unique<ecs::RigidbodyEvents>();
         m_rigidbodyEvents->setCreatorFn([this](const ecs::RigidBody::Config &config) {

@@ -4,7 +4,7 @@
 
 #include <box2d/b2_world.h>
 
-namespace ecge
+namespace ecge::ecs
 {
     class PhysicsSystem : public ISystem
     {
@@ -20,4 +20,4 @@ namespace ecge
     private:
         b2World m_world;
     };
-}// namespace ecge
+}// namespace ecge::ecs
