@@ -19,11 +19,12 @@ namespace ecge
         PIMPL_DECLARE_PUBLIC(AScene);
 
         entt::registry m_registry;
-        SceneGraph m_graph;
-        RenderSystem m_renderSystem;
-        PhysicsSystem m_physicsSystem;
 
         std::shared_ptr<ILogger> m_logger;
+        std::unique_ptr<SceneGraph> m_graph;
+        std::unique_ptr<RenderSystem> m_renderSystem;
+        std::unique_ptr<PhysicsSystem> m_physicsSystem;
+
         std::unique_ptr<ecs::RigidbodyEvents> m_rigidbodyEvents;
     };
 }// namespace ecge

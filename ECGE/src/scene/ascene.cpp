@@ -1,5 +1,6 @@
 #include "ecge/ascene.hpp"
 #include "scene/ascene_p.hpp"
+#include "scene/scenegraph.hpp"
 
 #include "ecge/agameobject.hpp"
 
@@ -8,9 +9,8 @@
 #include "ecge/components/transformable.hpp"
 
 #include "ecs/componentsevents.h"
-
-#include <box2d/b2_fixture.h>
-#include <box2d/b2_polygon_shape.h>
+#include "ecs/systems/physicssystem.hpp"
+#include "ecs/systems/rendersystem.hpp"
 
 #include <iostream>
 
@@ -22,9 +22,13 @@ namespace ecge
         m_logger = Logger::CreateLogger("AScene");
         m_logger->addLoggingFile("logs/log.txt");
 
+        m_graph = std::make_unique<SceneGraph>();
+        m_renderSystem = std::make_unique<RenderSystem>();
+        m_physicsSystem = std::make_unique<PhysicsSystem>();
+
         m_rigidbodyEvents = std::make_unique<ecs::RigidbodyEvents>();
         m_rigidbodyEvents->setCreatorFn([this](const ecs::RigidBody::Config &config) {
-            return m_physicsSystem.createBody(config.bodyDef);
+            return m_physicsSystem->createBody(config.bodyDef);
         });
 
         // Setup components dependencies
@@ -53,13 +57,6 @@ namespace ecge
 
     AScene::~AScene()
     {
-        PIMPL_D(AScene);
-        for (auto &gameObject : d->m_graph.gameObjects) {
-            const auto id = static_cast<uint32_t>(gameObject->entity());
-            d->m_logger->debug("Destroying GameObject #" + std::to_string(id));
-            gameObject->onDestroyed();
-            d->m_registry.destroy(gameObject->entity());
-        }
     }
 
     void AScene::init()
@@ -71,7 +68,7 @@ namespace ecge
     void AScene::setRenderTarget(sf::RenderTarget *target)
     {
         PIMPL_D(AScene);
-        d->m_renderSystem.setRenderTarget(target);
+        d->m_renderSystem->setRenderTarget(target);
     }
 
     void AScene::stop()
@@ -97,40 +94,20 @@ namespace ecge
     void AScene::update(float dt)
     {
         PIMPL_D(AScene);
-        d->m_physicsSystem.update(d->m_registry, dt);
+        d->m_physicsSystem->update(d->m_registry, dt);
     }
 
     void AScene::draw()
     {
         PIMPL_D(AScene);
-        d->m_renderSystem.update(d->m_registry, 0);
+        d->m_renderSystem->update(d->m_registry, 0);
     }
 
-    entt::registry &AScene::registry()
-    {
-        PIMPL_D(AScene);
-        return d->m_registry;
-    }
-
-    const entt::registry &AScene::registry() const
-    {
-        const PIMPL_D(AScene);
-        return d->m_registry;
-    }
-
-    std::unique_ptr<AGameObject> &AScene::addGameObject(std::unique_ptr<AGameObject> obj)
+    void AScene::addGameObject(const std::shared_ptr<AGameObject> &obj)
     {
         PIMPL_D(AScene);
         obj->setComponentRegistry(&d->m_registry);
-        obj->setEntity(d->m_registry.create());
-
-        const auto id = static_cast<uint32_t>(obj->entity());
-        d->m_logger->debug("Spawning GameObject #" + std::to_string(id));
-
-        // Transformable component is mandatory
         obj->addComponent<ecs::Transformable>();
-
-        d->m_graph.gameObjects.push_back(std::move(obj));
-        return d->m_graph.gameObjects.back();
+        d->m_graph->insert(obj);
     }
 }// namespace ecge

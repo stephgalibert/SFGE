@@ -1,6 +1,7 @@
 #include "ecge/agameobject.hpp"
 #include "agameobject_p.hpp"
 
+#include "ecge/components/transformable.hpp"
 #include <iostream>
 
 namespace ecge
@@ -32,6 +33,14 @@ namespace ecge
     {
     }
 
+    uint32_t AGameObject::getId() const
+    {
+        const PIMPL_D(AGameObject);
+        return static_cast<uint32_t>(d->m_entity);
+    }
+
+    /*** Private methods ***/
+
     void AGameObject::setEntity(entt::entity entity)
     {
         PIMPL_D(AGameObject);
@@ -48,6 +57,7 @@ namespace ecge
     {
         PIMPL_D(AGameObject);
         d->m_registry = reg;
+        setEntity(d->m_registry->create());
     }
 
     entt::registry *AGameObject::componentRegistry()

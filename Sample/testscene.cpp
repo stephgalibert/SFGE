@@ -18,18 +18,14 @@ void TestScene::init()
 {
     AScene::init();
     // Orders of inserting component is crucial
-    // 1. Transformable - NOT needed anymore
-    // 2. Renderable
-    // 3. RigidBody
+    // 1. Renderable
+    // 2. RigidBody
     m_logger->info("Init");
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Green);
-        auto &obj = instantiate<TestGameObject>();
+        auto obj = Instantiate<TestGameObject>();
 
-        // transformable should be mandatory
-        // agameobject without transform is nonsense??
-        // auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({0, -7});
 
@@ -39,9 +35,8 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Yellow);
-        auto &obj = instantiate<TestGameObject>();
+        auto obj = Instantiate<TestGameObject>();
 
-        //auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({2.2, -7});
 
@@ -51,9 +46,8 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({100, 25});
         shape->setFillColor(sf::Color::Red);
-        auto &obj = instantiate<TestGameObject>();
+        auto obj = Instantiate<TestGameObject>();
 
-        // auto &transformable = obj->addComponent<ecge::ecs::Transformable>();
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({1.1, 0});
 

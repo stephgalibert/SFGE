@@ -1,8 +1,9 @@
 #pragma once
 
+#include "ecge/components/transformable.hpp"
 #include "ecge/pimpl.hpp"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <entt/entt.hpp>
 
 #include <memory>
@@ -31,17 +32,13 @@ namespace ecge
 
     protected:
         template<typename T, typename... Args>
-        std::unique_ptr<AGameObject> &instantiate(Args &&... args)
-        {
-            return addGameObject(std::make_unique<T>(std::forward<Args>(args)...));
-        }
-
-        [[nodiscard]] entt::registry &registry();
-        [[nodiscard]] const entt::registry &registry() const;
+        std::shared_ptr<T> Instantiate(Args &&... args);
 
     private:
         explicit AScene(AScenePrivate *dd);
         PIMPL_DECLARE_PRIVATE(AScene);
-        std::unique_ptr<AGameObject> &addGameObject(std::unique_ptr<AGameObject> obj);
+        void addGameObject(const std::shared_ptr<AGameObject> &obj);
     };
 }// namespace ecge
+
+#include "ascene.inl"

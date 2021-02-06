@@ -13,12 +13,30 @@ namespace ecge
     class AGameObject
     {
     public:
+        // AGameObject can only be instantiated by an AScene
         AGameObject();
         virtual ~AGameObject();
 
         virtual void onCreated();
         virtual void onDestroyed();
 
+        [[nodiscard]] uint32_t getId() const;
+
+    public:
+        template<typename T, typename... Args>
+        T &addComponent(Args &&... args);
+
+        template<typename T>
+        const T &component() const;
+
+        template<typename T>
+        T &component();
+
+    private:
+        explicit AGameObject(AGameObjectPrivate *dd);
+        PIMPL_DECLARE_PRIVATE(AGameObject);
+
+    private:
         void setEntity(entt::entity entity);
         [[nodiscard]] entt::entity entity() const;
 
@@ -26,27 +44,8 @@ namespace ecge
         [[nodiscard]] entt::registry *componentRegistry();
         [[nodiscard]] const entt::registry *componentRegistry() const;
 
-    public:
-        template<typename T, typename... Args>
-        decltype(auto) addComponent(Args &&... args)
-        {
-            entt::registry *reg = componentRegistry();
-            entt::entity entt = entity();
-            auto &component = reg->template emplace<T>(entt, std::forward<Args>(args)...);
-            component.setRegistry(reg);
-            component.setEntity(entt);
-            return component;
-        }
-
-        template<typename T>
-        decltype(auto) component()
-        {
-            entt::registry *reg = componentRegistry();
-            return reg->template get<T>(entity());
-        }
-
-    private:
-        explicit AGameObject(AGameObjectPrivate *dd);
-        PIMPL_DECLARE_PRIVATE(AGameObject);
+        friend class AScene;
     };
 }// namespace ecge
+
+#include "agameobject.inl"
