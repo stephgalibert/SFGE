@@ -10,7 +10,7 @@ namespace ecge::config
         enum class Key : int32_t
         {
             Width = 0,
-            Height = 1,
+            Height,
             AntiAliasing
         };
 

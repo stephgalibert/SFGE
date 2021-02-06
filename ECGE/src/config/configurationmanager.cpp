@@ -9,9 +9,17 @@ namespace ecge::config
     ConfigurationManager::ConfigurationManager()
         : m_path("config.ini")
     {
+        m_logger = Logger::CreateLogger("ConfigurationManager");
+        m_logger->addLoggingFile("logs/log.txt");
+
         m_rendererConfig = std::make_shared<RendererConfiguration>();
 
         m_configurations.push_back(m_rendererConfig);
+    }
+
+    ConfigurationManager::~ConfigurationManager()
+    {
+        Logger::RemoveLogger("ConfigurationManager");
     }
 
     void ConfigurationManager::load()
@@ -20,9 +28,12 @@ namespace ecge::config
 
         const bool success = iniFile.parse(m_path);
         if (success) {
+            m_logger->info("Using configuration");
             for (const auto &config : m_configurations) {
                 for (const std::string &key : config->getKeys()) {
-                    const auto value = iniFile.get<std::string>(config->getName() + "." + key);
+                    const std::string path = config->getName() + "." + key;
+                    const auto value = iniFile.get<std::string>(path);
+                    m_logger->info(path + ": " + value);
                     config->set(key, value);
                 }
             }
@@ -36,11 +47,13 @@ namespace ecge::config
     void ConfigurationManager::save()
     {
         IniConfig iniConfig;
-
+        m_logger->info("Saving configuration");
         for (const auto &config : m_configurations) {
             for (const auto &key : config->getKeys()) {
+                const std::string path = config->getName() + "." + key;
                 const auto value = config->getValue(key);
-                iniConfig.put(config->getName() + "." + key, value);
+                m_logger->info(path + ": " + value);
+                iniConfig.put(path, value);
             }
         }
         iniConfig.write(m_path);

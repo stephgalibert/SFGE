@@ -38,6 +38,7 @@ namespace ecge
     {
         PIMPL_D(BaseApplication);
 
+        // TODO:
         config::ConfigurationManager configMgr;
         configMgr.load();
 

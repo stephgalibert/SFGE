@@ -6,13 +6,23 @@
 
 namespace ecge::config
 {
+    IniConfig::IniConfig()
+    {
+        m_logger = Logger::CreateLogger("IniConfig");
+        m_logger->addLoggingFile("logs/log.txt");
+    }
+
+    IniConfig::~IniConfig()
+    {
+        Logger::RemoveLogger("IniConfig");
+    }
+
     bool IniConfig::parse(const std::string &filename)
     {
         try {
             boost::property_tree::ini_parser::read_ini(filename, m_ptree);
         } catch (const boost::property_tree::ini_parser_error &exception) {
-            // TODO: Logger when remove is fixed
-            std::cerr << exception.what() << std::endl;
+            m_logger->info(exception.what());
             return false;
         }
         return true;
@@ -23,8 +33,7 @@ namespace ecge::config
         try {
             boost::property_tree::ini_parser::write_ini(filename, m_ptree);
         } catch (const boost::property_tree::ini_parser_error &exception) {
-            // TODO: Logger when remove is fixed
-            std::cerr << exception.what() << std::endl;
+            m_logger->info(exception.what());
             return false;
         }
         return true;
