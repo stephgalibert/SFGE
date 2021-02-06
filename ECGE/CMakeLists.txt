@@ -25,9 +25,10 @@ set (SRCS
 	"src/logger/logger.cpp"
 	"src/logger/spdloglogger.cpp"
 	"src/ecs/componentsevents.cpp"
-	"src/config/inifile.cpp"
+	"src/config/iniconfig.cpp"
 	"src/config/configurationmanager.cpp"
-	"src/config/rendererconfiguration.cpp")
+	"src/config/rendererconfiguration.cpp"
+	"src/config/physicsconfiguration.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

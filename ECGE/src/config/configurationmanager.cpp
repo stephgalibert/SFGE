@@ -2,23 +2,25 @@
 
 #include "rendererconfiguration.h"
 
-#include "inifile.h"
+#include "iniconfig.h"
 
 namespace ecge::config
 {
     ConfigurationManager::ConfigurationManager()
         : m_path("config.ini")
     {
-        m_configurations.push_back(std::make_unique<RendererConfiguration>());
+        m_rendererConfig = std::make_shared<RendererConfiguration>();
+
+        m_configurations.push_back(m_rendererConfig);
     }
 
     void ConfigurationManager::load()
     {
-        IniFile iniFile;
+        IniConfig iniFile;
 
-        const bool loadSuccess = iniFile.parse(m_path);
-        if (loadSuccess) {
-            for (const std::unique_ptr<IConfiguration> &config : m_configurations) {
+        const bool success = iniFile.parse(m_path);
+        if (success) {
+            for (const auto &config : m_configurations) {
                 for (const std::string &key : config->getKeys()) {
                     const auto value = iniFile.get<std::string>(config->getName() + "." + key);
                     config->set(key, value);
@@ -33,14 +35,19 @@ namespace ecge::config
 
     void ConfigurationManager::save()
     {
-        IniFile iniFile;
+        IniConfig iniConfig;
 
-        for (const std::unique_ptr<IConfiguration> &config : m_configurations) {
+        for (const auto &config : m_configurations) {
             for (const auto &key : config->getKeys()) {
                 const auto value = config->getValue(key);
-                iniFile.put(config->getName() + "." + key, value);
+                iniConfig.put(config->getName() + "." + key, value);
             }
         }
-        iniFile.write(m_path);
+        iniConfig.write(m_path);
+    }
+
+    std::shared_ptr<RendererConfiguration> ConfigurationManager::getRendererConfig() const
+    {
+        return m_rendererConfig;
     }
 }// namespace ecge::config

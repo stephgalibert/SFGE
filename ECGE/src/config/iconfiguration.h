@@ -8,6 +8,7 @@ namespace ecge::config
 {
     struct IConfiguration {
         virtual ~IConfiguration() = default;
+
         [[nodiscard]] virtual std::string getName() const = 0;
         [[nodiscard]] virtual std::vector<std::string> getKeys() const = 0;
         [[nodiscard]] virtual std::string getValue(const std::string &key) const = 0;

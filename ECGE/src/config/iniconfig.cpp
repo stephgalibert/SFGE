@@ -1,4 +1,4 @@
-#include "inifile.h"
+#include "iniconfig.h"
 
 #include <boost/property_tree/ini_parser.hpp>
 
@@ -6,7 +6,7 @@
 
 namespace ecge::config
 {
-    bool IniFile::parse(const std::string &filename)
+    bool IniConfig::parse(const std::string &filename)
     {
         try {
             boost::property_tree::ini_parser::read_ini(filename, m_ptree);
@@ -18,7 +18,7 @@ namespace ecge::config
         return true;
     }
 
-    bool IniFile::write(const std::string &filename) const
+    bool IniConfig::write(const std::string &filename) const
     {
         try {
             boost::property_tree::ini_parser::write_ini(filename, m_ptree);

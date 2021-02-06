@@ -7,12 +7,9 @@
 
 namespace ecge::config
 {
-    class IniFile;
+    class IniConfig;
+    class RendererConfiguration;
 
-    /**
-     * Load engine configuration file.
-     * If not exists, will create a default configuration and saves it in the filesystem.
-     */
     class ConfigurationManager
     {
     public:
@@ -21,13 +18,11 @@ namespace ecge::config
         void load();
         void save();
 
+        [[nodiscard]] std::shared_ptr<RendererConfiguration> getRendererConfig() const;
+
     private:
         std::string m_path;
-        std::vector<std::unique_ptr<IConfiguration>> m_configurations;
+        std::vector<std::shared_ptr<IConfiguration>> m_configurations;
+        std::shared_ptr<RendererConfiguration> m_rendererConfig;
     };
-
-    // IConfiguration: getName, getKeys, getDefault(), set, reset
-    // RendererConfiguration : public IConfiguration
-    // PhysicsConfiguration : public IConfiguration
-
 }// namespace ecge::config

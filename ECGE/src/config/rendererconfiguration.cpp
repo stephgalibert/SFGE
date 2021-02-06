@@ -2,11 +2,20 @@
 
 namespace ecge::config
 {
+    std::string RendererConfiguration::KeyToString(Key key)
+    {
+        static const std::unordered_map<Key, std::string> map = {
+                {{Key::Width}, {"Width"}},
+                {{Key::Height}, {"Height"}},
+                {{Key::AntiAliasing}, {"AntiAliasing"}}};
+        return map.at(key);
+    }
+
     std::unordered_map<std::string, std::string> RendererConfiguration::GetDefault()
     {
-        return {{{"Width"}, {"1920"}},
-                {{"Height"}, {"1080"}},
-                {{"Antialiasing"}, {"8"}}};
+        return {{{KeyToString(Key::Width)}, {"1920"}},
+                {{KeyToString(Key::Height)}, {"1080"}},
+                {{KeyToString(Key::AntiAliasing)}, {"8"}}};
     }
 
     RendererConfiguration::RendererConfiguration()
@@ -24,12 +33,11 @@ namespace ecge::config
         return m_values.at(key);
     }
 
-
     std::vector<std::string> RendererConfiguration::getKeys() const
     {
-        return {{"Width"},
-                {"Height"},
-                {"Antialiasing"}};
+        return {{KeyToString(Key::Width)},
+                {KeyToString(Key::Height)},
+                {KeyToString(Key::AntiAliasing)}};
     }
 
     void RendererConfiguration::set(const std::string &key, const std::string &value)
@@ -40,6 +48,11 @@ namespace ecge::config
     void RendererConfiguration::reset()
     {
         m_values = GetDefault();
+    }
+
+    std::string RendererConfiguration::getValue(Key key) const
+    {
+        return m_values.at(KeyToString(key));
     }
 
 }// namespace ecge::config

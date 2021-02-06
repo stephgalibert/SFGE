@@ -4,7 +4,7 @@
 
 namespace ecge::config
 {
-    class IniFile
+    class IniConfig
     {
     public:
         bool parse(const std::string &filename);
@@ -22,4 +22,4 @@ namespace ecge::config
     };
 }// namespace ecge::config
 
-#include "inifile.inl"
+#include "iniconfig.inl"
