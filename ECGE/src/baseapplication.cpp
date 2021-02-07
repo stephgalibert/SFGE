@@ -6,6 +6,7 @@
 #include "scene/scenemanager.hpp"
 
 #include "config/configurationmanager.h"
+#include "config/physicsconfiguration.h"
 #include "config/rendererconfiguration.h"
 
 #include <SFML/Graphics.hpp>
@@ -41,9 +42,6 @@ namespace ecge
         // TODO:
         config::ConfigurationManager configMgr;
         configMgr.load();
-
-        auto config = configMgr.getRendererConfig();
-        std::clog << config->getValue(config::RendererConfiguration::Key::Width) << std::endl;
 
         d->m_window.create(sf::VideoMode(1280, 720), "SFML works!");
         d->m_window.setFramerateLimit(60);

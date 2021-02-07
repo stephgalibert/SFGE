@@ -28,6 +28,7 @@ namespace ecge::config
         void reset() override;
 
         [[nodiscard]] std::string getValue(Key key) const;
+        void setValue(Key key, const std::string &value);
 
     private:
         std::unordered_map<std::string, std::string> m_values;

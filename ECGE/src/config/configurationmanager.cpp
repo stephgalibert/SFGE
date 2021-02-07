@@ -1,5 +1,6 @@
 #include "configurationmanager.h"
 
+#include "physicsconfiguration.h"
 #include "rendererconfiguration.h"
 
 #include "iniconfig.h"
@@ -13,8 +14,10 @@ namespace ecge::config
         m_logger->addLoggingFile("logs/log.txt");
 
         m_rendererConfig = std::make_shared<RendererConfiguration>();
+        m_physicsConfig = std::make_shared<PhysicsConfiguration>();
 
         m_configurations.push_back(m_rendererConfig);
+        m_configurations.push_back(m_physicsConfig);
     }
 
     ConfigurationManager::~ConfigurationManager()
@@ -62,5 +65,10 @@ namespace ecge::config
     std::shared_ptr<RendererConfiguration> ConfigurationManager::getRendererConfig() const
     {
         return m_rendererConfig;
+    }
+
+    std::shared_ptr<PhysicsConfiguration> ConfigurationManager::getPhysicsConf() const
+    {
+        return m_physicsConfig;
     }
 }// namespace ecge::config

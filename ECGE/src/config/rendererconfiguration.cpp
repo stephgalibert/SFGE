@@ -55,4 +55,8 @@ namespace ecge::config
         return m_values.at(KeyToString(key));
     }
 
+    void RendererConfiguration::setValue(RendererConfiguration::Key key, const std::string &value)
+    {
+        set(KeyToString(key), value);
+    }
 }// namespace ecge::config
