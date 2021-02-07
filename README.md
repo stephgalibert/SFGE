@@ -2,7 +2,7 @@
 
 # ECGE
 
-Entity Component Game Engine
+Entity Component Game Engine SDK
 
 ## Dependencies
 
@@ -10,6 +10,7 @@ Entity Component Game Engine
 * [Entt](https://github.com/skypjack/entt/tree/v3.6.0)
 * [SFML](https://github.com/SFML/SFML/tree/2.5.1)
 * [Spdlog](https://github.com/gabime/spdlog/tree/v1.8.2)
+* [Boost](https://www.boost.org/users/history/version_1_71_0.html)
   
 ## Build
 
