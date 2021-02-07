@@ -2,54 +2,66 @@
 
 namespace ecge::config
 {
-    std::string PhysicsConfiguration::KeyToString(Key key)
+    std::string Physics::KeyToString(Key key)
     {
         static const std::unordered_map<Key, std::string> map = {
                 {{Key::PixelsPerMeter}, {"PixelsPerMeter"}}};
         return map.at(key);
     }
 
-    std::unordered_map<std::string, std::string> PhysicsConfiguration::GetDefault()
+    const auto &Physics::GetDefault()
     {
-        return {{{KeyToString(Key::PixelsPerMeter)}, {"50"}}};
+        static const std::unordered_map<std::string, std::string> values = {
+                {{KeyToString(Key::PixelsPerMeter)}, {"50"}}};
+        return values;
     }
 
-    PhysicsConfiguration::PhysicsConfiguration()
+    Physics::Physics()
     {
         reset();
     }
 
-    std::string PhysicsConfiguration::getName() const
+    std::string Physics::getName() const
     {
         return "Physics";
     }
 
-    std::vector<std::string> PhysicsConfiguration::getKeys() const
+    std::vector<std::string> Physics::getKeys() const
     {
         return {{KeyToString(Key::PixelsPerMeter)}};
     }
 
-    std::string PhysicsConfiguration::getValue(const std::string &key) const
+    std::string Physics::getValue(const std::string &key) const
     {
         return m_values.at(key);
     }
 
-    void PhysicsConfiguration::set(const std::string &key, const std::string &value)
+    void Physics::set(const std::string &key, const std::string &value)
     {
         m_values[key] = value;
     }
 
-    void PhysicsConfiguration::reset()
+    void Physics::reset()
     {
         m_values = GetDefault();
     }
 
-    std::string PhysicsConfiguration::getValue(Key key) const
+    std::string Physics::getValue(Key key) const
     {
         return m_values.at(KeyToString(key));
     }
 
-    void PhysicsConfiguration::setValue(Key key, const std::string &value)
+    void Physics::setValue(Key key, int value)
+    {
+        set(KeyToString(key), std::to_string(value));
+    }
+
+    void Physics::setValue(Key key, float value)
+    {
+        set(KeyToString(key), std::to_string(value));
+    }
+
+    void Physics::setValue(Key key, const std::string &value)
     {
         set(KeyToString(key), value);
     }

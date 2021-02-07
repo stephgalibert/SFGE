@@ -39,13 +39,18 @@ namespace ecge
     {
         PIMPL_D(BaseApplication);
 
-        // TODO:
-        config::ConfigurationManager configMgr;
-        configMgr.load();
+        auto &config = config::ConfigurationManager::getInstance();
+        config.load();
 
-        d->m_window.create(sf::VideoMode(1280, 720), "SFML works!");
-        d->m_window.setFramerateLimit(60);
-        d->m_window.setVerticalSyncEnabled(true);
+        std::shared_ptr<config::Renderer> rendererConfig = config.getRenderer();
+        const int width = rendererConfig->getValue<int>(config::Renderer::Key::Width);
+        const int height = rendererConfig->getValue<int>(config::Renderer::Key::Height);
+        const int maxFps = rendererConfig->getValue<int>(config::Renderer::Key::MaxFps);
+        const bool vsync = rendererConfig->getValue<bool>(config::Renderer::Key::VSync);
+
+        d->m_window.create(sf::VideoMode(width, height), "SFML works!");
+        d->m_window.setFramerateLimit(maxFps);
+        d->m_window.setVerticalSyncEnabled(vsync);
 
         d->m_sceneManager->setRenderTarget(d->m_window);
         return true;

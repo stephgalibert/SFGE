@@ -2,60 +2,78 @@
 
 namespace ecge::config
 {
-    std::string RendererConfiguration::KeyToString(Key key)
+    std::string Renderer::KeyToString(Key key)
     {
         static const std::unordered_map<Key, std::string> map = {
                 {{Key::Width}, {"Width"}},
                 {{Key::Height}, {"Height"}},
-                {{Key::AntiAliasing}, {"AntiAliasing"}}};
+                {{Key::AntiAliasing}, {"AntiAliasing"}},
+                {{Key::MaxFps}, {"MaxFps"}},
+                {{Key::VSync}, {"VSync"}}};
         return map.at(key);
     }
 
-    std::unordered_map<std::string, std::string> RendererConfiguration::GetDefault()
+    const auto &Renderer::GetDefault()
     {
-        return {{{KeyToString(Key::Width)}, {"1920"}},
-                {{KeyToString(Key::Height)}, {"1080"}},
-                {{KeyToString(Key::AntiAliasing)}, {"8"}}};
+        static const std::unordered_map<std::string, std::string> values = {
+                {{KeyToString(Key::Width)}, {"1280"}},
+                {{KeyToString(Key::Height)}, {"720"}},
+                {{KeyToString(Key::AntiAliasing)}, {"8"}},
+                {{KeyToString(Key::MaxFps)}, {"60"}},
+                {{KeyToString(Key::VSync)}, {"1"}}};
+        return values;
     }
 
-    RendererConfiguration::RendererConfiguration()
+    Renderer::Renderer()
     {
         reset();
     }
 
-    std::string RendererConfiguration::getName() const
+    std::string Renderer::getName() const
     {
         return "Renderer";
     }
 
-    std::string RendererConfiguration::getValue(const std::string &key) const
+    std::string Renderer::getValue(const std::string &key) const
     {
         return m_values.at(key);
     }
 
-    std::vector<std::string> RendererConfiguration::getKeys() const
+    std::vector<std::string> Renderer::getKeys() const
     {
         return {{KeyToString(Key::Width)},
                 {KeyToString(Key::Height)},
-                {KeyToString(Key::AntiAliasing)}};
+                {KeyToString(Key::AntiAliasing)},
+                {KeyToString(Key::MaxFps)},
+                {KeyToString(Key::VSync)}};
     }
 
-    void RendererConfiguration::set(const std::string &key, const std::string &value)
+    void Renderer::set(const std::string &key, const std::string &value)
     {
         m_values[key] = value;
     }
 
-    void RendererConfiguration::reset()
+    void Renderer::reset()
     {
         m_values = GetDefault();
     }
 
-    std::string RendererConfiguration::getValue(Key key) const
+    std::string Renderer::getValue(Key key) const
     {
         return m_values.at(KeyToString(key));
     }
 
-    void RendererConfiguration::setValue(RendererConfiguration::Key key, const std::string &value)
+    void Renderer::setValue(Key key, int value)
+    {
+        set(KeyToString(key), std::to_string(value));
+    }
+
+    void Renderer::setValue(Key key, float value)
+    {
+        set(KeyToString(key), std::to_string(value));
+    }
+
+    void Renderer::setValue(Key key, const std::string &value)
     {
         set(KeyToString(key), value);
     }
