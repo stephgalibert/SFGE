@@ -25,6 +25,9 @@ namespace ecge
 
         std::unique_ptr<ecs::RenderSystem> m_renderSystem;
         std::unique_ptr<ecs::PhysicsSystem> m_physicsSystem;
+
+        std::unique_ptr<ecs::TransformableEvents> m_transformableEvents;
+        std::unique_ptr<ecs::RenderableEvents> m_renderableEvents;
         std::unique_ptr<ecs::RigidbodyEvents> m_rigidbodyEvents;
     };
 }// namespace ecge

@@ -27,8 +27,6 @@ namespace ecge::ecs
         [[nodiscard]] float angle() const;
 
     private:
-        //        meters = {0.02f * xPixels, 0.02f * yPixels};
-        //        pixels = {50.0f * xMeters, 50.0f * yMeters};
         sf::Vector2f m_position;      // meters
         sf::Vector2f m_scale = {1, 1};// meters
         float m_angle = 0.f;          // radians

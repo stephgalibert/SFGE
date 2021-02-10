@@ -1,4 +1,4 @@
-#include "physicsconfiguration.h"
+#include "physicsconfig.h"
 
 namespace ecge::config
 {
@@ -26,17 +26,12 @@ namespace ecge::config
         return "Physics";
     }
 
-    std::vector<std::string> Physics::getKeys() const
+    const std::unordered_map<std::string, std::string> &Physics::getKeysValues() const
     {
-        return {{KeyToString(Key::PixelsPerMeter)}};
+        return m_values;
     }
 
-    std::string Physics::getValue(const std::string &key) const
-    {
-        return m_values.at(key);
-    }
-
-    void Physics::set(const std::string &key, const std::string &value)
+    void Physics::setValue(const std::string &key, const std::string &value)
     {
         m_values[key] = value;
     }
@@ -53,16 +48,16 @@ namespace ecge::config
 
     void Physics::setValue(Key key, int value)
     {
-        set(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key), std::to_string(value));
     }
 
     void Physics::setValue(Key key, float value)
     {
-        set(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key), std::to_string(value));
     }
 
     void Physics::setValue(Key key, const std::string &value)
     {
-        set(KeyToString(key), value);
+        setValue(KeyToString(key), value);
     }
 }// namespace ecge::config

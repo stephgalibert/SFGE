@@ -1,4 +1,4 @@
-#include "rendererconfiguration.h"
+#include "rendererconfig.h"
 
 namespace ecge::config
 {
@@ -34,21 +34,12 @@ namespace ecge::config
         return "Renderer";
     }
 
-    std::string Renderer::getValue(const std::string &key) const
+    const std::unordered_map<std::string, std::string> &Renderer::getKeysValues() const
     {
-        return m_values.at(key);
+        return m_values;
     }
 
-    std::vector<std::string> Renderer::getKeys() const
-    {
-        return {{KeyToString(Key::Width)},
-                {KeyToString(Key::Height)},
-                {KeyToString(Key::AntiAliasing)},
-                {KeyToString(Key::MaxFps)},
-                {KeyToString(Key::VSync)}};
-    }
-
-    void Renderer::set(const std::string &key, const std::string &value)
+    void Renderer::setValue(const std::string &key, const std::string &value)
     {
         m_values[key] = value;
     }
@@ -65,16 +56,16 @@ namespace ecge::config
 
     void Renderer::setValue(Key key, int value)
     {
-        set(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key), std::to_string(value));
     }
 
     void Renderer::setValue(Key key, float value)
     {
-        set(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key), std::to_string(value));
     }
 
     void Renderer::setValue(Key key, const std::string &value)
     {
-        set(KeyToString(key), value);
+        setValue(KeyToString(key), value);
     }
 }// namespace ecge::config

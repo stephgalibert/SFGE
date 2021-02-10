@@ -1,6 +1,8 @@
 #pragma once
 
+#include "config/physicsconfig.h"
 #include "ecge/components/rigidbody.hpp"
+
 #include <entt/entt.hpp>
 
 #include <functional>
@@ -10,13 +12,21 @@ namespace ecge::ecs
     class TransformableEvents
     {
     public:
-        static void changed(entt::registry &registry, entt::entity entity);
+        TransformableEvents();
+        void changed(entt::registry &registry, entt::entity entity) const;
+
+    private:
+        float m_pixelsPerMeter;
     };
 
     class RenderableEvents
     {
     public:
-        static void created(entt::registry &registry, entt::entity entity);
+        RenderableEvents();
+        void created(entt::registry &registry, entt::entity entity) const;
+
+    private:
+        float m_meterPerPixel;
     };
 
     class RigidbodyEvents
@@ -24,7 +34,7 @@ namespace ecge::ecs
     public:
         void setCreatorFn(std::function<b2Body *(const ecs::RigidBody::Config &)> fn);
 
-        void created(entt::registry &registry, entt::entity entity);
+        void created(entt::registry &registry, entt::entity entity) const;
 
     private:
         std::function<b2Body *(const ecs::RigidBody::Config &)> m_creatorFn;

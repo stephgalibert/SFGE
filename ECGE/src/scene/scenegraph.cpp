@@ -17,6 +17,7 @@ namespace ecge
             m_logger->debug("Destroying GameObject #" + std::to_string(obj->getId()));
             obj->onDestroyed();
         }
+        Logger::RemoveLogger(m_logger);
     }
 
     void SceneGraph::insert(const std::shared_ptr<AGameObject> &obj)

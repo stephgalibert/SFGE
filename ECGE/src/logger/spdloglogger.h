@@ -18,6 +18,7 @@ namespace ecge
     public:
         bool create(const std::string &category) override;
         bool addLoggingFile(const std::string &filename) override;
+        [[nodiscard]] std::string getCategory() const override;
 
         void trace(const std::string &msg) const override;
         void debug(const std::string &msg) const override;
@@ -26,6 +27,7 @@ namespace ecge
         void error(const std::string &msg) const override;
 
     private:
+        std::string m_category;
         std::shared_ptr<spdlog::logger> m_logger;
     };
 }// namespace ecge

@@ -13,18 +13,16 @@ namespace ecge::config
         };
 
     public:
-        [[nodiscard]] static std::string KeyToString(Key key);
         [[nodiscard]] static const auto &GetDefault();
 
     public:
         Physics();
 
-        [[nodiscard]] std::string getName() const override;
-        [[nodiscard]] std::vector<std::string> getKeys() const override;
-        [[nodiscard]] std::string getValue(const std::string &key) const override;
-
-        void set(const std::string &key, const std::string &value) override;
+        void setValue(const std::string &key, const std::string &value) override;
         void reset() override;
+
+        [[nodiscard]] std::string getName() const override;
+        const std::unordered_map<std::string, std::string> &getKeysValues() const override;
 
         [[nodiscard]] std::string getValue(Key key) const;
         void setValue(Key key, int value);
@@ -45,6 +43,9 @@ namespace ecge::config
         {
             return std::stof(m_values.at(KeyToString(key)));
         }
+
+    private:
+        [[nodiscard]] static std::string KeyToString(Key key);
 
     private:
         std::unordered_map<std::string, std::string> m_values;

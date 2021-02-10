@@ -27,8 +27,8 @@ set (SRCS
 	"src/ecs/componentsevents.cpp"
 	"src/config/iniconfig.cpp"
 	"src/config/configurationmanager.cpp"
-	"src/config/rendererconfiguration.cpp"
-	"src/config/physicsconfiguration.cpp")
+	"src/config/rendererconfig.cpp"
+	"src/config/physicsconfig.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

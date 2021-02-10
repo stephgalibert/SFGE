@@ -28,6 +28,12 @@ namespace ecge
         return static_cast<bool>(loggers.erase(category));
     }
 
+    bool Logger::RemoveLogger(const std::shared_ptr<ILogger> &logger)
+    {
+        const std::string category = logger->getCategory();
+        return RemoveLogger(category);
+    }
+
     bool Logger::AddLoggingFile(const std::string &category, const std::string &filename)
     {
         std::shared_ptr<ILogger> logger = GetLogger(category);

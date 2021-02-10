@@ -34,6 +34,7 @@ namespace ecge
 
             m_logger = std::make_shared<spdlog::logger>(category, consoleSink);
             m_logger->set_level(spdlog::level::debug);
+            m_category = category;
         } catch (const spdlog::spdlog_ex &exception) {
             std::cerr << exception.what() << std::endl;
             return false;
@@ -60,6 +61,11 @@ namespace ecge
         }
         m_logger->sinks().push_back(found->second);
         return true;
+    }
+
+    std::string SpdlogLogger::getCategory() const
+    {
+        return m_category;
     }
 
     void SpdlogLogger::trace(const std::string &msg) const

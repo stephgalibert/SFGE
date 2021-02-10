@@ -26,6 +26,8 @@ namespace ecge
         m_renderSystem = std::make_unique<ecs::RenderSystem>();
         m_physicsSystem = std::make_unique<ecs::PhysicsSystem>();
 
+        m_transformableEvents = std::make_unique<ecs::TransformableEvents>();
+        m_renderableEvents = std::make_unique<ecs::RenderableEvents>();
         m_rigidbodyEvents = std::make_unique<ecs::RigidbodyEvents>();
         m_rigidbodyEvents->setCreatorFn([this](const ecs::RigidBody::Config &config) {
             return m_physicsSystem->createBody(config.bodyDef);
@@ -36,12 +38,11 @@ namespace ecge
         // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
 
         // Setup construct listeners
-        // m_registry.on_construct<ecs::Renderable>().connect<&AScenePrivate::renderableCreated>(this);
-        m_registry.on_construct<ecs::Renderable>().connect<&ecs::RenderableEvents::created>();
+        m_registry.on_construct<ecs::Renderable>().connect<&ecs::RenderableEvents::created>(m_renderableEvents);
         m_registry.on_construct<ecs::RigidBody>().connect<&ecs::RigidbodyEvents::created>(m_rigidbodyEvents);
 
         // Setup change listeners
-        m_registry.on_update<ecs::Transformable>().connect<&ecs::TransformableEvents::changed>();
+        m_registry.on_update<ecs::Transformable>().connect<&ecs::TransformableEvents::changed>(m_transformableEvents);
         // entt::observer observer(m_registry, entt::collector.update<ecs::Transformable>());
     }
 
@@ -57,6 +58,8 @@ namespace ecge
 
     AScene::~AScene()
     {
+        PIMPL_D(AScene);
+        Logger::RemoveLogger(d->m_logger);
     }
 
     void AScene::init()

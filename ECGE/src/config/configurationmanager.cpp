@@ -1,7 +1,7 @@
 #include "configurationmanager.h"
 
-#include "physicsconfiguration.h"
-#include "rendererconfiguration.h"
+#include "physicsconfig.h"
+#include "rendererconfig.h"
 
 #include "iniconfig.h"
 
@@ -22,7 +22,7 @@ namespace ecge::config
 
     ConfigurationManager::~ConfigurationManager()
     {
-        Logger::RemoveLogger("ConfigurationManager");
+        Logger::RemoveLogger(m_logger);
     }
 
     ConfigurationManager &ConfigurationManager::getInstance()
@@ -39,11 +39,13 @@ namespace ecge::config
         if (success) {
             m_logger->info("Using saved configuration");
             for (const auto &config : m_configurations) {
-                for (const std::string &key : config->getKeys()) {
+                const auto &keysValues = config->getKeysValues();
+                for (const auto &keyValue : keysValues) {
                     try {
+                        const std::string &key = keyValue.first;
                         const std::string path = config->getName() + "." + key;
                         const auto value = iniFile.get<std::string>(path);
-                        config->set(key, value);
+                        config->setValue(key, value);
                         m_logger->info(path + ": " + value);
                     } catch (const std::exception &exception) {
                         m_logger->warning(exception.what());
@@ -62,14 +64,16 @@ namespace ecge::config
         IniConfig iniConfig;
         m_logger->info("Saving configuration");
         for (const auto &config : m_configurations) {
-            for (const auto &key : config->getKeys()) {
-                const std::string path = config->getName() + "." + key;
-                const auto value = config->getValue(key);
+            const auto &keysValues = config->getKeysValues();
+            for (const auto &keyValue : keysValues) {
+                const std::string &value = keyValue.second;
+                const std::string path = config->getName() + "." + keyValue.first;
                 m_logger->info(path + ": " + value);
                 iniConfig.put(path, value);
             }
         }
-        iniConfig.write(m_path);
+        if (!iniConfig.write(m_path))
+            m_logger->warning("Failed to save to " + m_path);
     }
 
     std::shared_ptr<Renderer> ConfigurationManager::getRenderer() const

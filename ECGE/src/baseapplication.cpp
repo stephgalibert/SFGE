@@ -6,8 +6,7 @@
 #include "scene/scenemanager.hpp"
 
 #include "config/configurationmanager.h"
-#include "config/physicsconfiguration.h"
-#include "config/rendererconfiguration.h"
+#include "config/rendererconfig.h"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>

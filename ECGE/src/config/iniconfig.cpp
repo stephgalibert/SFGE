@@ -14,7 +14,7 @@ namespace ecge::config
 
     IniConfig::~IniConfig()
     {
-        Logger::RemoveLogger("IniConfig");
+        Logger::RemoveLogger(m_logger);
     }
 
     bool IniConfig::parse(const std::string &filename)

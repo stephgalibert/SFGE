@@ -13,6 +13,7 @@ namespace ecge::config
     class Renderer;
     class Physics;
 
+    // TODO: Type/Value validator
     class ConfigurationManager
     {
     public:
