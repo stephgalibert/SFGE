@@ -28,7 +28,9 @@ set (SRCS
 	"src/config/iniconfig.cpp"
 	"src/config/configurationmanager.cpp"
 	"src/config/rendererconfig.cpp"
-	"src/config/physicsconfig.cpp")
+	"src/config/physicsconfig.cpp"
+	"src/ecs/components/scriptable.cpp"
+	"src/ecs/components/ascript.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

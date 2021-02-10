@@ -1,12 +1,12 @@
 #include "testgameobject.hpp"
 
-#include <iostream>
+#include "testscript.h"
 
-TestGameObject::TestGameObject()
+void TestGameObject::onCreated()
 {
-    // Instanciate<FireBullet>();
+    addComponent<TestScript>();
 }
 
-TestGameObject::~TestGameObject()
+void TestGameObject::onDestroyed()
 {
 }

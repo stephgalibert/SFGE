@@ -113,5 +113,6 @@ namespace ecge
         obj->setComponentRegistry(&d->m_registry);
         obj->addComponent<ecs::Transformable>();
         d->m_graph->insert(obj);
+        obj->onCreated();
     }
 }// namespace ecge

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ecge/components/ascript.h"
 #include "pimpl.hpp"
 
 #include <entt/entt.hpp>
@@ -27,6 +28,10 @@ namespace ecge
 
         template<typename T, typename... Args>
         T &addComponent(Args &&... args);
+
+        template<typename ScriptType>
+        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
+        addComponent();
 
         template<typename T>
         const T &component() const;

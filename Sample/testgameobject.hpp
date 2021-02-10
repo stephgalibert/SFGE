@@ -5,8 +5,8 @@
 class TestGameObject : public ecge::AGameObject
 {
 public:
-    TestGameObject();
-    ~TestGameObject() override;
+    void onCreated() override;
+    void onDestroyed() override;
 
 private:
 };

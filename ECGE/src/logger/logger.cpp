@@ -13,11 +13,13 @@ namespace ecge
 
     std::shared_ptr<ILogger> Logger::CreateLogger(const std::string &category)
     {
+        std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
+        assert(loggers.find(category) == loggers.end());
+
         auto logger = std::make_shared<SpdlogLogger>();
         if (!logger->create(category))
             return nullptr;
 
-        std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
         const auto [iterator, success] = loggers.insert({category, logger});
         return iterator->second;
     }
