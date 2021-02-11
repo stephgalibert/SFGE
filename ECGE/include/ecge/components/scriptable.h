@@ -13,33 +13,26 @@ namespace ecge::ecs
     {
     public:
         Scriptable() = default;
-        Scriptable(const Scriptable &rhs);
-        Scriptable(Scriptable &&rhs) noexcept;
+        Scriptable(const Scriptable &rhs) = default;
+        Scriptable(Scriptable &&rhs) noexcept = default;
         ~Scriptable();
 
-        Scriptable &operator=(const Scriptable &rhs);
-        Scriptable &operator=(Scriptable &&rhs) noexcept;
-
-        void addScript(std::unique_ptr<AScript> script);
-
-        template<typename T>
-        void removeScript()
-        {
-            m_scripts.erase(
-                    std::remove_if(m_scripts.begin(), m_scripts.end(),
-                                   [&](const auto &script) {
-                                       if (typeid(T) == typeid(*script)) {
-                                           script->onDestroy();
-                                           return true;
-                                       }
-                                       return false;
-                                   }),
-                    m_scripts.end());
-        }
+        Scriptable &operator=(const Scriptable &rhs) = default;
+        Scriptable &operator=(Scriptable &&rhs) noexcept = default;
 
         void update(float dt);
+        void destroy();
+
+    public:
+        template<typename T>
+        decltype(auto) addScript();
+
+        template<typename T>
+        void removeScript();
 
     private:
         std::vector<std::unique_ptr<AScript>> m_scripts;
     };
 }// namespace ecge::ecs
+
+#include "scriptable.inl"

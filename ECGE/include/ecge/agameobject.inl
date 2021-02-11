@@ -38,10 +38,9 @@ namespace ecge
         scriptable.setRegistry(reg);
         scriptable.setEntity(entt);
 
-        auto script = std::make_unique<ScriptType>();
+        auto &script = scriptable.template addScript<ScriptType>();
         script->attachGameObject(this);
         script->onAwake();
-        scriptable.addScript(std::move(script));
     }
 
     template<typename T>

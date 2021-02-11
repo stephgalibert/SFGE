@@ -4,37 +4,6 @@
 
 namespace ecge::ecs
 {
-    Transformable::Transformable(const Transformable &rhs)
-        : Component(rhs)
-    {
-        *this = rhs;
-    }
-
-    Transformable::Transformable(Transformable &&rhs) noexcept
-        : Component(std::move(rhs))
-    {
-        *this = std::move(rhs);
-    }
-
-    Transformable &Transformable::operator=(const Transformable &rhs)
-    {
-        if (this != &rhs) {
-            Component::operator=(rhs);
-            m_position = rhs.m_position;
-            m_scale = rhs.m_scale;
-            m_angle = rhs.m_angle;
-        }
-        return *this;
-    }
-
-    Transformable &Transformable::operator=(Transformable &&rhs) noexcept
-    {
-        m_position = rhs.m_position;
-        m_scale = rhs.m_scale;
-        m_angle = rhs.m_angle;
-        return *this;
-    }
-
     void Transformable::setPosition(const sf::Vector2f &pos)
     {
         m_registry->patch<Transformable>(m_entity, [&pos](Transformable &transform) {
