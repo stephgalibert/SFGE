@@ -25,6 +25,7 @@ namespace ecge
         m_graph = std::make_unique<SceneGraph>();
         m_renderSystem = std::make_unique<ecs::RenderSystem>();
         m_physicsSystem = std::make_unique<ecs::PhysicsSystem>();
+        m_scriptSystem = std::make_unique<ecs::ScriptSystem>();
 
         m_transformableEvents = std::make_unique<ecs::TransformableEvents>();
         m_renderableEvents = std::make_unique<ecs::RenderableEvents>();
@@ -98,6 +99,7 @@ namespace ecge
     {
         PIMPL_D(AScene);
         d->m_physicsSystem->update(d->m_registry, dt);
+        d->m_scriptSystem->update(d->m_registry, dt);
     }
 
     void AScene::draw()

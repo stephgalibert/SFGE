@@ -52,7 +52,6 @@ namespace ecge::ecs
     {
         const auto &renderable = registry.get<Renderable>(entity);
         auto &transformable = registry.get<Transformable>(entity);
-
         transformable.setScale({renderable.shape()->getLocalBounds().width * m_meterPerPixel,
                                 renderable.shape()->getLocalBounds().height * m_meterPerPixel});
     }

@@ -58,6 +58,29 @@ namespace ecge
     T &AGameObject::component()
     {
         entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
         return reg->template get<T>(entity());
+    }
+
+    template<typename T>
+    typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
+    AGameObject::removeComponent()
+    {
+        entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
+        reg->template remove<T>();
+    }
+
+    template<typename ScriptType>
+    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
+    AGameObject::removeComponent()
+    {
+        entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
+        entt::entity entt = entity();
+        assert(entt != entt::null);
+
+        auto &scriptable = reg->template get<ecs::Scriptable>(entt);
+        scriptable.template removeScript<ScriptType>();
     }
 }// namespace ecge

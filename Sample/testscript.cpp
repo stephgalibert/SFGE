@@ -3,6 +3,8 @@
 
 TestScript::TestScript()
 {
+    m_logger = ecge::Logger::CreateLogger("TestScript");
+    m_logger->addLoggingFile("logs/sample.txt");
 }
 
 TestScript::~TestScript()
@@ -12,15 +14,11 @@ TestScript::~TestScript()
 
 void TestScript::onAwake()
 {
-    m_logger = ecge::Logger::CreateLogger("TestScript" + std::to_string(m_gameObject->getId()));
-    m_logger->addLoggingFile("logs/sample.txt");
-
     m_logger->info("onAwake");
 }
 
 void TestScript::onUpdate(float dt)
 {
-    m_logger->info("onUpdate");
 }
 
 void TestScript::onDestroy()

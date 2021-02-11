@@ -1,6 +1,7 @@
 #include "testscene.hpp"
 
 #include "testgameobject.hpp"
+#include "testscript.h"
 
 #include <ecge/components/renderable.hpp>
 #include <ecge/components/rigidbody.hpp>
@@ -31,6 +32,9 @@ void TestScene::init()
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
         obj->addComponent<ecge::ecs::RigidBody>(obj.get());
+
+        obj->addComponent<TestScript>();
+        obj->removeComponent<TestScript>();
     }
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});

@@ -21,8 +21,8 @@ namespace ecge::ecs
     {
         auto view = registry.view<const ecs::Renderable>();
         for (const auto entity : view) {
-            const auto &r = view.get<const ecs::Renderable>(entity);
-            m_renderTarget->draw(*r.shape());
+            const auto &renderable = view.get<const ecs::Renderable>(entity);
+            m_renderTarget->draw(*renderable.shape());
         }
     }
 }// namespace ecge::ecs

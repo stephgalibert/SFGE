@@ -9,7 +9,7 @@ namespace ecge::ecs
     class Transformable : public Component
     {
     public:
-        Transformable();
+        Transformable() = default;
         Transformable(const Transformable &rhs);
         Transformable(Transformable &&rhs) noexcept;
         ~Transformable() = default;

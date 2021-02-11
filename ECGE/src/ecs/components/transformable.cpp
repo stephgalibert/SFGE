@@ -4,10 +4,6 @@
 
 namespace ecge::ecs
 {
-    Transformable::Transformable()
-    {
-    }
-
     Transformable::Transformable(const Transformable &rhs)
         : Component(rhs)
     {

@@ -30,7 +30,8 @@ set (SRCS
 	"src/config/rendererconfig.cpp"
 	"src/config/physicsconfig.cpp"
 	"src/ecs/components/scriptable.cpp"
-	"src/ecs/components/ascript.cpp")
+	"src/ecs/components/ascript.cpp"
+	"src/ecs/systems/scriptsystem.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

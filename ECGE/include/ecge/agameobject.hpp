@@ -39,6 +39,14 @@ namespace ecge
         template<typename T>
         T &component();
 
+        template<typename T>
+        typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
+        removeComponent();
+
+        template<typename ScriptType>
+        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
+        removeComponent();
+
     protected:
         // Only a Scene shall be able to instantiate a game object.
         // Allow the user to subclass it.

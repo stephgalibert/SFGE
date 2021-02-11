@@ -5,6 +5,7 @@
 #include "ecs/componentsevents.h"
 #include "ecs/systems/physicssystem.hpp"
 #include "ecs/systems/rendersystem.hpp"
+#include "ecs/systems/scriptsystem.h"
 #include "scenegraph.hpp"
 
 #include <memory>
@@ -25,6 +26,7 @@ namespace ecge
 
         std::unique_ptr<ecs::RenderSystem> m_renderSystem;
         std::unique_ptr<ecs::PhysicsSystem> m_physicsSystem;
+        std::unique_ptr<ecs::ScriptSystem> m_scriptSystem;
 
         std::unique_ptr<ecs::TransformableEvents> m_transformableEvents;
         std::unique_ptr<ecs::RenderableEvents> m_renderableEvents;
