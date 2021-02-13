@@ -1,6 +1,6 @@
 #include "scenemanager.hpp"
 
-#include "sfge/ascene.hpp"
+#include "sfge/scene/ascene.hpp"
 
 #include <iostream>
 

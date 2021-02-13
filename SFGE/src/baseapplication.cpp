@@ -1,12 +1,11 @@
 #include "sfge/baseapplication.hpp"
 #include "baseapplication_p.h"
 
-#include "sfge/ascene.hpp"
-#include "input/eventprocessor.hpp"
-#include "scene/scenemanager.hpp"
-
 #include "config/configurationmanager.h"
 #include "config/rendererconfig.h"
+#include "core/input/eventprocessor.hpp"
+#include "core/scene/scenemanager.hpp"
+#include "sfge/scene/ascene.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>

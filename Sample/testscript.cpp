@@ -1,5 +1,5 @@
 #include "testscript.h"
-#include <sfge/agameobject.hpp>
+#include <sfge/gameobject/agameobject.hpp>
 
 TestScript::TestScript()
 {

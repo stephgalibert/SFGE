@@ -1,6 +1,6 @@
 #pragma once
 
-#include "input/eventlistener.hpp"
+#include "core/input/eventlistener.hpp"
 
 #include <SFML/Graphics.hpp>
 

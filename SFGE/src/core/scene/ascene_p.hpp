@@ -1,13 +1,13 @@
 #pragma once
 
-#include "sfge/ascene.hpp"
-#include "sfge/logger/logger.h"
-#include "ecs/componentsevents.h"
-#include "ecs/systems/inputsystem.h"
-#include "ecs/systems/physicssystem.hpp"
-#include "ecs/systems/rendersystem.hpp"
-#include "ecs/systems/scriptsystem.h"
+#include "core/ecs/componentsevents.h"
+#include "core/ecs/systems/inputsystem.h"
+#include "core/ecs/systems/physicssystem.hpp"
+#include "core/ecs/systems/rendersystem.hpp"
+#include "core/ecs/systems/scriptsystem.h"
 #include "scenegraph.hpp"
+#include "sfge/logger/logger.h"
+#include "sfge/scene/ascene.hpp"
 
 #include <memory>
 

@@ -1,6 +1,6 @@
 #include "scenegraph.hpp"
 
-#include "sfge/agameobject.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 #include "sfge/logger/logger.h"
 
 namespace sfge

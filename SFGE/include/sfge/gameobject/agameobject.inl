@@ -1,5 +1,5 @@
-#include "ascene.hpp"
 #include "sfge/components/scriptable.h"
+#include "sfge/scene/ascene.hpp"
 
 namespace sfge
 {

@@ -2,7 +2,7 @@
 
 #include "sfge/components/ascript.h"
 #include "sfge/components/rigidbody.hpp"
-#include "pimpl.hpp"
+#include "sfge/pimpl.hpp"
 
 #include <entt/entt.hpp>
 

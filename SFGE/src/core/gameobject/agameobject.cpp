@@ -1,4 +1,4 @@
-#include "sfge/agameobject.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 #include "agameobject_p.hpp"
 
 #include "sfge/components/transformable.hpp"

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sfge/ascene.hpp"
 #include "sfge/logger/logger.h"
+#include "sfge/scene/ascene.hpp"
 
 class TestScene : public sfge::AScene
 {

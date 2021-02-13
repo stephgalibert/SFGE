@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sfge/agameobject.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 
 #include <entt/entt.hpp>
 

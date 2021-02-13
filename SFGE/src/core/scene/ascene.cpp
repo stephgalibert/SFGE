@@ -1,8 +1,8 @@
-#include "sfge/ascene.hpp"
-#include "scene/ascene_p.hpp"
-#include "scene/scenegraph.hpp"
+#include "sfge/scene/ascene.hpp"
+#include "ascene_p.hpp"
+#include "scenegraph.hpp"
 
-#include "sfge/agameobject.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 
 #include "sfge/components/input.h"
 #include "sfge/components/renderable.hpp"
@@ -10,11 +10,7 @@
 #include "sfge/components/scriptable.h"
 #include "sfge/components/transformable.hpp"
 
-#include "ecs/componentsevents.h"
-//#include "ecs/systems/physicssystem.hpp"
-//#include "ecs/systems/rendersystem.hpp"
-
-#include <iostream>
+#include "core/ecs/componentsevents.h"
 
 namespace sfge
 {
