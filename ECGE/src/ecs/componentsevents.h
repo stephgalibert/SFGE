@@ -5,6 +5,8 @@
 
 #include <entt/entt.hpp>
 
+#include <SFML/Graphics.hpp>
+
 #include <functional>
 
 namespace ecge::ecs
@@ -35,6 +37,11 @@ namespace ecge::ecs
         void setCreatorFn(std::function<b2Body *(const ecs::RigidBody::Config &)> fn);
 
         void created(entt::registry &registry, entt::entity entity) const;
+        void changed(entt::registry &registry, entt::entity entity) const;
+
+    private:
+        b2Body *load(RigidBody::Config &config, const sf::Vector2f &pos,
+                     const sf::Vector2f &scale, float angle) const;
 
     private:
         std::function<b2Body *(const ecs::RigidBody::Config &)> m_creatorFn;

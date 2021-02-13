@@ -5,7 +5,7 @@
 #include <functional>
 #include <unordered_map>
 
-namespace ecge
+namespace ecge::input
 {
     struct EventListener;
 
@@ -29,4 +29,4 @@ namespace ecge
         std::unordered_map<sf::Event::EventType, std::function<void(const sf::Event &)>> m_events;
         EventListener *m_listener;
     };
-}// namespace ecge
+}// namespace ecge::input

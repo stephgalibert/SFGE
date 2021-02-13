@@ -9,29 +9,30 @@ find_package (spdlog 1.8.2 REQUIRED)
 
 find_package (Boost 1.71 REQUIRED COMPONENTS system)
 
-set (SRCS
-	"src/baseapplication.cpp"
-	"src/scene/scenemanager.cpp"
-	"src/scene/ascene.cpp"
-	"src/input/eventprocessor.cpp"
-	"src/gameobject/agameobject.cpp"
-	"src/scene/scenegraph.cpp"
-	"src/ecs/systems/rendersystem.cpp"
-	"src/ecs/components/component.cpp"
-	"src/ecs/systems/physicssystem.cpp"
-	"src/ecs/components/transformable.cpp"
-	"src/ecs/components/renderable.cpp"
-	"src/ecs/components/rigidbody.cpp"
-	"src/logger/logger.cpp"
-	"src/logger/spdloglogger.cpp"
-	"src/ecs/componentsevents.cpp"
-	"src/config/iniconfig.cpp"
-	"src/config/configurationmanager.cpp"
-	"src/config/rendererconfig.cpp"
-	"src/config/physicsconfig.cpp"
-	"src/ecs/components/scriptable.cpp"
-	"src/ecs/components/ascript.cpp"
-	"src/ecs/systems/scriptsystem.cpp")
+set (SRCS "src/baseapplication.cpp"
+		"src/logger/logger.cpp"
+		"src/logger/spdloglogger.cpp"
+		"src/config/iniconfig.cpp"
+		"src/config/configurationmanager.cpp"
+		"src/config/rendererconfig.cpp"
+		"src/config/physicsconfig.cpp"
+		"src/input/eventprocessor.cpp"
+		"src/gameobject/agameobject.cpp"
+		"src/scene/scenemanager.cpp"
+		"src/scene/ascene.cpp"
+		"src/scene/scenegraph.cpp"
+		"src/ecs/componentsevents.cpp"
+		"src/ecs/systems/rendersystem.cpp"
+		"src/ecs/systems/scriptsystem.cpp"
+		"src/ecs/systems/inputsystem.cpp"
+		"src/ecs/systems/physicssystem.cpp"
+		"src/ecs/components/component.cpp"
+		"src/ecs/components/transformable.cpp"
+		"src/ecs/components/renderable.cpp"
+		"src/ecs/components/rigidbody.cpp"
+		"src/ecs/components/scriptable.cpp"
+		"src/ecs/components/ascript.cpp"
+		"src/ecs/components/input.cpp")
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

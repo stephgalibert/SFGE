@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ecge/components/ascript.h"
+#include "ecge/components/rigidbody.hpp"
 #include "pimpl.hpp"
 
 #include <entt/entt.hpp>
@@ -28,6 +29,10 @@ namespace ecge
 
         template<typename T, typename... Args>
         T &addComponent(Args &&... args);
+
+        template<typename RigidbodyType>
+        typename std::enable_if_t<std::is_same_v<ecs::RigidBody, RigidbodyType>, RigidbodyType &>
+        addComponent();
 
         template<typename ScriptType>
         typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>

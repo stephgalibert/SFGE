@@ -25,3 +25,19 @@ void TestScript::onDestroy()
 {
     m_logger->info("onDestroy");
 }
+
+void TestScript::onKeyboardEvent(const ecge::input::KeyboardEvent &event)
+{
+    assert(m_gameObject);
+    auto &rigidbody = m_gameObject->component<ecge::ecs::RigidBody>();
+
+    if (event.key == sf::Keyboard::Right) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({1, 0}, true);
+    } else if (event.key == sf::Keyboard::Left) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({-1, 0}, true);
+    } else if (event.key == sf::Keyboard::Up) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, -5}, true);
+    } else if (event.key == sf::Keyboard::Down) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, 5}, true);
+    }
+}

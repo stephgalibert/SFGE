@@ -10,14 +10,14 @@ namespace ecge
 {
     class AScene;
 
-    class SceneManager : public EventListener
+    class SceneManager : public input::EventListener
     {
     public:
         void setRenderTarget(sf::RenderTarget &target);
 
         void onWindowClosing() override;
-        void onKeyboardEvent(sf::Keyboard::Key key, bool pressed) override;
-        void onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed) override;
+        void onKeyboardEvent(const input::KeyboardEvent &event) override;
+        void onMouseButtonEvent(const input::MouseButtonEvent &event) override;
 
         void update(float dt);
         void draw();

@@ -13,10 +13,7 @@ namespace ecge
 
     SceneGraph::~SceneGraph()
     {
-        for (auto &obj : m_gameObjects) {
-            m_logger->debug("Destroying GameObject #" + std::to_string(obj->getId()));
-            obj->onDestroyed();
-        }
+        clear();
         Logger::RemoveLogger(m_logger);
     }
 
@@ -24,6 +21,14 @@ namespace ecge
     {
         m_logger->debug("Spawning GameObject #" + std::to_string(obj->getId()));
         m_gameObjects.push_back(obj);
+    }
+
+    void SceneGraph::clear()
+    {
+        for (auto &obj : m_gameObjects) {
+            m_logger->debug("Destroying GameObject #" + std::to_string(obj->getId()));
+            obj->onDestroyed();
+        }
     }
 
 }// namespace ecge

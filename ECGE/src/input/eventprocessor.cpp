@@ -1,11 +1,9 @@
 #include "eventprocessor.hpp"
 
+#include "ecge/event.h"
 #include "eventlistener.hpp"
 
-#include <assert.h>
-#include <iostream>
-
-namespace ecge
+namespace ecge::input
 {
     EventProcessor::EventProcessor(EventListener *listener)
         : m_events({
@@ -22,7 +20,6 @@ namespace ecge
 
     void EventProcessor::process(const sf::Event &event)
     {
-        assert(m_listener);
         auto found = m_events.find(event.type);
         if (found != m_events.end())
             found->second(event);
@@ -36,13 +33,14 @@ namespace ecge
 
     void EventProcessor::onKeyboardEvent(const sf::Event &event)
     {
-        m_listener->onKeyboardEvent(event.key.code, event.type == sf::Event::KeyPressed);
+        m_listener->onKeyboardEvent({event.key.code, event.type == sf::Event::KeyPressed});
     }
 
     void EventProcessor::onMouseButtonEvent(const sf::Event &event)
     {
-        m_listener->onMouseButtonEvent(event.mouseButton.button, event.mouseButton.x,
-                                       event.mouseButton.y, event.type == sf::Event::MouseButtonPressed);
+        m_listener->onMouseButtonEvent({event.mouseButton.button,
+                                        {event.mouseButton.x, event.mouseButton.y},
+                                        event.type == sf::Event::MouseButtonPressed});
     }
 
     void EventProcessor::onMouseMoveEvent(const sf::Event &event)
@@ -56,4 +54,4 @@ namespace ecge
     void EventProcessor::onFocusChanged(const sf::Event &event)
     {
     }
-}// namespace ecge
+}// namespace ecge::input

@@ -6,7 +6,10 @@
 
 namespace ecge
 {
-    class EventProcessor;
+    namespace input
+    {
+        class EventProcessor;
+    }
     class SceneManager;
 
     class BaseApplicationPrivate
@@ -17,7 +20,7 @@ namespace ecge
         PIMPL_DECLARE_PUBLIC(BaseApplication);
 
         std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<EventProcessor> m_eventProcessor;
+        std::unique_ptr<input::EventProcessor> m_eventProcessor;
         sf::RenderWindow m_window;
     };
 }// namespace ecge

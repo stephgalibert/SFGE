@@ -3,7 +3,13 @@
 namespace ecge
 {
     class AGameObject;
-}
+
+    namespace input
+    {
+        struct KeyboardEvent;
+        struct MouseButtonEvent;
+    }// namespace input
+}// namespace ecge
 
 namespace ecge::ecs
 {
@@ -20,8 +26,10 @@ namespace ecge::ecs
         virtual void onUpdate(float dt) = 0;
         virtual void onDestroy() = 0;
 
+        virtual void onKeyboardEvent(const input::KeyboardEvent &event);
+        virtual void onMouseButtonEvent(const input::MouseButtonEvent &event);
+
     protected:
         AGameObject *m_gameObject = nullptr;
-        // agameobject?
     };
 }// namespace ecge::ecs

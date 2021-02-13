@@ -15,6 +15,7 @@ namespace ecge
         ~SceneGraph();
 
         void insert(const std::shared_ptr<AGameObject> &obj);
+        void clear();
 
     private:
         std::shared_ptr<ILogger> m_logger;

@@ -16,7 +16,7 @@ namespace ecge
     BaseApplicationPrivate::BaseApplicationPrivate(BaseApplication *qq)
         : q_ptr(qq),
           m_sceneManager(new SceneManager),
-          m_eventProcessor(new EventProcessor(m_sceneManager.get()))
+          m_eventProcessor(new input::EventProcessor(m_sceneManager.get()))
     {
     }
 

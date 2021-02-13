@@ -15,17 +15,17 @@ namespace ecge
 
     void SceneManager::onWindowClosing()
     {
-        m_currentScene->stop();
+        m_currentScene->destroy();
     }
 
-    void SceneManager::onKeyboardEvent(sf::Keyboard::Key key, bool pressed)
+    void SceneManager::onKeyboardEvent(const input::KeyboardEvent &event)
     {
-        m_currentScene->onKeyboardEvent(key, pressed);
+        m_currentScene->onKeyboardEvent(event);
     }
 
-    void SceneManager::onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed)
+    void SceneManager::onMouseButtonEvent(const input::MouseButtonEvent &event)
     {
-        m_currentScene->onMouseButtonEvent(btn, x, y, pressed);
+        m_currentScene->onMouseButtonEvent(event);
     }
 
     void SceneManager::update(float dt)

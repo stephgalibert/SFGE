@@ -25,6 +25,14 @@ namespace ecge
         return component;
     }
 
+    template<typename RigidbodyType>
+    typename std::enable_if_t<std::is_same_v<ecs::RigidBody, RigidbodyType>, RigidbodyType &>
+    AGameObject::addComponent()
+    {
+        return addComponent<RigidbodyType>(this);
+    }
+
+    // std::unique_ptr<ScriptType> &
     template<typename ScriptType>
     typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
     AGameObject::addComponent()

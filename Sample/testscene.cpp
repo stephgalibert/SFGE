@@ -3,6 +3,7 @@
 #include "testgameobject.hpp"
 #include "testscript.h"
 
+#include <ecge/components/input.h>
 #include <ecge/components/renderable.hpp>
 #include <ecge/components/rigidbody.hpp>
 #include <ecge/components/transformable.hpp>
@@ -31,10 +32,7 @@ void TestScene::init()
         transformable.setPosition({0, -7});
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
-        obj->addComponent<ecge::ecs::RigidBody>(obj.get());
-
-        obj->addComponent<TestScript>();
-        obj->removeComponent<TestScript>();
+        obj->addComponent<ecge::ecs::RigidBody>();
     }
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
@@ -43,22 +41,32 @@ void TestScene::init()
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({2.2, -7});
+        transformable.setAngle(0.700);
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
-        obj->addComponent<ecge::ecs::RigidBody>(obj.get());
+        obj->addComponent<ecge::ecs::RigidBody>();
+
+        obj->addComponent<TestScript>();
+
+        auto &input = obj->addComponent<ecge::ecs::Input>();
+        input.setKeyboardButton(true);
+        input.setMouseButton(true);
+        input.setMouseMove(true);
     }
     {
-        sf::Shape *shape = new sf::RectangleShape({100, 25});
+        sf::Shape *shape = new sf::RectangleShape({800, 25});
         shape->setFillColor(sf::Color::Red);
         auto obj = instantiate<TestGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
-        transformable.setPosition({1.1, 0});
+        transformable.setPosition({-1, 3});
 
         obj->addComponent<ecge::ecs::Renderable>(shape);
 
+
+        auto &rigidbody = obj->addComponent<ecge::ecs::RigidBody>();
         ecge::ecs::RigidBody::Config config;
         config.bodyDef.type = b2_staticBody;
-        obj->addComponent<ecge::ecs::RigidBody>(obj.get(), config);
+        rigidbody.setConfig(config);
     }
 }

@@ -21,4 +21,17 @@ namespace ecge::ecs
         }
     }
 
+    void Scriptable::onKeyboardEvent(const input::KeyboardEvent &event)
+    {
+        for (auto &script : m_scripts) {
+            script->onKeyboardEvent(event);
+        }
+    }
+
+    void Scriptable::onMouseButtonEvent(const input::MouseButtonEvent &event)
+    {
+        for (auto &script : m_scripts) {
+            script->onMouseButtonEvent(event);
+        }
+    }
 }// namespace ecge::ecs

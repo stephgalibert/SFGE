@@ -10,6 +10,12 @@
 
 namespace ecge
 {
+    namespace input
+    {
+        struct KeyboardEvent;
+        struct MouseButtonEvent;
+    }// namespace input
+
     class AScenePrivate;
     class AGameObject;
 
@@ -23,9 +29,9 @@ namespace ecge
 
         void setRenderTarget(sf::RenderTarget *target);
 
-        void stop();
-        void onKeyboardEvent(sf::Keyboard::Key key, bool pressed);
-        void onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed);
+        void destroy();
+        void onKeyboardEvent(const input::KeyboardEvent &event);
+        void onMouseButtonEvent(const input::MouseButtonEvent &event);
 
         void update(float dt);
         void draw();

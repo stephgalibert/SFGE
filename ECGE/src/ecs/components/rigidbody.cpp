@@ -10,38 +10,8 @@ namespace ecge::ecs
     }
 
     RigidBody::RigidBody(AGameObject *gameObject, Config config)
-        : m_config(std::move(config))
     {
-        m_config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(gameObject);
-    }
-
-    RigidBody::RigidBody(const RigidBody &rhs)
-        : Component(rhs)
-    {
-        *this = rhs;
-    }
-
-    RigidBody::RigidBody(RigidBody &&rhs) noexcept
-        : Component(std::move(rhs))
-    {
-        *this = std::move(rhs);
-    }
-
-    RigidBody &RigidBody::operator=(const RigidBody &rhs)
-    {
-        if (this != &rhs) {
-            Component::operator=(rhs);
-            m_body = rhs.m_body;
-            m_config = rhs.m_config;
-        }
-        return *this;
-    }
-
-    RigidBody &RigidBody::operator=(RigidBody &&rhs) noexcept
-    {
-        m_body = rhs.m_body;
-        m_config = rhs.m_config;
-        return *this;
+        config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(gameObject);
     }
 
     void RigidBody::setBody(b2Body *body)
@@ -51,7 +21,9 @@ namespace ecge::ecs
 
     void RigidBody::setConfig(const Config &config)
     {
-        m_config = config;
+        m_registry->patch<RigidBody>(m_entity, [&config](RigidBody &rigidBody) {
+            rigidBody.m_config = config;
+        });
     }
 
     b2Body *RigidBody::body() const

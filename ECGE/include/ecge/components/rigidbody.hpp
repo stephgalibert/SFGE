@@ -25,12 +25,6 @@ namespace ecge
         public:
             RigidBody() = default;
             explicit RigidBody(AGameObject *gameObject, Config config = Config());
-            RigidBody(const RigidBody &rhs);
-            RigidBody(RigidBody &&rhs) noexcept;
-            ~RigidBody() = default;
-
-            RigidBody &operator=(const RigidBody &rhs);
-            RigidBody &operator=(RigidBody &&rhs) noexcept;
 
             void setBody(b2Body *body);
             void setConfig(const Config &config);
@@ -41,6 +35,8 @@ namespace ecge
         private:
             b2Body *m_body = nullptr;
             Config m_config;
+
+            friend class RigidbodyEvents;
         };
     }// namespace ecs
 }// namespace ecge

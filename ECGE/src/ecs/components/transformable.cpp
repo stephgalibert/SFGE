@@ -18,18 +18,18 @@ namespace ecge::ecs
         });
     }
 
-    void Transformable::setAngle(float angle)
+    void Transformable::setAngle(float radians)
     {
-        m_registry->patch<Transformable>(m_entity, [angle](Transformable &transform) {
-            transform.m_angle = angle;
+        m_registry->patch<Transformable>(m_entity, [radians](Transformable &transform) {
+            transform.m_radians = radians;
         });
     }
 
-    void Transformable::setTransform(const sf::Vector2f &pos, float angle)
+    void Transformable::setTransform(const sf::Vector2f &pos, float radians)
     {
-        m_registry->patch<Transformable>(m_entity, [&pos, angle](Transformable &transform) {
+        m_registry->patch<Transformable>(m_entity, [&pos, radians](Transformable &transform) {
             transform.m_position = pos;
-            transform.m_angle = angle;
+            transform.m_radians = radians;
         });
     }
 
@@ -43,8 +43,8 @@ namespace ecge::ecs
         return m_scale;
     }
 
-    float Transformable::angle() const
+    float Transformable::angleRadians() const
     {
-        return m_angle;
+        return m_radians;
     }
 }// namespace ecge::ecs

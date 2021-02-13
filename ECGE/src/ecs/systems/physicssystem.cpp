@@ -17,10 +17,9 @@ namespace ecge::ecs
     {
         m_world.Step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 
-        auto view = registry.view<ecs::RigidBody, ecs::Transformable>();
+        auto view = registry.view<RigidBody, Transformable>();
         for (const auto entity : view) {
-            const auto &rigidBody = view.get<ecs::RigidBody>(entity);
-            auto &transform = view.get<ecs::Transformable>(entity);
+            const auto [rigidBody, transform] = view.get<RigidBody, Transformable>(entity);
 
             assert(rigidBody.body() != nullptr);
             const b2Vec2 &b2Pos = rigidBody.body()->GetPosition();

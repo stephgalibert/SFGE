@@ -7,6 +7,12 @@
 #include <memory>
 #include <vector>
 
+namespace ecge::input
+{
+    struct KeyboardEvent;
+    struct MouseButtonEvent;
+}// namespace ecge::input
+
 namespace ecge::ecs
 {
     class Scriptable : public Component
@@ -22,6 +28,9 @@ namespace ecge::ecs
 
         void update(float dt);
         void destroy();
+
+        void onKeyboardEvent(const input::KeyboardEvent &event);
+        void onMouseButtonEvent(const input::MouseButtonEvent &event);
 
     public:
         template<typename T>

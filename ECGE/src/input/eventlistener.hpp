@@ -4,15 +4,18 @@
 
 #include <functional>
 
-namespace ecge
+namespace ecge::input
 {
+    struct KeyboardEvent;
+    struct MouseButtonEvent;
+
     struct EventListener {
         virtual ~EventListener() = default;
         virtual void onWindowClosing() = 0;
-        virtual void onKeyboardEvent(sf::Keyboard::Key key, bool pressed) = 0;
-        virtual void onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed) = 0;
+        virtual void onKeyboardEvent(const KeyboardEvent &event) = 0;
+        virtual void onMouseButtonEvent(const MouseButtonEvent &event) = 0;
 
         // virtual void onWindowResized(int newWidth, int newHeight) = 0;
         // virtual void onFocusChanged(bool isFocused) = 0;
     };
-}// namespace ecge
+}// namespace ecge::input

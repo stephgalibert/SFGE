@@ -4,13 +4,15 @@
 
 #include "ecge/agameobject.hpp"
 
+#include "ecge/components/input.h"
 #include "ecge/components/renderable.hpp"
 #include "ecge/components/rigidbody.hpp"
+#include "ecge/components/scriptable.h"
 #include "ecge/components/transformable.hpp"
 
 #include "ecs/componentsevents.h"
-#include "ecs/systems/physicssystem.hpp"
-#include "ecs/systems/rendersystem.hpp"
+//#include "ecs/systems/physicssystem.hpp"
+//#include "ecs/systems/rendersystem.hpp"
 
 #include <iostream>
 
@@ -26,6 +28,7 @@ namespace ecge
         m_renderSystem = std::make_unique<ecs::RenderSystem>();
         m_physicsSystem = std::make_unique<ecs::PhysicsSystem>();
         m_scriptSystem = std::make_unique<ecs::ScriptSystem>();
+        m_inputSystem = std::make_unique<ecs::InputSystem>();
 
         m_transformableEvents = std::make_unique<ecs::TransformableEvents>();
         m_renderableEvents = std::make_unique<ecs::RenderableEvents>();
@@ -35,8 +38,7 @@ namespace ecge
         });
 
         // Setup components dependencies
-        // m_registry.on_construct<ecs::Renderable>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
-        // m_registry.on_construct<ecs::RigidBody>().connect<&entt::registry::get_or_emplace<ecs::Transformable>>();
+        m_registry.on_construct<ecs::Input>().connect<&entt::registry::get_or_emplace<ecs::Scriptable>>();
 
         // Setup construct listeners
         m_registry.on_construct<ecs::Renderable>().connect<&ecs::RenderableEvents::created>(m_renderableEvents);
@@ -44,6 +46,7 @@ namespace ecge
 
         // Setup change listeners
         m_registry.on_update<ecs::Transformable>().connect<&ecs::TransformableEvents::changed>(m_transformableEvents);
+        m_registry.on_update<ecs::RigidBody>().connect<&ecs::RigidbodyEvents::changed>(m_rigidbodyEvents);
         // entt::observer observer(m_registry, entt::collector.update<ecs::Transformable>());
     }
 
@@ -75,29 +78,33 @@ namespace ecge
         d->m_renderSystem->setRenderTarget(target);
     }
 
-    void AScene::stop()
+    void AScene::destroy()
     {
         PIMPL_D(AScene);
-        d->m_logger->info("Stop");
+        d->m_logger->info("Destroy");
     }
 
-    void AScene::onKeyboardEvent(sf::Keyboard::Key key, bool pressed)
+    void AScene::onKeyboardEvent(const input::KeyboardEvent &event)
     {
         PIMPL_D(AScene);
         // TODO: input system
         d->m_logger->info("onKeyboardEvent");
+        d->m_inputSystem->push(event);
+        // d->m_inputSystem->push(key, pressed);
     }
 
-    void AScene::onMouseButtonEvent(sf::Mouse::Button btn, int x, int y, bool pressed)
+    void AScene::onMouseButtonEvent(const input::MouseButtonEvent &event)
     {
         PIMPL_D(AScene);
         // TODO: input system
         d->m_logger->info("onMouseButtonEvent");
+        // d->m_inputSystem->push(btn, x, y, pressed);
     }
 
     void AScene::update(float dt)
     {
         PIMPL_D(AScene);
+        d->m_inputSystem->update(d->m_registry, 0);
         d->m_physicsSystem->update(d->m_registry, dt);
         d->m_scriptSystem->update(d->m_registry, dt);
     }
