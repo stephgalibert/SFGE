@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/stephgalibert/sfge.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/sfge)
 
-# sfge
+# SFGE
 
-Entity Component Game Engine SDK
+Simple & Fast 2D Game Engine SDK - using the SFML
 
 ## Dependencies
 
@@ -20,3 +20,22 @@ Entity Component Game Engine SDK
 ## Run
 
 * ./sample
+
+## TODO before v1.0
+
+* Collisions
+  * Use box2d API
+* Rendering
+  * Textures
+  * Shaders
+* GameObjects specializations
+  * Lights
+  * Cameras
+* GameObjects management
+  * GetByType
+    * Using templates
+  * GetByName
+* Quality
+  * refactor
+  * improve APIs
+  * Use boost logger
