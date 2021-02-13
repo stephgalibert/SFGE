@@ -39,5 +39,14 @@ void TestScript::onKeyboardEvent(const ecge::input::KeyboardEvent &event)
         rigidbody.body()->ApplyLinearImpulseToCenter({0, -5}, true);
     } else if (event.key == sf::Keyboard::Down) {
         rigidbody.body()->ApplyLinearImpulseToCenter({0, 5}, true);
+    } else if (event.key == sf::Keyboard::D) {
+        rigidbody.body()->ApplyAngularImpulse(1, true);
+    } else if (event.key == sf::Keyboard::Q) {
+        rigidbody.body()->ApplyAngularImpulse(-1, true);
+    } else {
+        auto &transform = m_gameObject->component<ecge::ecs::Transformable>();
+        if (transform.position().y > 6) {
+            transform.setPosition({0, -5});
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace ecge
     class AGameObject
     {
     public:
+        AGameObject();
         virtual ~AGameObject();
 
         virtual void onCreated();
@@ -51,11 +52,6 @@ namespace ecge
         template<typename ScriptType>
         typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
         removeComponent();
-
-    protected:
-        // Only a Scene shall be able to instantiate a game object.
-        // Allow the user to subclass it.
-        AGameObject();
 
     private:
         explicit AGameObject(AGameObjectPrivate *dd);

@@ -3,9 +3,8 @@
 set (TARGET "sample")
 
 set (SRCS "main.cpp"
-    "testscene.cpp"
-    "testgameobject.cpp"
-    "testscript.cpp")
+        "testscene.cpp"
+        "testscript.cpp")
 
 add_executable (${TARGET} ${SRCS})
 

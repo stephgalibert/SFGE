@@ -1,8 +1,8 @@
 #include "testscene.hpp"
 
-#include "testgameobject.hpp"
 #include "testscript.h"
 
+#include <ecge/agameobject.hpp>
 #include <ecge/components/input.h>
 #include <ecge/components/renderable.hpp>
 #include <ecge/components/rigidbody.hpp>
@@ -26,7 +26,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Green);
-        auto obj = instantiate<TestGameObject>();
+        auto obj = instantiate<ecge::AGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({0, -7});
@@ -37,7 +37,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({50, 50});
         shape->setFillColor(sf::Color::Yellow);
-        auto obj = instantiate<TestGameObject>();
+        auto obj = instantiate<ecge::AGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({2.2, -7});
@@ -56,7 +56,7 @@ void TestScene::init()
     {
         sf::Shape *shape = new sf::RectangleShape({800, 25});
         shape->setFillColor(sf::Color::Red);
-        auto obj = instantiate<TestGameObject>();
+        auto obj = instantiate<ecge::AGameObject>();
 
         auto &transformable = obj->component<ecge::ecs::Transformable>();
         transformable.setPosition({-1, 3});

@@ -87,16 +87,12 @@ namespace ecge
     void AScene::onKeyboardEvent(const input::KeyboardEvent &event)
     {
         PIMPL_D(AScene);
-        // TODO: input system
-        d->m_logger->info("onKeyboardEvent");
         d->m_inputSystem->push(event);
-        // d->m_inputSystem->push(key, pressed);
     }
 
     void AScene::onMouseButtonEvent(const input::MouseButtonEvent &event)
     {
         PIMPL_D(AScene);
-        // TODO: input system
         d->m_logger->info("onMouseButtonEvent");
         // d->m_inputSystem->push(btn, x, y, pressed);
     }
