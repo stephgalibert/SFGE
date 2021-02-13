@@ -2,11 +2,11 @@
 
 #include "testscene.hpp"
 
-#include "ecge/baseapplication.hpp"
+#include "sfge/baseapplication.hpp"
 
 int main()
 {
-    ecge::BaseApplication app;
+    sfge::BaseApplication app;
     app.init();
     app.loadScene(std::make_unique<TestScene>());
     return app.run();

@@ -1,15 +1,15 @@
 #include "testscript.h"
-#include <ecge/agameobject.hpp>
+#include <sfge/agameobject.hpp>
 
 TestScript::TestScript()
 {
-    m_logger = ecge::Logger::CreateLogger("TestScript");
+    m_logger = sfge::Logger::CreateLogger("TestScript");
     m_logger->addLoggingFile("logs/sample.txt");
 }
 
 TestScript::~TestScript()
 {
-    ecge::Logger::RemoveLogger(m_logger);
+    sfge::Logger::RemoveLogger(m_logger);
 }
 
 void TestScript::onAwake()
@@ -26,10 +26,10 @@ void TestScript::onDestroy()
     m_logger->info("onDestroy");
 }
 
-void TestScript::onKeyboardEvent(const ecge::input::KeyboardEvent &event)
+void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
 {
     assert(m_gameObject);
-    auto &rigidbody = m_gameObject->component<ecge::ecs::RigidBody>();
+    auto &rigidbody = m_gameObject->component<sfge::ecs::RigidBody>();
 
     if (event.key == sf::Keyboard::Right) {
         rigidbody.body()->ApplyLinearImpulseToCenter({1, 0}, true);
@@ -44,7 +44,7 @@ void TestScript::onKeyboardEvent(const ecge::input::KeyboardEvent &event)
     } else if (event.key == sf::Keyboard::Q) {
         rigidbody.body()->ApplyAngularImpulse(-0.5, true);
     } else {
-        auto &transform = m_gameObject->component<ecge::ecs::Transformable>();
+        auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
         if (transform.position().y > 6) {
             transform.setPosition({0, -5});
         }

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "ecge/ascene.hpp"
-#include "ecge/logger/logger.h"
+#include "sfge/ascene.hpp"
+#include "sfge/logger/logger.h"
 
-class TestScene : public ecge::AScene
+class TestScene : public sfge::AScene
 {
 public:
     TestScene();
     void init() override;
 
 private:
-    std::shared_ptr<ecge::ILogger> m_logger;
+    std::shared_ptr<sfge::ILogger> m_logger;
 };

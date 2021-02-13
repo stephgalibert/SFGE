@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/stephgalibert/ECGE.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/ECGE)
+[![Build Status](https://travis-ci.com/stephgalibert/sfge.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/sfge)
 
-# ECGE
+# sfge
 
 Entity Component Game Engine SDK
 
