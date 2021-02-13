@@ -1,4 +1,4 @@
-#include "testscript.h"
+#include "testscript.hpp"
 #include <sfge/gameobject/agameobject.hpp>
 
 TestScript::TestScript()
@@ -45,7 +45,7 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         rigidbody.body()->ApplyAngularImpulse(-0.5, true);
     } else {
         auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
-        if (transform.position().y > 6) {
+        if (transform.getPosition().y > 6) {
             transform.setPosition({0, -5});
         }
     }

@@ -1,9 +1,9 @@
-#include "configurationmanager.h"
+#include "configurationmanager.hpp"
 
-#include "physicsconfig.h"
-#include "rendererconfig.h"
+#include "physicsconfig.hpp"
+#include "rendererconfig.hpp"
 
-#include "iniconfig.h"
+#include "iniconfig.hpp"
 
 namespace sfge::config
 {

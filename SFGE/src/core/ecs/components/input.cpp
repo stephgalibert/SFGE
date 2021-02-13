@@ -1,4 +1,4 @@
-#include "sfge/components/input.h"
+#include "sfge/components/input.hpp"
 
 namespace sfge::ecs
 {

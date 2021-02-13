@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sfge/components/ascript.h"
+#include "sfge/components/ascript.hpp"
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/pimpl.hpp"
 

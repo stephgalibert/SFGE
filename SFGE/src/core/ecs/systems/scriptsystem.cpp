@@ -1,7 +1,7 @@
-#include "scriptsystem.h"
+#include "scriptsystem.hpp"
 
-#include "sfge/components/ascript.h"
-#include "sfge/components/scriptable.h"
+#include "sfge/components/ascript.hpp"
+#include "sfge/components/scriptable.hpp"
 
 namespace sfge::ecs
 {

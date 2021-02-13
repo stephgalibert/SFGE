@@ -2,7 +2,7 @@
 
 #include "isystem.hpp"
 
-#include "sfge/event.h"
+#include "sfge/event.hpp"
 
 #include <SFML/Window/Keyboard.hpp>
 

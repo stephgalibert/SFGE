@@ -1,4 +1,4 @@
-#include "componentsevents.h"
+#include "componentsevents.hpp"
 
 #include <utility>
 
@@ -6,8 +6,8 @@
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/components/transformable.hpp"
 
-#include "config/configurationmanager.h"
-#include "config/physicsconfig.h"
+#include "config/configurationmanager.hpp"
+#include "config/physicsconfig.hpp"
 
 #include <iostream>
 
@@ -28,18 +28,18 @@ namespace sfge::ecs
         auto renderable = registry.try_get<Renderable>(entity);
         if (renderable) {
             // The origin must be the same as box2d: in the center of the object
-            renderable->shape()->setOrigin(transform.scale().x * m_pixelsPerMeter / 2.f, transform.scale().y * m_pixelsPerMeter / 2.f);
-            renderable->shape()->setPosition(transform.position().x * m_pixelsPerMeter, transform.position().y * m_pixelsPerMeter);
-            renderable->shape()->setRotation(transform.angleRadians() * 180 / b2_pi);
+            renderable->shape()->setOrigin(transform.getScale().x * m_pixelsPerMeter / 2.f, transform.getScale().y * m_pixelsPerMeter / 2.f);
+            renderable->shape()->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
+            renderable->shape()->setRotation(transform.getAngleRadians() * 180 / b2_pi);
         }
 
         RigidBody *rigidBody = registry.try_get<RigidBody>(entity);
         if (rigidBody) {
             b2Vec2 b2Pos = rigidBody->body()->GetPosition();
-            if (b2Pos.x != transform.position().x || b2Pos.y != transform.position().y || rigidBody->body()->GetAngle() != transform.angleRadians()) {
+            if (b2Pos.x != transform.getPosition().x || b2Pos.y != transform.getPosition().y || rigidBody->body()->GetAngle() != transform.getAngleRadians()) {
                 // Update the b2body ONLY IF it has a different transform (position and angle)
-                b2Pos = {transform.position().x, transform.position().y};
-                rigidBody->body()->SetTransform(b2Pos, transform.angleRadians());
+                b2Pos = {transform.getPosition().x, transform.getPosition().y};
+                rigidBody->body()->SetTransform(b2Pos, transform.getAngleRadians());
             }
         }
     }
@@ -65,23 +65,21 @@ namespace sfge::ecs
 
     void RigidbodyEvents::created(entt::registry &registry, entt::entity entity) const
     {
-        ecs::RigidBody &rigidBody = registry.get<ecs::RigidBody>(entity);
-        ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
-
-        ecs::RigidBody::Config config = rigidBody.config();
-        b2Body *body = load(config, transform.position(), transform.scale(), transform.angleRadians());
-
-        rigidBody.m_body = body;
-        rigidBody.m_config = config;
+        createConfig(registry, entity);
     }
 
     void RigidbodyEvents::changed(entt::registry &registry, entt::entity entity) const
+    {
+        createConfig(registry, entity);
+    }
+
+    void RigidbodyEvents::createConfig(entt::registry &registry, entt::entity entity) const
     {
         ecs::RigidBody &rigidBody = registry.get<ecs::RigidBody>(entity);
         ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
 
         ecs::RigidBody::Config config = rigidBody.config();
-        b2Body *body = load(config, transform.position(), transform.scale(), transform.angleRadians());
+        b2Body *body = load(config, transform.getPosition(), transform.getScale(), transform.getAngleRadians());
 
         rigidBody.m_body = body;
         rigidBody.m_config = config;

@@ -33,17 +33,17 @@ namespace sfge::ecs
         });
     }
 
-    sf::Vector2f Transformable::position() const
+    sf::Vector2f Transformable::getPosition() const
     {
         return m_position;
     }
 
-    sf::Vector2f Transformable::scale() const
+    sf::Vector2f Transformable::getScale() const
     {
         return m_scale;
     }
 
-    float Transformable::angleRadians() const
+    float Transformable::getAngleRadians() const
     {
         return m_radians;
     }

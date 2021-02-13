@@ -1,4 +1,4 @@
-#include "sfge/components/scriptable.h"
+#include "sfge/components/scriptable.hpp"
 
 namespace sfge::ecs
 {

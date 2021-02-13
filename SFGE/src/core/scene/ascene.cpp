@@ -4,13 +4,13 @@
 
 #include "sfge/gameobject/agameobject.hpp"
 
-#include "sfge/components/input.h"
+#include "sfge/components/input.hpp"
 #include "sfge/components/renderable.hpp"
 #include "sfge/components/rigidbody.hpp"
-#include "sfge/components/scriptable.h"
+#include "sfge/components/scriptable.hpp"
 #include "sfge/components/transformable.hpp"
 
-#include "core/ecs/componentsevents.h"
+#include "core/ecs/componentsevents.hpp"
 
 namespace sfge
 {

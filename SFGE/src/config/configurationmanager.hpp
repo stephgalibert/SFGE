@@ -1,8 +1,8 @@
 #pragma once
 
-#include "iconfiguration.h"
+#include "iconfiguration.hpp"
 
-#include "sfge/logger/logger.h"
+#include "sfge/logger/logger.hpp"
 
 #include <memory>
 #include <vector>

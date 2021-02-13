@@ -1,4 +1,4 @@
-#include "iniconfig.h"
+#include "iniconfig.hpp"
 
 #include <boost/property_tree/ini_parser.hpp>
 

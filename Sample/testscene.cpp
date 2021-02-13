@@ -1,8 +1,8 @@
 #include "testscene.hpp"
 
-#include "testscript.h"
+#include "testscript.hpp"
 
-#include <sfge/components/input.h>
+#include <sfge/components/input.hpp>
 #include <sfge/components/renderable.hpp>
 #include <sfge/components/rigidbody.hpp>
 #include <sfge/components/transformable.hpp>

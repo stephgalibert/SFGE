@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config/physicsconfig.h"
+#include "config/physicsconfig.hpp"
 #include "sfge/components/rigidbody.hpp"
 
 #include <entt/entt.hpp>
@@ -40,6 +40,7 @@ namespace sfge::ecs
         void changed(entt::registry &registry, entt::entity entity) const;
 
     private:
+        void createConfig(entt::registry &registry, entt::entity entity) const;
         b2Body *load(RigidBody::Config &config, const sf::Vector2f &pos,
                      const sf::Vector2f &scale, float angle) const;
 

@@ -1,4 +1,4 @@
-#include "rendererconfig.h"
+#include "rendererconfig.hpp"
 
 namespace sfge::config
 {

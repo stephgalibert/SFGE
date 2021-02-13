@@ -14,9 +14,9 @@ namespace sfge::ecs
         void setAngle(float radians);
         void setTransform(const sf::Vector2f &pos, float angleRadians);
 
-        [[nodiscard]] sf::Vector2f position() const;
-        [[nodiscard]] sf::Vector2f scale() const;
-        [[nodiscard]] float angleRadians() const;
+        [[nodiscard]] sf::Vector2f getPosition() const;
+        [[nodiscard]] sf::Vector2f getScale() const;
+        [[nodiscard]] float getAngleRadians() const;
 
     private:
         sf::Vector2f m_position;      // meters

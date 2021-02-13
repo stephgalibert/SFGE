@@ -1,4 +1,4 @@
-#include "physicsconfig.h"
+#include "physicsconfig.hpp"
 
 namespace sfge::config
 {

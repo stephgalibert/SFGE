@@ -1,4 +1,4 @@
-#include "sfge/components/ascript.h"
+#include "sfge/components/ascript.hpp"
 
 #include <iostream>
 

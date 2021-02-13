@@ -1,8 +1,8 @@
 #include "sfge/baseapplication.hpp"
-#include "baseapplication_p.h"
+#include "baseapplication_p.hpp"
 
-#include "config/configurationmanager.h"
-#include "config/rendererconfig.h"
+#include "config/configurationmanager.hpp"
+#include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
 #include "core/scene/scenemanager.hpp"
 #include "sfge/scene/ascene.hpp"

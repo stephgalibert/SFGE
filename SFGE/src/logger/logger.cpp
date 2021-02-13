@@ -1,7 +1,7 @@
-#include "sfge/logger/logger.h"
-#include "sfge/logger/ilogger.h"
+#include "sfge/logger/logger.hpp"
+#include "sfge/logger/ilogger.hpp"
 
-#include "spdloglogger.h"
+#include "spdloglogger.hpp"
 
 namespace sfge
 {

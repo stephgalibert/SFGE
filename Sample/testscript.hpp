@@ -1,8 +1,8 @@
 #pragma once
 
-#include <sfge/components/ascript.h>
-#include <sfge/event.h>
-#include <sfge/logger/logger.h>
+#include <sfge/components/ascript.hpp>
+#include <sfge/event.hpp>
+#include <sfge/logger/logger.hpp>
 
 class TestScript : public sfge::ecs::AScript
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "iconfiguration.h"
+#include "iconfiguration.hpp"
 
 namespace sfge::config
 {

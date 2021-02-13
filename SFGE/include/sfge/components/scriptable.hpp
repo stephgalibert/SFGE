@@ -2,7 +2,7 @@
 
 #include "component.hpp"
 
-#include "sfge/components/ascript.h"
+#include "sfge/components/ascript.hpp"
 
 #include <memory>
 #include <vector>

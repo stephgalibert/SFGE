@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ilogger.h"
+#include "ilogger.hpp"
 
 #include <map>
 #include <memory>

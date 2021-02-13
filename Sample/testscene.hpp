@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sfge/logger/logger.h"
+#include "sfge/logger/logger.hpp"
 #include "sfge/scene/ascene.hpp"
 
 class TestScene : public sfge::AScene

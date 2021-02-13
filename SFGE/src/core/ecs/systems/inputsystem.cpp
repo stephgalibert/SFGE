@@ -1,7 +1,7 @@
-#include "inputsystem.h"
+#include "inputsystem.hpp"
 
-#include "sfge/components/input.h"
-#include "sfge/components/scriptable.h"
+#include "sfge/components/input.hpp"
+#include "sfge/components/scriptable.hpp"
 
 namespace sfge::ecs
 {

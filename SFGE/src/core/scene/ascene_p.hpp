@@ -1,12 +1,12 @@
 #pragma once
 
-#include "core/ecs/componentsevents.h"
-#include "core/ecs/systems/inputsystem.h"
+#include "core/ecs/componentsevents.hpp"
+#include "core/ecs/systems/inputsystem.hpp"
 #include "core/ecs/systems/physicssystem.hpp"
 #include "core/ecs/systems/rendersystem.hpp"
-#include "core/ecs/systems/scriptsystem.h"
+#include "core/ecs/systems/scriptsystem.hpp"
 #include "scenegraph.hpp"
-#include "sfge/logger/logger.h"
+#include "sfge/logger/logger.hpp"
 #include "sfge/scene/ascene.hpp"
 
 #include <memory>

@@ -1,7 +1,7 @@
 #include "eventprocessor.hpp"
 
-#include "sfge/event.h"
 #include "eventlistener.hpp"
+#include "sfge/event.hpp"
 
 namespace sfge::input
 {
