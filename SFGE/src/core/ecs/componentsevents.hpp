@@ -28,7 +28,7 @@ namespace sfge::ecs
         void created(entt::registry &registry, entt::entity entity) const;
 
     private:
-        float m_meterPerPixel;
+        float m_pixelsPerMeter;
     };
 
     class RigidbodyEvents

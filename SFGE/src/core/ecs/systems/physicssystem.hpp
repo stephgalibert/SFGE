@@ -14,8 +14,11 @@ namespace sfge::ecs
 
     public:
         PhysicsSystem();
+
         void update(entt::registry &registry, float dt) override;
+
         b2Body *createBody(const b2BodyDef &def);
+        void destroyBody(b2Body *body);
 
     private:
         b2World m_world;

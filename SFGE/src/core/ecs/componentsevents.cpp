@@ -28,7 +28,8 @@ namespace sfge::ecs
         auto renderable = registry.try_get<Renderable>(entity);
         if (renderable) {
             // The origin must be the same as box2d: in the center of the object
-            renderable->shape()->setOrigin(transform.getScale().x * m_pixelsPerMeter / 2.f, transform.getScale().y * m_pixelsPerMeter / 2.f);
+            renderable->shape()->setScale({transform.getScale().x * m_pixelsPerMeter, transform.getScale().y * m_pixelsPerMeter});
+            renderable->shape()->setOrigin(0.5, 0.5);
             renderable->shape()->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
             renderable->shape()->setRotation(transform.getAngleRadians() * 180 / b2_pi);
         }
@@ -47,15 +48,16 @@ namespace sfge::ecs
     RenderableEvents::RenderableEvents()
     {
         const auto physicsConfig = config::ConfigurationManager::getInstance().getPhysics();
-        m_meterPerPixel = 1.f / physicsConfig->getValue<int>(config::Physics::Key::PixelsPerMeter);
+        m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
     }
 
     void RenderableEvents::created(entt::registry &registry, entt::entity entity) const
     {
         const auto &renderable = registry.get<Renderable>(entity);
         auto &transformable = registry.get<Transformable>(entity);
-        transformable.setScale({renderable.shape()->getLocalBounds().width * m_meterPerPixel,
-                                renderable.shape()->getLocalBounds().height * m_meterPerPixel});
+
+        renderable.shape()->setScale({transformable.getScale().x * m_pixelsPerMeter,
+                                      transformable.getScale().y * m_pixelsPerMeter});
     }
 
     void RigidbodyEvents::setCreatorFn(std::function<b2Body *(const ecs::RigidBody::Config &)> fn)
@@ -81,6 +83,7 @@ namespace sfge::ecs
         ecs::RigidBody::Config config = rigidBody.config();
         b2Body *body = load(config, transform.getPosition(), transform.getScale(), transform.getAngleRadians());
 
+        // TODO: destroy m_body
         rigidBody.m_body = body;
         rigidBody.m_config = config;
     }

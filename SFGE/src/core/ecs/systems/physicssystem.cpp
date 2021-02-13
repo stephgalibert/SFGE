@@ -31,4 +31,9 @@ namespace sfge::ecs
     {
         return m_world.CreateBody(&def);
     }
+
+    void PhysicsSystem::destroyBody(b2Body *body)
+    {
+        m_world.DestroyBody(body);
+    }
 }// namespace sfge::ecs

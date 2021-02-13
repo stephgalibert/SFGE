@@ -2,7 +2,7 @@
 
 # SFGE
 
-Simple & Fast 2D Game Engine SDK - using the SFML
+Simple & Fast 2D Game Engine SDK - using SFML
 
 ## Dependencies
 
@@ -23,19 +23,38 @@ Simple & Fast 2D Game Engine SDK - using the SFML
 
 ## TODO before v1.0
 
+* Tests
 * Collisions
   * Use box2d API
+* Resources
+  * Textures
+  * Audio
+    * Musics
+    * Sounds
 * Rendering
   * Textures
   * Shaders
-* GameObjects specializations
-  * Lights
-  * Cameras
-* GameObjects management
-  * GetByType
-    * Using templates
-  * GetByName
-* Quality
-  * refactor
-  * improve APIs
-  * Use boost logger
+* GameObjects
+  * Specializations
+    * Lights
+    * Cameras
+  * Management
+    * GetByType
+      * Using templates
+    * GetByName
+* QoL
+  * Refactor (when needed)
+  * Improve APIs
+  * Maybe use boost logger instead of spdlogger
+  
+## After
+
+* Scene Graph
+  * Parenting
+* Joystick
+* Additional modules
+  * Network
+    * Boost ASIO
+    * Generic Protocol over UDP
+    * Protobuf?
+* Generic renderer library

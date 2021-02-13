@@ -43,6 +43,10 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         rigidbody.body()->ApplyAngularImpulse(0.5, true);
     } else if (event.key == sf::Keyboard::Q) {
         rigidbody.body()->ApplyAngularImpulse(-0.5, true);
+    } else if (event.key == sf::Keyboard::S) {
+        sfge::ecs::RigidBody::Config config;
+        config.bodyDef.type = b2_staticBody;
+        rigidbody.setConfig(config);
     } else {
         auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
         if (transform.getPosition().y > 6) {
