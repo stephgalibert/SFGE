@@ -16,4 +16,4 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/resources/musicloader.hpp"
+#include "musicloader.hpp"

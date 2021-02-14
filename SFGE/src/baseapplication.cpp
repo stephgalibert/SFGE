@@ -22,8 +22,11 @@
 #include "config/configurationmanager.hpp"
 #include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
+#include "core/resources/textureloader.hpp"
 #include "core/scene/scenemanager.hpp"
 #include "sfge/scene/ascene.hpp"
+#include "sfge/services/itextureloaderservice.h"
+#include "sfge/services/servicelocator.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -54,6 +57,8 @@ namespace sfge
     bool BaseApplication::init()
     {
         PIMPL_D(BaseApplication);
+
+        services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
 
         auto &config = config::ConfigurationManager::getInstance();
         config.load();

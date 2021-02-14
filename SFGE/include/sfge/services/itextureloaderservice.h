@@ -18,31 +18,18 @@
 
 #pragma once
 
-#include "sfge/pimpl.hpp"
-
 #include <SFML/Graphics/Texture.hpp>
 
-#include <memory>
+#include <string>
 
-namespace sfge::resource
+namespace sfge::services
 {
-    class TextureLoaderPrivate;
+    struct ITextureLoaderService {
+        virtual ~ITextureLoaderService() = default;
 
-    class TextureLoader
-    {
-    public:
-        static TextureLoader &GetInstance();
+        virtual bool load(const std::string &key, const std::string &path) = 0;
+        virtual void clear() = 0;
 
-        bool load(const std::string &key, const std::string &path);
-        [[nodiscard]] sf::Texture *getTexture(const std::string &key) const;
-
-        void clear();
-
-    private:
-        TextureLoader();
-
-    private:
-        explicit TextureLoader(TextureLoaderPrivate *dd);
-        PIMPL_DECLARE_PRIVATE(TextureLoader);
+        [[nodiscard]] virtual sf::Texture *getTexture(const std::string &key) const = 0;
     };
-}// namespace sfge::resource
+}// namespace sfge::services

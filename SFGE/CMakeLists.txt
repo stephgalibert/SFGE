@@ -55,7 +55,8 @@ set (SRCS src/baseapplication.cpp
 		src/core/resources/textureloader.cpp
 		src/core/resources/fontloader.cpp
 		src/core/resources/musicloader.cpp
-		src/core/resources/soundloader.cpp)
+		src/core/resources/soundloader.cpp
+		src/services/servicelocator.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

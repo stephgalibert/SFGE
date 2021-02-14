@@ -16,4 +16,4 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/resources/fontloader.hpp"
+#include "fontloader.hpp"

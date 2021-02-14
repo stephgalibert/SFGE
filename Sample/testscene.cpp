@@ -25,7 +25,9 @@
 #include <sfge/components/rigidbody.hpp>
 #include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
-#include <sfge/resources/textureloader.hpp>
+
+#include <sfge/services/itextureloaderservice.h>
+#include <sfge/services/servicelocator.hpp>
 
 #include <iostream>
 
@@ -40,8 +42,9 @@ void TestScene::init()
     AScene::init();
 
     // TODO: test purpose, remove it
-    sfge::resource::TextureLoader::GetInstance().load("test", "texture.jpg");
-    sf::Texture *texture = sfge::resource::TextureLoader::GetInstance().getTexture("test");
+    auto textureService = sfge::services::ServiceLocator::Get<sfge::services::ITextureLoaderService>();
+    textureService->load("test", "texture.jpg");
+    sf::Texture *texture = textureService->getTexture("test");
 
     m_logger->info("Init");
     {

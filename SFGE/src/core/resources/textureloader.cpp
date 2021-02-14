@@ -16,10 +16,12 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/resources/textureloader.hpp"
+#include "textureloader.hpp"
 #include "textureloader_p.hpp"
 
-namespace sfge::resource
+#include <cassert>
+
+namespace sfge::resources
 {
     TextureLoaderPrivate::TextureLoaderPrivate(TextureLoader *qq)
         : q_ptr(qq)
@@ -39,15 +41,13 @@ namespace sfge::resource
     {
     }
 
-    TextureLoader::TextureLoader(TextureLoaderPrivate *dd)
-        : d_ptr(dd)
+    TextureLoader::~TextureLoader()
     {
     }
 
-    TextureLoader &TextureLoader::GetInstance()
+    TextureLoader::TextureLoader(TextureLoaderPrivate *dd)
+        : d_ptr(dd)
     {
-        static TextureLoader instance;
-        return instance;
     }
 
     bool TextureLoader::load(const std::string &key, const std::string &path)
@@ -75,6 +75,7 @@ namespace sfge::resource
         const PIMPL_D(TextureLoader);
 
         const auto found = d->m_textures.find(key);
+        assert(found != d->m_textures.end());
         return found->second.get();
     }
 
@@ -85,4 +86,4 @@ namespace sfge::resource
         d->m_logger->info(std::to_string(d->m_textures.size()) + " textures cleared");
         d->m_textures.clear();
     }
-}// namespace sfge::resource
+}// namespace sfge::resources

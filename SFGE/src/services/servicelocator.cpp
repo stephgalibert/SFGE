@@ -16,28 +16,13 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "sfge/services/servicelocator.hpp"
 
-#include "sfge/logger/logger.hpp"
-#include "textureloader.hpp"
-
-#include "config/configurationmanager.hpp"
-#include "config/globalconfig.hpp"
-#include "config/rendererconfig.hpp"
-
-#include <unordered_map>
-
-namespace sfge::resources
+namespace sfge::services
 {
-    class TextureLoaderPrivate
+    std::unordered_map<size_t, std::shared_ptr<void>> &ServiceLocator::getServices()
     {
-    public:
-    private:
-        explicit TextureLoaderPrivate(TextureLoader *qq);
-        PIMPL_DECLARE_PUBLIC(TextureLoader);
-
-        bool m_smoothing;
-        std::shared_ptr<ILogger> m_logger;
-        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
-    };
-}// namespace sfge::resources
+        static std::unordered_map<size_t, std::shared_ptr<void>> services;
+        return services;
+    }
+}// namespace sfge::services

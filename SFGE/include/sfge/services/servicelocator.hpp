@@ -18,26 +18,25 @@
 
 #pragma once
 
-#include "sfge/logger/logger.hpp"
-#include "textureloader.hpp"
-
-#include "config/configurationmanager.hpp"
-#include "config/globalconfig.hpp"
-#include "config/rendererconfig.hpp"
-
+#include <cassert>
+#include <memory>
 #include <unordered_map>
 
-namespace sfge::resources
+namespace sfge::services
 {
-    class TextureLoaderPrivate
+    class ServiceLocator
     {
-    public:
     private:
-        explicit TextureLoaderPrivate(TextureLoader *qq);
-        PIMPL_DECLARE_PUBLIC(TextureLoader);
+        static std::unordered_map<size_t, std::shared_ptr<void>> &getServices();
 
-        bool m_smoothing;
-        std::shared_ptr<ILogger> m_logger;
-        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
+    public:
+        template<typename T, typename U>
+        static typename std::enable_if_t<std::is_base_of_v<T, U>>
+        Provide();
+
+        template<typename T>
+        static std::shared_ptr<T> Get();
     };
-}// namespace sfge::resources
+}// namespace sfge::services
+
+#include "servicelocator.inl"
