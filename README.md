@@ -47,7 +47,7 @@ Simple & Fast 2D Game Engine SDK - using SFML
   * Improve APIs
   * Maybe use boost logger instead of spdlogger
   
-## After
+## Enhancement
 
 * Scene Graph
   * Parenting
@@ -58,3 +58,4 @@ Simple & Fast 2D Game Engine SDK - using SFML
     * Generic Protocol over UDP
     * Protobuf?
 * Generic renderer library
+* Handle different shapes

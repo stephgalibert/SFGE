@@ -23,12 +23,6 @@ namespace sfge
 
         void loadScene(std::unique_ptr<AScene> scene);
 
-    protected:
-        //        virtual void onWindowClosing();
-        //	    virtual void onKeyboardEvent(sf::Keyboard::Key key, bool pressed);
-        //	    virtual void onMouseButtonEvent(sf::Mouse::Button button, int x, int y, bool pressed);
-        // ...
-
     private:
         explicit BaseApplication(BaseApplicationPrivate *dd);
         PIMPL_DECLARE_PRIVATE(BaseApplication);
