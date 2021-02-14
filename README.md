@@ -35,6 +35,7 @@ Simple & Fast 2D Game Engine SDK - using SFML
 | GameObjects type | Lights, Camera | 3d
 | GameObjects Management | GetByType (with templates), GetByName | 2d
 | Engine Configuration | Error management | 2d
+| GUI | Integreate GUI library | 5d
 | QoL | Improve APIs, Remove useless deps | -
 
   
