@@ -23,17 +23,10 @@
 
 namespace sfge
 {
-    auto &Logger::getLoggers()
+    std::shared_ptr<ILogger> Logger::createLogger(const std::string &category)
     {
-        static std::unordered_map<std::string, std::shared_ptr<ILogger>> loggers;
-        return loggers;
-    }
-
-    std::shared_ptr<ILogger> Logger::CreateLogger(const std::string &category)
-    {
-        std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
-        const auto found = loggers.find(category);
-        if (found != loggers.end()) {
+        const auto found = m_loggers.find(category);
+        if (found != m_loggers.end()) {
             return found->second;
         }
 
@@ -41,37 +34,34 @@ namespace sfge
         if (!logger->create(category))
             return nullptr;
 
-        const auto [iterator, success] = loggers.insert({category, logger});
+        const auto [iterator, success] = m_loggers.insert({category, logger});
         return iterator->second;
     }
 
-    bool Logger::RemoveLogger(const std::string &category)
+    bool Logger::removeLogger(const std::string &category)
     {
-        std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
-        std::clog << "remove logger" << std::endl;
-        return static_cast<bool>(loggers.erase(category));
+        return static_cast<bool>(m_loggers.erase(category));
     }
 
-    bool Logger::RemoveLogger(const std::shared_ptr<ILogger> &logger)
+    bool Logger::removeLogger(const std::shared_ptr<ILogger> &logger)
     {
         const std::string category = logger->getCategory();
-        return RemoveLogger(category);
+        return removeLogger(category);
     }
 
-    bool Logger::AddLoggingFile(const std::string &category, const std::string &filename)
+    bool Logger::addLoggingFile(const std::string &category, const std::string &filename)
     {
-        std::shared_ptr<ILogger> logger = GetLogger(category);
+        std::shared_ptr<ILogger> logger = getLogger(category);
         if (!logger)
             return false;
         return logger->addLoggingFile(filename);
     }
 
-    std::shared_ptr<ILogger> Logger::GetLogger(const std::string &category)
+    std::shared_ptr<ILogger> Logger::getLogger(const std::string &category)
     {
-        std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
-        auto it = loggers.find(category);
+        auto it = m_loggers.find(category);
 
-        if (it != loggers.end())
+        if (it != m_loggers.end())
             return it->second;
         return nullptr;
     }

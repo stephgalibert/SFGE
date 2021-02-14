@@ -18,6 +18,9 @@
 
 #include "configurationmanager.hpp"
 
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
+
 #include "globalconfig.hpp"
 #include "physicsconfig.hpp"
 #include "rendererconfig.hpp"
@@ -37,13 +40,15 @@ namespace sfge::config
         m_configurations.push_back(m_rendererConfig);
         m_configurations.push_back(m_physicsConfig);
 
-        m_logger = Logger::CreateLogger("ConfigurationManager");
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        m_logger = loggerService->createLogger("ConfigurationManager");
         m_logger->addLoggingFile(m_globalConfig->getValue(Global::Key::LoggingFile));
     }
 
     ConfigurationManager::~ConfigurationManager()
     {
-        Logger::RemoveLogger(m_logger);
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        loggerService->removeLogger(m_logger);
     }
 
     void ConfigurationManager::load()

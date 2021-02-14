@@ -26,6 +26,7 @@
 #include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
 
+#include "sfge/services/iloggerservice.hpp"
 #include <sfge/services/itextureloaderservice.h>
 #include <sfge/services/servicelocator.hpp>
 
@@ -33,7 +34,9 @@
 
 TestScene::TestScene()
 {
-    m_logger = sfge::Logger::CreateLogger("TestScene");
+    auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
+
+    m_logger = loggerService->createLogger("TestScene");
     m_logger->addLoggingFile("logs/sample.txt");
 }
 

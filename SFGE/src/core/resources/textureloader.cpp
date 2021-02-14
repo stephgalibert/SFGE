@@ -20,6 +20,7 @@
 #include "textureloader_p.hpp"
 
 #include "services/iconfigurationmanagerservice.h"
+#include "sfge/services/iloggerservice.hpp"
 #include "sfge/services/servicelocator.hpp"
 
 #include <cassert>
@@ -29,7 +30,9 @@ namespace sfge::resources
     TextureLoaderPrivate::TextureLoaderPrivate(TextureLoader *qq)
         : q_ptr(qq)
     {
-        m_logger = Logger::CreateLogger("TextureLoader");
+        // TODO: init method
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        m_logger = loggerService->createLogger("TextureLoader");
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();

@@ -20,19 +20,23 @@
 
 #include "sfge/gameobject/agameobject.hpp"
 #include "sfge/logger/logger.hpp"
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
 
 namespace sfge
 {
     SceneGraph::SceneGraph()
     {
-        m_logger = Logger::CreateLogger("SceneGraph");
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        m_logger = loggerService->createLogger("SceneGraph");
         m_logger->addLoggingFile("logs/log.txt");
     }
 
     SceneGraph::~SceneGraph()
     {
         clear();
-        Logger::RemoveLogger(m_logger);
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        loggerService->removeLogger(m_logger);
     }
 
     void SceneGraph::insert(const std::shared_ptr<AGameObject> &obj)

@@ -17,17 +17,21 @@
 //
 
 #include "testscript.hpp"
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
 #include <sfge/gameobject/agameobject.hpp>
 
 TestScript::TestScript()
 {
-    m_logger = sfge::Logger::CreateLogger("TestScript");
+    auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
+    m_logger = loggerService->createLogger("TestScript");
     m_logger->addLoggingFile("logs/sample.txt");
 }
 
 TestScript::~TestScript()
 {
-    sfge::Logger::RemoveLogger(m_logger);
+    auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
+    loggerService->removeLogger(m_logger);
 }
 
 void TestScript::onAwake()

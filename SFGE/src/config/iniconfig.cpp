@@ -17,6 +17,8 @@
 //
 
 #include "iniconfig.hpp"
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
 
 #include <boost/property_tree/ini_parser.hpp>
 
@@ -26,13 +28,15 @@ namespace sfge::config
 {
     IniConfig::IniConfig()
     {
-        m_logger = Logger::CreateLogger("IniConfig");
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        m_logger = loggerService->createLogger("IniConfig");
         m_logger->addLoggingFile("logs/log.txt");
     }
 
     IniConfig::~IniConfig()
     {
-        Logger::RemoveLogger(m_logger);
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        loggerService->removeLogger(m_logger);
     }
 
     bool IniConfig::parse(const std::string &filename)

@@ -21,6 +21,8 @@
 #include "scenegraph.hpp"
 
 #include "sfge/gameobject/agameobject.hpp"
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
 
 #include "sfge/components/input.hpp"
 #include "sfge/components/renderable.hpp"
@@ -36,7 +38,9 @@ namespace sfge
     AScenePrivate::AScenePrivate(AScene *qq)
         : q_ptr(qq)
     {
-        m_logger = Logger::CreateLogger("AScene");
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+
+        m_logger = loggerService->createLogger("AScene");
         m_logger->addLoggingFile("logs/log.txt");
 
         m_graph = std::make_unique<SceneGraph>();
@@ -88,7 +92,8 @@ namespace sfge
     AScene::~AScene()
     {
         PIMPL_D(AScene);
-        Logger::RemoveLogger(d->m_logger);
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        loggerService->removeLogger(d->m_logger);
     }
 
     void AScene::init()

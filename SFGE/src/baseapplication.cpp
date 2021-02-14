@@ -20,6 +20,7 @@
 #include "baseapplication_p.hpp"
 
 #include "sfge/scene/ascene.hpp"
+#include "sfge/services/iloggerservice.hpp"
 #include "sfge/services/itextureloaderservice.h"
 #include "sfge/services/servicelocator.hpp"
 
@@ -60,6 +61,7 @@ namespace sfge
     {
         PIMPL_D(BaseApplication);
 
+        services::ServiceLocator::Provide<services::ILoggerService, Logger>();
         services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
         services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
 

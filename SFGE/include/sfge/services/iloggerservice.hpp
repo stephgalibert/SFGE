@@ -18,26 +18,24 @@
 
 #pragma once
 
-#include "ilogger.hpp"
-
-#include "sfge/services/iloggerservice.hpp"
-
-#include <unordered_map>
+#include <memory>
+#include <string>
 
 namespace sfge
 {
-    class Logger : public services::ILoggerService
-    {
-    public:
-        std::shared_ptr<ILogger> createLogger(const std::string &category) override;
-        bool removeLogger(const std::string &category) override;
-        bool removeLogger(const std::shared_ptr<ILogger> &logger) override;
+    struct ILogger;
+}
 
-        bool addLoggingFile(const std::string &category, const std::string &filename) override;
+namespace sfge::services
+{
+    struct ILoggerService {
+        virtual ~ILoggerService() = default;
 
-        std::shared_ptr<ILogger> getLogger(const std::string &category) override;
+        virtual std::shared_ptr<ILogger> createLogger(const std::string &category) = 0;
+        virtual bool removeLogger(const std::string &category) = 0;
+        virtual bool removeLogger(const std::shared_ptr<ILogger> &logger) = 0;
 
-    private:
-        std::unordered_map<std::string, std::shared_ptr<ILogger>> m_loggers;
+        virtual bool addLoggingFile(const std::string &category, const std::string &filename) = 0;
+        virtual std::shared_ptr<ILogger> getLogger(const std::string &category) = 0;
     };
-}// namespace sfge
+}// namespace sfge::services
