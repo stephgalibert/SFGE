@@ -20,6 +20,7 @@ void TestScene::init()
 {
     AScene::init();
 
+    // TODO: test purpose, remove it
     static sf::Texture tex;
     tex.loadFromFile("texture.jpg");
 
@@ -44,6 +45,7 @@ void TestScene::init()
         auto &transformable = obj->component<sfge::ecs::Transformable>();
         transformable.setPosition({0, 0});
         transformable.setAngle(0.700);
+        transformable.setScale({1, 0.5f});
 
         obj->addComponent<sfge::ecs::RigidBody>();
         obj->addComponent<TestScript>();

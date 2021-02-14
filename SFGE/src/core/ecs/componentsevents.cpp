@@ -1,15 +1,10 @@
 #include "componentsevents.hpp"
 
-#include <utility>
-
+#include "core/ecs/rigidbodyeventscallbacks.hpp"
 #include "sfge/components/renderable.hpp"
-#include "sfge/components/rigidbody.hpp"
-#include "sfge/components/transformable.hpp"
 
 #include "config/configurationmanager.hpp"
 #include "config/physicsconfig.hpp"
-
-#include <iostream>
 
 namespace sfge::ecs
 {
@@ -27,8 +22,8 @@ namespace sfge::ecs
 
         auto renderable = registry.try_get<Renderable>(entity);
         if (renderable) {
-            // The origin must be the same as box2d: in the center of the object
             renderable->shape()->setScale({transform.getScale().x * m_pixelsPerMeter, transform.getScale().y * m_pixelsPerMeter});
+            // The origin must be the same as box2d: in the center of the object
             renderable->shape()->setOrigin(0.5, 0.5);
             renderable->shape()->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
             renderable->shape()->setRotation(transform.getAngleRadians() * 180 / b2_pi);
@@ -56,13 +51,9 @@ namespace sfge::ecs
         const auto &renderable = registry.get<Renderable>(entity);
         auto &transformable = registry.get<Transformable>(entity);
 
+        // Update the shape scale according to the Transformable component
         renderable.shape()->setScale({transformable.getScale().x * m_pixelsPerMeter,
                                       transformable.getScale().y * m_pixelsPerMeter});
-    }
-
-    void RigidbodyEvents::setCreatorFn(std::function<b2Body *(const ecs::RigidBody::Config &)> fn)
-    {
-        m_creatorFn = std::move(fn);
     }
 
     void RigidbodyEvents::created(entt::registry &registry, entt::entity entity) const
@@ -81,28 +72,36 @@ namespace sfge::ecs
         ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
 
         ecs::RigidBody::Config config = rigidBody.config();
-        b2Body *body = load(config, transform.getPosition(), transform.getScale(), transform.getAngleRadians());
+        b2Body *body = load(config, transform);
 
-        // TODO: destroy m_body
+        if (rigidBody.m_body != nullptr) {
+            m_callbacks->deleteBody(rigidBody.m_body);
+        }
         rigidBody.m_body = body;
         rigidBody.m_config = config;
     }
 
-    b2Body *RigidbodyEvents::load(RigidBody::Config &config, const sf::Vector2f &pos,
-                                  const sf::Vector2f &scale, float angle) const
+    b2Body *RigidbodyEvents::load(RigidBody::Config &config, const Transformable &transform) const
     {
+        const sf::Vector2f pos = transform.getPosition();
         config.bodyDef.position.x = pos.x;
         config.bodyDef.position.y = pos.y;
-        config.bodyDef.angle = angle;
+        config.bodyDef.angle = transform.getAngleRadians();
 
+        const sf::Vector2f scale = transform.getScale();
         config.shape.SetAsBox(scale.x / 2.f, scale.y / 2.f);
 
         config.fixtureDef.shape = &config.shape;
         config.fixtureDef.density = 1.0f;
         config.fixtureDef.friction = 0.3f;
 
-        b2Body *body = m_creatorFn(config);
+        b2Body *body = m_callbacks->addBody(config);
         body->CreateFixture(&config.fixtureDef);
         return body;
+    }
+
+    void RigidbodyEvents::setCallbacks(RigidbodyEventsCallbacks *callbacks)
+    {
+        m_callbacks = callbacks;
     }
 }// namespace sfge::ecs

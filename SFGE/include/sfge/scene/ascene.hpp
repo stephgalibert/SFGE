@@ -6,7 +6,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <entt/entt.hpp>
 
+#include <box2d/b2_body.h>
 #include <memory>
+#include <sfge/components/rigidbody.hpp>
 
 namespace sfge
 {

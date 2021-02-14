@@ -14,6 +14,7 @@
 
 namespace sfge
 {
+    /** Private implementation **/
     AScenePrivate::AScenePrivate(AScene *qq)
         : q_ptr(qq)
     {
@@ -29,9 +30,7 @@ namespace sfge
         m_transformableEvents = std::make_unique<ecs::TransformableEvents>();
         m_renderableEvents = std::make_unique<ecs::RenderableEvents>();
         m_rigidbodyEvents = std::make_unique<ecs::RigidbodyEvents>();
-        m_rigidbodyEvents->setCreatorFn([this](const ecs::RigidBody::Config &config) {
-            return m_physicsSystem->createBody(config.bodyDef);
-        });
+        m_rigidbodyEvents->setCallbacks(this);
 
         // Setup components dependencies
         m_registry.on_construct<ecs::Input>().connect<&entt::registry::get_or_emplace<ecs::Scriptable>>();
@@ -45,6 +44,18 @@ namespace sfge
         m_registry.on_update<ecs::RigidBody>().connect<&ecs::RigidbodyEvents::changed>(m_rigidbodyEvents);
         // entt::observer observer(m_registry, entt::collector.update<ecs::Transformable>());
     }
+
+    b2Body *AScenePrivate::addBody(const ecs::RigidBody::Config &config)
+    {
+        return m_physicsSystem->createBody(config.bodyDef);
+    }
+
+    void AScenePrivate::deleteBody(b2Body *body)
+    {
+        m_physicsSystem->destroyBody(body);
+    }
+
+    /** Public API **/
 
     AScene::AScene()
         : AScene(new AScenePrivate(this))

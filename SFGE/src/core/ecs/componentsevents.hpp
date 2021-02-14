@@ -2,6 +2,7 @@
 
 #include "config/physicsconfig.hpp"
 #include "sfge/components/rigidbody.hpp"
+#include "sfge/components/transformable.hpp"
 
 #include <entt/entt.hpp>
 
@@ -31,20 +32,21 @@ namespace sfge::ecs
         float m_pixelsPerMeter;
     };
 
+    struct RigidbodyEventsCallbacks;
+
     class RigidbodyEvents
     {
     public:
-        void setCreatorFn(std::function<b2Body *(const ecs::RigidBody::Config &)> fn);
+        void setCallbacks(RigidbodyEventsCallbacks *callbacks);
 
         void created(entt::registry &registry, entt::entity entity) const;
         void changed(entt::registry &registry, entt::entity entity) const;
 
     private:
         void createConfig(entt::registry &registry, entt::entity entity) const;
-        b2Body *load(RigidBody::Config &config, const sf::Vector2f &pos,
-                     const sf::Vector2f &scale, float angle) const;
+        b2Body *load(RigidBody::Config &config, const Transformable &transform) const;
 
     private:
-        std::function<b2Body *(const ecs::RigidBody::Config &)> m_creatorFn;
+        RigidbodyEventsCallbacks *m_callbacks = nullptr;
     };
 }// namespace sfge::ecs
