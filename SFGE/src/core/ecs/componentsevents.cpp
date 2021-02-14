@@ -21,14 +21,16 @@
 #include "core/ecs/rigidbodyeventscallbacks.hpp"
 #include "sfge/components/renderable.hpp"
 
-#include "config/configurationmanager.hpp"
 #include "config/physicsconfig.hpp"
+#include "services/iconfigurationmanagerservice.h"
+#include "sfge/services/servicelocator.hpp"
 
 namespace sfge::ecs
 {
     TransformableEvents::TransformableEvents()
     {
-        const auto physicsConfig = config::ConfigurationManager::getInstance().getPhysics();
+        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        const auto physicsConfig = config->getPhysics();
         m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
     }
 
@@ -60,7 +62,8 @@ namespace sfge::ecs
 
     RenderableEvents::RenderableEvents()
     {
-        const auto physicsConfig = config::ConfigurationManager::getInstance().getPhysics();
+        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        const auto physicsConfig = config->getPhysics();
         m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
     }
 

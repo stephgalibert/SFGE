@@ -19,14 +19,16 @@
 #include "sfge/baseapplication.hpp"
 #include "baseapplication_p.hpp"
 
+#include "sfge/scene/ascene.hpp"
+#include "sfge/services/itextureloaderservice.h"
+#include "sfge/services/servicelocator.hpp"
+
 #include "config/configurationmanager.hpp"
 #include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
 #include "core/resources/textureloader.hpp"
 #include "core/scene/scenemanager.hpp"
-#include "sfge/scene/ascene.hpp"
-#include "sfge/services/itextureloaderservice.h"
-#include "sfge/services/servicelocator.hpp"
+#include "services/iconfigurationmanagerservice.h"
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -58,12 +60,13 @@ namespace sfge
     {
         PIMPL_D(BaseApplication);
 
+        services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
         services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
 
-        auto &config = config::ConfigurationManager::getInstance();
-        config.load();
+        auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        config->load();
 
-        std::shared_ptr<config::Renderer> rendererConfig = config.getRenderer();
+        std::shared_ptr<config::Renderer> rendererConfig = config->getRenderer();
         const int width = rendererConfig->getValue<int>(config::Renderer::Key::Width);
         const int height = rendererConfig->getValue<int>(config::Renderer::Key::Height);
         const int maxFps = rendererConfig->getValue<int>(config::Renderer::Key::MaxFps);

@@ -23,6 +23,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/spdlog.h>
 
+#include "iostream"
 #include <memory>
 
 namespace sfge
@@ -34,6 +35,11 @@ namespace sfge
         static auto CreateFileSink(const std::string &filename);
 
     public:
+        ~SpdlogLogger()
+        {
+            std::clog << "delete spdlogger" << std::endl;
+        }
+
         bool create(const std::string &category) override;
         bool addLoggingFile(const std::string &filename) override;
         [[nodiscard]] std::string getCategory() const override;

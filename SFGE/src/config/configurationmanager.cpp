@@ -46,12 +46,6 @@ namespace sfge::config
         Logger::RemoveLogger(m_logger);
     }
 
-    ConfigurationManager &ConfigurationManager::getInstance()
-    {
-        static ConfigurationManager instance;
-        return instance;
-    }
-
     void ConfigurationManager::load()
     {
         IniConfig iniFile;
@@ -106,7 +100,6 @@ namespace sfge::config
     {
         return m_rendererConfig;
     }
-
     std::shared_ptr<Physics> ConfigurationManager::getPhysics() const
     {
         return m_physicsConfig;

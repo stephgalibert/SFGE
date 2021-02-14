@@ -48,6 +48,7 @@ namespace sfge
     bool Logger::RemoveLogger(const std::string &category)
     {
         std::unordered_map<std::string, std::shared_ptr<ILogger>> &loggers = getLoggers();
+        std::clog << "remove logger" << std::endl;
         return static_cast<bool>(loggers.erase(category));
     }
 

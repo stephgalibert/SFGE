@@ -20,6 +20,7 @@
 
 #include "iconfiguration.hpp"
 
+#include "services/iconfigurationmanagerservice.h"
 #include "sfge/logger/logger.hpp"
 
 #include <memory>
@@ -28,27 +29,20 @@
 namespace sfge::config
 {
     class IniConfig;
-    class Renderer;
-    class Physics;
-    class Global;
 
     // TODO: Type/Value validator
-    class ConfigurationManager
+    class ConfigurationManager : public services::IConfigurationManagerService
     {
     public:
-        ~ConfigurationManager();
-
-        static ConfigurationManager &getInstance();
-
-        void load();
-        void save();
-
-        [[nodiscard]] std::shared_ptr<Global> getGlobal() const;
-        [[nodiscard]] std::shared_ptr<Renderer> getRenderer() const;
-        [[nodiscard]] std::shared_ptr<Physics> getPhysics() const;
-
-    private:
         ConfigurationManager();
+        virtual ~ConfigurationManager();
+
+        void load() override;
+        void save() override;
+
+        [[nodiscard]] std::shared_ptr<Global> getGlobal() const override;
+        [[nodiscard]] std::shared_ptr<Renderer> getRenderer() const override;
+        [[nodiscard]] std::shared_ptr<Physics> getPhysics() const override;
 
     private:
         std::string m_path;

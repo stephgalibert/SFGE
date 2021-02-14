@@ -19,6 +19,9 @@
 #include "textureloader.hpp"
 #include "textureloader_p.hpp"
 
+#include "services/iconfigurationmanagerservice.h"
+#include "sfge/services/servicelocator.hpp"
+
 #include <cassert>
 
 namespace sfge::resources
@@ -28,10 +31,12 @@ namespace sfge::resources
     {
         m_logger = Logger::CreateLogger("TextureLoader");
 
-        std::shared_ptr<config::Global> globalConfig = config::ConfigurationManager::getInstance().getGlobal();
+        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        const auto globalConfig = config->getGlobal();
+
         m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
 
-        std::shared_ptr<config::Renderer> renderConfig = config::ConfigurationManager::getInstance().getRenderer();
+        const auto renderConfig = config->getRenderer();
         m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
         m_logger->info("Smoothing=" + std::to_string(m_smoothing));
     }
