@@ -18,6 +18,7 @@
 
 #include "configurationmanager.hpp"
 
+#include "globalconfig.hpp"
 #include "physicsconfig.hpp"
 #include "rendererconfig.hpp"
 
@@ -28,14 +29,16 @@ namespace sfge::config
     ConfigurationManager::ConfigurationManager()
         : m_path("config.ini")
     {
-        m_logger = Logger::CreateLogger("ConfigurationManager");
-        m_logger->addLoggingFile("logs/log.txt");
-
+        m_globalConfig = std::make_shared<Global>();
         m_rendererConfig = std::make_shared<Renderer>();
         m_physicsConfig = std::make_shared<Physics>();
 
+        m_configurations.push_back(m_globalConfig);
         m_configurations.push_back(m_rendererConfig);
         m_configurations.push_back(m_physicsConfig);
+
+        m_logger = Logger::CreateLogger("ConfigurationManager");
+        m_logger->addLoggingFile(m_globalConfig->getValue(Global::Key::LoggingFile));
     }
 
     ConfigurationManager::~ConfigurationManager()
@@ -92,6 +95,11 @@ namespace sfge::config
         }
         if (!iniConfig.write(m_path))
             m_logger->warning("Failed to save to " + m_path);
+    }
+
+    std::shared_ptr<Global> ConfigurationManager::getGlobal() const
+    {
+        return m_globalConfig;
     }
 
     std::shared_ptr<Renderer> ConfigurationManager::getRenderer() const

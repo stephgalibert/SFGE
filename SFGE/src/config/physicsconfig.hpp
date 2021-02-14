@@ -31,9 +31,6 @@ namespace sfge::config
         };
 
     public:
-        [[nodiscard]] static const auto &GetDefault();
-
-    public:
         Physics();
 
         void setValue(const std::string &key, const std::string &value) override;

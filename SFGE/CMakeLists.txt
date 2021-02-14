@@ -27,30 +27,32 @@ find_package (spdlog 1.8.2 REQUIRED)
 
 find_package (Boost 1.71 REQUIRED COMPONENTS system)
 
-set (SRCS "src/baseapplication.cpp"
-		"src/logger/logger.cpp"
-		"src/logger/spdloglogger.cpp"
-		"src/config/iniconfig.cpp"
-		"src/config/configurationmanager.cpp"
-		"src/config/rendererconfig.cpp"
-		"src/config/physicsconfig.cpp"
-		"src/core/input/eventprocessor.cpp"
-		"src/core/gameobject/agameobject.cpp"
-		"src/core/scene/scenemanager.cpp"
-		"src/core/scene/ascene.cpp"
-		"src/core/scene/scenegraph.cpp"
-		"src/core/ecs/componentsevents.cpp"
-		"src/core/ecs/systems/rendersystem.cpp"
-		"src/core/ecs/systems/scriptsystem.cpp"
-		"src/core/ecs/systems/inputsystem.cpp"
-		"src/core/ecs/systems/physicssystem.cpp"
-		"src/core/ecs/components/component.cpp"
-		"src/core/ecs/components/transformable.cpp"
-		"src/core/ecs/components/renderable.cpp"
-		"src/core/ecs/components/rigidbody.cpp"
-		"src/core/ecs/components/scriptable.cpp"
-		"src/core/ecs/components/ascript.cpp"
-		"src/core/ecs/components/input.cpp")
+set (SRCS src/baseapplication.cpp
+		src/logger/logger.cpp
+		src/logger/spdloglogger.cpp
+		src/config/iniconfig.cpp
+		src/config/configurationmanager.cpp
+		src/config/rendererconfig.cpp
+		src/config/physicsconfig.cpp
+		src/core/input/eventprocessor.cpp
+		src/core/gameobject/agameobject.cpp
+		src/core/scene/scenemanager.cpp
+		src/core/scene/ascene.cpp
+		src/core/scene/scenegraph.cpp
+		src/core/ecs/componentsevents.cpp
+		src/core/ecs/systems/rendersystem.cpp
+		src/core/ecs/systems/scriptsystem.cpp
+		src/core/ecs/systems/inputsystem.cpp
+		src/core/ecs/systems/physicssystem.cpp
+		src/core/ecs/components/component.cpp
+		src/core/ecs/components/transformable.cpp
+		src/core/ecs/components/renderable.cpp
+		src/core/ecs/components/rigidbody.cpp
+		src/core/ecs/components/scriptable.cpp
+		src/core/ecs/components/ascript.cpp
+		src/core/ecs/components/input.cpp
+		src/core/resource/textureloader.cpp
+		src/config/globalconfig.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

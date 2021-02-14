@@ -18,45 +18,32 @@
 
 #pragma once
 
-#include "iconfiguration.hpp"
-
 #include "sfge/logger/logger.hpp"
 
+#include <SFML/Graphics/Texture.hpp>
+
 #include <memory>
-#include <vector>
+#include <unordered_map>
 
-namespace sfge::config
+namespace sfge::resource
 {
-    class IniConfig;
-    class Renderer;
-    class Physics;
-    class Global;
-
-    // TODO: Type/Value validator
-    class ConfigurationManager
+    class TextureLoader
     {
     public:
-        ~ConfigurationManager();
+        static TextureLoader &GetInstance();
 
-        static ConfigurationManager &getInstance();
+        bool load(const std::string &key, const std::string &path);
+        sf::Texture *getTexture(const std::string &key) const;
 
-        void load();
-        void save();
-
-        [[nodiscard]] std::shared_ptr<Global> getGlobal() const;
-        [[nodiscard]] std::shared_ptr<Renderer> getRenderer() const;
-        [[nodiscard]] std::shared_ptr<Physics> getPhysics() const;
+        void clear();
 
     private:
-        ConfigurationManager();
+        TextureLoader();
 
     private:
-        std::string m_path;
+        bool m_smoothing;
+
         std::shared_ptr<ILogger> m_logger;
-        std::vector<std::shared_ptr<IConfiguration>> m_configurations;
-        std::shared_ptr<Global> m_globalConfig;
-        std::shared_ptr<Renderer> m_rendererConfig;
-        std::shared_ptr<Physics> m_physicsConfig;
+        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
     };
-
-}// namespace sfge::config
+}// namespace sfge::resource

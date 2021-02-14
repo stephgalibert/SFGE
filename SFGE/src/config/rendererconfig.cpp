@@ -27,19 +27,9 @@ namespace sfge::config
                 {{Key::Height}, {"Height"}},
                 {{Key::AntiAliasing}, {"AntiAliasing"}},
                 {{Key::MaxFps}, {"MaxFps"}},
-                {{Key::VSync}, {"VSync"}}};
+                {{Key::VSync}, {"VSync"}},
+                {{Key::TextureSmooth}, {"TextureSmooth"}}};
         return map.at(key);
-    }
-
-    const auto &Renderer::GetDefault()
-    {
-        static const std::unordered_map<std::string, std::string> values = {
-                {{KeyToString(Key::Width)}, {"1280"}},
-                {{KeyToString(Key::Height)}, {"720"}},
-                {{KeyToString(Key::AntiAliasing)}, {"8"}},
-                {{KeyToString(Key::MaxFps)}, {"60"}},
-                {{KeyToString(Key::VSync)}, {"1"}}};
-        return values;
     }
 
     Renderer::Renderer()
@@ -64,7 +54,14 @@ namespace sfge::config
 
     void Renderer::reset()
     {
-        m_values = GetDefault();
+        static const std::unordered_map<std::string, std::string> values = {
+                {{KeyToString(Key::Width)}, {"1280"}},
+                {{KeyToString(Key::Height)}, {"720"}},
+                {{KeyToString(Key::AntiAliasing)}, {"8"}},
+                {{KeyToString(Key::MaxFps)}, {"60"}},
+                {{KeyToString(Key::VSync)}, {"1"}},
+                {{KeyToString(Key::TextureSmooth)}, {"1"}}};
+        m_values = values;
     }
 
     std::string Renderer::getValue(Key key) const

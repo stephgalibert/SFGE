@@ -25,6 +25,7 @@
 #include <sfge/components/rigidbody.hpp>
 #include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
+#include <sfge/textureloader.hpp>
 
 #include <iostream>
 
@@ -39,8 +40,8 @@ void TestScene::init()
     AScene::init();
 
     // TODO: test purpose, remove it
-    static sf::Texture tex;
-    tex.loadFromFile("texture.jpg");
+    sfge::resource::TextureLoader::GetInstance().load("test", "texture.jpg");
+    sf::Texture *texture = sfge::resource::TextureLoader::GetInstance().getTexture("test");
 
     m_logger->info("Init");
     {
@@ -57,7 +58,7 @@ void TestScene::init()
     }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});
-        shape->setTexture(&tex);
+        shape->setTexture(texture);
         auto obj = instantiate<sfge::AGameObject>();
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();

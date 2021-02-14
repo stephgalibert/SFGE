@@ -16,61 +16,61 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "physicsconfig.hpp"
+#include "globalconfig.hpp"
 
 namespace sfge::config
 {
-    std::string Physics::KeyToString(Key key)
+    std::string Global::KeyToString(Key key)
     {
         static const std::unordered_map<Key, std::string> map = {
-                {{Key::PixelsPerMeter}, {"PixelsPerMeter"}}};
+                {{Key::LoggingFile}, {"LoggingFile"}}};
         return map.at(key);
     }
 
-    Physics::Physics()
+    Global::Global()
     {
         reset();
     }
 
-    std::string Physics::getName() const
+    void Global::setValue(const std::string &key, const std::string &value)
     {
-        return "Physics";
     }
 
-    const std::unordered_map<std::string, std::string> &Physics::getKeysValues() const
+    void Global::reset()
+    {
+        static const std::unordered_map<std::string, std::string> values = {
+                {{KeyToString(Key::LoggingFile)}, {"logs/log.txt"}}};
+        m_values = values;
+    }
+
+    std::string Global::getName() const
+    {
+        return "Global";
+    }
+
+    const std::unordered_map<std::string, std::string> &Global::getKeysValues() const
     {
         return m_values;
     }
 
-    void Physics::setValue(const std::string &key, const std::string &value)
-    {
-        m_values[key] = value;
-    }
-
-    void Physics::reset()
-    {
-        static const std::unordered_map<std::string, std::string> values = {
-                {{KeyToString(Key::PixelsPerMeter)}, {"50"}}};
-        m_values = values;
-    }
-
-    std::string Physics::getValue(Key key) const
+    std::string Global::getValue(Key key) const
     {
         return m_values.at(KeyToString(key));
     }
 
-    void Physics::setValue(Key key, int value)
+    void Global::setValue(Key key, int value)
     {
         setValue(KeyToString(key), std::to_string(value));
     }
 
-    void Physics::setValue(Key key, float value)
+    void Global::setValue(Key key, float value)
     {
         setValue(KeyToString(key), std::to_string(value));
     }
 
-    void Physics::setValue(Key key, const std::string &value)
+    void Global::setValue(Key key, const std::string &value)
     {
         setValue(KeyToString(key), value);
     }
+
 }// namespace sfge::config
