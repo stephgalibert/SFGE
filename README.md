@@ -48,6 +48,8 @@ Simple & Fast 2D Game Engine SDK - using SFML
   * Maybe use boost logger instead of spdlogger
 * Documentation
   * Doxygen
+* Engine configuration
+  * Error management
   
 ## Enhancement
 
