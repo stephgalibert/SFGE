@@ -28,7 +28,7 @@
     std::unique_ptr<Cls##Private> d_ptr;                                         \
     inline std::unique_ptr<Cls##Private> &d_func() { return d_ptr; }             \
     inline const std::unique_ptr<Cls##Private> &d_func() const { return d_ptr; } \
-    friend class Cls##Private
+    friend class Cls##Private;
 
 #define PIMPL_DECLARE_PUBLIC(Cls)                      \
     Cls *q_ptr;                                        \

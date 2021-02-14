@@ -34,6 +34,7 @@ set (SRCS src/baseapplication.cpp
 		src/config/configurationmanager.cpp
 		src/config/rendererconfig.cpp
 		src/config/physicsconfig.cpp
+		src/config/globalconfig.cpp
 		src/core/input/eventprocessor.cpp
 		src/core/gameobject/agameobject.cpp
 		src/core/scene/scenemanager.cpp
@@ -51,8 +52,10 @@ set (SRCS src/baseapplication.cpp
 		src/core/ecs/components/scriptable.cpp
 		src/core/ecs/components/ascript.cpp
 		src/core/ecs/components/input.cpp
-		src/core/resource/textureloader.cpp
-		src/config/globalconfig.cpp)
+		src/core/resources/textureloader.cpp
+		src/core/resources/fontloader.cpp
+		src/core/resources/musicloader.cpp
+		src/core/resources/soundloader.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

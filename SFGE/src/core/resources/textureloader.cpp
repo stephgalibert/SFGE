@@ -16,15 +16,13 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/textureloader.hpp"
-
-#include "config/configurationmanager.hpp"
-#include "config/globalconfig.hpp"
-#include "config/rendererconfig.hpp"
+#include "sfge/resources/textureloader.hpp"
+#include "textureloader_p.hpp"
 
 namespace sfge::resource
 {
-    TextureLoader::TextureLoader()
+    TextureLoaderPrivate::TextureLoaderPrivate(TextureLoader *qq)
+        : q_ptr(qq)
     {
         m_logger = Logger::CreateLogger("TextureLoader");
 
@@ -36,6 +34,16 @@ namespace sfge::resource
         m_logger->info("Smoothing=" + std::to_string(m_smoothing));
     }
 
+    TextureLoader::TextureLoader()
+        : TextureLoader(new TextureLoaderPrivate(this))
+    {
+    }
+
+    TextureLoader::TextureLoader(TextureLoaderPrivate *dd)
+        : d_ptr(dd)
+    {
+    }
+
     TextureLoader &TextureLoader::GetInstance()
     {
         static TextureLoader instance;
@@ -44,31 +52,37 @@ namespace sfge::resource
 
     bool TextureLoader::load(const std::string &key, const std::string &path)
     {
-        if (m_textures.find(key) != m_textures.end()) {
-            m_logger->warning(key + " already exists");
+        PIMPL_D(TextureLoader);
+
+        if (d->m_textures.find(key) != d->m_textures.end()) {
+            d->m_logger->warning(key + " already exists");
             return false;
         }
 
         auto texture = std::make_unique<sf::Texture>();
         if (!texture->loadFromFile(path)) {
-            m_logger->warning(path + " unable to load");
+            d->m_logger->warning(path + " unable to load");
             return false;
         }
-        texture->setSmooth(m_smoothing);
-        m_textures.insert({key, std::move(texture)});
-        m_logger->info(key + ": " + path + " loaded");
+        texture->setSmooth(d->m_smoothing);
+        d->m_textures.insert({key, std::move(texture)});
+        d->m_logger->info(key + ": " + path + " loaded");
         return true;
     }
 
     sf::Texture *TextureLoader::getTexture(const std::string &key) const
     {
-        const auto found = m_textures.find(key);
+        const PIMPL_D(TextureLoader);
+
+        const auto found = d->m_textures.find(key);
         return found->second.get();
     }
 
     void TextureLoader::clear()
     {
-        m_logger->info(std::to_string(m_textures.size()) + " textures cleared");
-        m_textures.clear();
+        PIMPL_D(TextureLoader);
+
+        d->m_logger->info(std::to_string(d->m_textures.size()) + " textures cleared");
+        d->m_textures.clear();
     }
 }// namespace sfge::resource

@@ -25,7 +25,7 @@
 #include <sfge/components/rigidbody.hpp>
 #include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
-#include <sfge/textureloader.hpp>
+#include <sfge/resources/textureloader.hpp>
 
 #include <iostream>
 

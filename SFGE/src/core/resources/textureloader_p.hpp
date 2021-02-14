@@ -1,0 +1,43 @@
+//
+// This file is part of SFGE.
+// Copyright (C) 2020-2021 sgalibert (stephane.galibert.perso@outlook.com)
+//
+// SFGE is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SFGE is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SFGE. If not, see <https://www.gnu.org/licenses/>.
+//
+
+#pragma once
+
+#include "sfge/logger/logger.hpp"
+#include "sfge/resources/textureloader.hpp"
+
+#include "config/configurationmanager.hpp"
+#include "config/globalconfig.hpp"
+#include "config/rendererconfig.hpp"
+
+#include <unordered_map>
+
+namespace sfge::resource
+{
+    class TextureLoaderPrivate
+    {
+    public:
+    private:
+        explicit TextureLoaderPrivate(TextureLoader *qq);
+        PIMPL_DECLARE_PUBLIC(TextureLoader);
+
+        bool m_smoothing;
+        std::shared_ptr<ILogger> m_logger;
+        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
+    };
+}// namespace sfge::resource

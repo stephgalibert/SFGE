@@ -18,32 +18,7 @@
 
 #pragma once
 
-#include "sfge/logger/logger.hpp"
-
-#include <SFML/Graphics/Texture.hpp>
-
-#include <memory>
-#include <unordered_map>
-
-namespace sfge::resource
+class SoundLoader
 {
-    class TextureLoader
-    {
-    public:
-        static TextureLoader &GetInstance();
-
-        bool load(const std::string &key, const std::string &path);
-        sf::Texture *getTexture(const std::string &key) const;
-
-        void clear();
-
-    private:
-        TextureLoader();
-
-    private:
-        bool m_smoothing;
-
-        std::shared_ptr<ILogger> m_logger;
-        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
-    };
-}// namespace sfge::resource
+public:
+};
