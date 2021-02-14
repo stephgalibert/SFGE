@@ -46,6 +46,8 @@ Simple & Fast 2D Game Engine SDK - using SFML
   * Refactor (when needed)
   * Improve APIs
   * Maybe use boost logger instead of spdlogger
+* Documentation
+  * Doxygen
   
 ## Enhancement
 
