@@ -6,12 +6,14 @@ Simple & Fast 2D Game Engine SDK - using SFML
 
 ## Dependencies
 
-* [Box2D](https://github.com/erincatto/box2d/tree/v2.4.1)   
-* [Entt](https://github.com/skypjack/entt/tree/v3.6.0)
-* [SFML](https://github.com/SFML/SFML/tree/2.5.1)
-* [Spdlog](https://github.com/gabime/spdlog/tree/v1.8.2)
-* [Boost](https://www.boost.org/users/history/version_1_71_0.html)
-  
+| Name   | Version | Type    | Link |
+| :----: | :----: | :------: | :-----------------------------------------------------: |
+| SFML   | 2.5.1  | Renderer | https://github.com/SFML/SFML/tree/2.5.1                 |
+| Box2D  | v2.4.1 | Physics  | https://github.com/erincatto/box2d/tree/v2.4.1          |
+| Entt   | v3.6.0 | ECS      | https://github.com/skypjack/entt/tree/v3.6.0            |
+| Spdlog | v1.8.2 | Logger   | https://github.com/gabime/spdlog/tree/v1.8.2            |
+| Boost  | 1.71.0 | Utility  | https://www.boost.org/users/history/version_1_71_0.html |
+ 
 ## Build
 
 * `scripts/deps.sh`
@@ -23,43 +25,25 @@ Simple & Fast 2D Game Engine SDK - using SFML
 
 ## TODO before v1.0
 
-* Tests
-* Collisions
-  * Use box2d API
-* Resources
-  * Textures
-  * Audio
-    * Musics
-    * Sounds
-* Rendering
-  * Textures
-  * Shaders
-* GameObjects
-  * Specializations
-    * Lights
-    * Cameras
-  * Management
-    * GetByType
-      * Using templates
-    * GetByName
-* QoL
-  * Refactor (when needed)
-  * Improve APIs
-  * Maybe use boost logger instead of spdlogger
-* Documentation
-  * Doxygen
-* Engine configuration
-  * Error management
+| Feature | Note | Estimated Time |
+| :-----: | ----- | :------------: |
+| Tests   | Unit tests - Library to define | 5d
+| Documentation | With Doxygen | 5d 
+| Collisions | Use box2d API | 1d
+| Resources | Textures, Audio (musics, sounds) | 1d
+| Rendering | Textures, Shaders | 3d
+| GameObjects type | Lights, Camera | 3d
+| GameObjects Management | GetByType (with templates), GetByName | 2d
+| Engine Configuration | Error management | 2d
+| QoL | Improve APIs, Remove useless deps | -
+
   
 ## Enhancement
 
-* Scene Graph
-  * Parenting
-* Joystick
-* Additional modules
-  * Network
-    * Boost ASIO
-    * Generic Protocol over UDP
-    * Protobuf?
-* Generic renderer library
-* Handle different shapes
+| Feature | Note | Estimated Time |
+| :-----: | ----- | :------------: |
+| Scene Graph | Parenting | - |
+| Support Joystick | - | - |
+| Network Module | Generic UDP Protocol | - |
+| Generic Renderer Library | SFML, SDL, ... | - |
+| Handle Different Shapes | Circle, ... | - |
