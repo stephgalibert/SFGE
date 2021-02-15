@@ -35,16 +35,16 @@ Simple & Fast 2D Game Engine SDK - using SFML
 | GameObjects type | Lights, Camera | 3d
 | GameObjects Management | GetByType (with templates), GetByName | 2d
 | Engine Configuration | Error management | 2d
-| GUI | Integreate GUI library | 5d
+| GUI | Integrate GUI library (TGUI?) | 5d
 | QoL | Improve APIs, Remove useless deps | -
 
   
 ## Enhancement
 
-| Feature | Note | Estimated Time |
-| :-----: | ----- | :------------: |
-| Scene Graph | Parenting | - |
-| Support Joystick | - | - |
-| Network Module | Generic UDP Protocol | - |
-| Generic Renderer Library | SFML, SDL, ... | - |
-| Handle Different Shapes | Circle, ... | - |
+| Feature                   | Note                 | Estimated Time |
+| :-----------------------: | -------------------- | :------------: |
+| Scene Graph               | Parenting            | -              |
+| Support Joystick          | -                    | -              |
+| Network Module            | Generic UDP Protocol | -              |
+| Generic Renderer Library  | SFML, SDL, ...       | -              |
+| Handle Different Shapes   | Circle, ...          | -              |
