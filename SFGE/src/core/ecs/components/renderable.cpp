@@ -18,7 +18,7 @@
 
 #include "sfge/components/renderable.hpp"
 
-#include <iostream>
+#include <box2d/b2_common.h>
 
 namespace sfge::ecs
 {
@@ -45,8 +45,34 @@ namespace sfge::ecs
         return m_shape;
     }
 
-    std::unique_ptr<sf::Shape> &Renderable::shape()
+    void Renderable::setOrigin(float x, float y)
     {
-        return m_shape;
+        m_shape->setOrigin({x, y});
+    }
+
+    void Renderable::setPosition(float x, float y)
+    {
+        m_shape->setPosition({x, y});
+    }
+
+    void Renderable::setScale(float x, float y)
+    {
+        m_shape->setScale({x, y});
+    }
+
+    void Renderable::setRotation_RADIANS(float angle)
+    {
+        m_shape->setRotation(angle * 180 / b2_pi);
+    }
+
+    void Renderable::setRotation_DEGREES(float angle)
+    {
+        m_shape->setRotation(angle);
+    }
+
+    void Renderable::setTexture(sf::Texture *texture)
+    {
+        assert(texture);
+        m_shape->setTexture(texture);
     }
 }// namespace sfge::ecs

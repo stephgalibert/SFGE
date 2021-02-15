@@ -22,7 +22,7 @@ namespace sfge::services
 {
     std::unordered_map<size_t, std::shared_ptr<void>> &ServiceLocator::getServices()
     {
-        static std::unordered_map<size_t, std::shared_ptr<void>> services;
+        static std::unordered_map<size_t, std::shared_ptr<void>> services;// const
         return services;
     }
 }// namespace sfge::services

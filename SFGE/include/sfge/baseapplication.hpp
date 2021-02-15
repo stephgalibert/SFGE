@@ -47,5 +47,6 @@ namespace sfge
 
     private:
         [[nodiscard]] bool isRunnable() const;
+        void loadServices();
     };
 }// namespace sfge

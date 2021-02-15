@@ -49,10 +49,6 @@ namespace sfge
         template<typename T, typename... Args>
         T &addComponent(Args &&... args);
 
-        template<typename RigidbodyType>
-        typename std::enable_if_t<std::is_same_v<ecs::RigidBody, RigidbodyType>, RigidbodyType &>
-        addComponent();
-
         template<typename ScriptType>
         typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
         addComponent();

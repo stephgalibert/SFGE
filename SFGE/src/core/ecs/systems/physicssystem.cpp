@@ -21,6 +21,8 @@
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/components/transformable.hpp"
 
+#include "core/ecs/contactlistener.hpp"
+
 #include <box2d/b2_body.h>
 
 namespace sfge::ecs
@@ -28,7 +30,7 @@ namespace sfge::ecs
     PhysicsSystem::PhysicsSystem()
         : m_world({0.0f, 10.0f})
     {
-        // m_world.SetContactListener()
+        m_world.SetContactListener(&m_contactListener);
     }
 
     void PhysicsSystem::update(entt::registry &registry, float dt)

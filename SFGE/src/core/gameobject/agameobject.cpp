@@ -57,7 +57,7 @@ namespace sfge
         return static_cast<uint32_t>(d->m_entity);
     }
 
-    /*** Private methods ***/
+    /*** Public methods ***/
 
     void AGameObject::setEntity(entt::entity entity)
     {

@@ -48,6 +48,16 @@ namespace sfge::ecs
         return *this;
     }
 
+    void Component::attachGameObject(AGameObject *gameObject)
+    {
+        m_gameObject = gameObject;
+    }
+
+    AGameObject *Component::getGameObject() const
+    {
+        return m_gameObject;
+    }
+
     void Component::setRegistry(entt::registry *registry)
     {
         m_registry = registry;
@@ -57,5 +67,4 @@ namespace sfge::ecs
     {
         m_entity = entity;
     }
-
 }// namespace sfge::ecs

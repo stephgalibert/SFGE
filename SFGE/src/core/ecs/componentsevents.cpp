@@ -25,6 +25,8 @@
 #include "services/iconfigurationmanagerservice.h"
 #include "sfge/services/servicelocator.hpp"
 
+#include <iostream>
+
 namespace sfge::ecs
 {
     TransformableEvents::TransformableEvents()
@@ -42,11 +44,11 @@ namespace sfge::ecs
 
         auto renderable = registry.try_get<Renderable>(entity);
         if (renderable) {
-            renderable->shape()->setScale({transform.getScale().x * m_pixelsPerMeter, transform.getScale().y * m_pixelsPerMeter});
+            renderable->setScale(transform.getScale().x * m_pixelsPerMeter, transform.getScale().y * m_pixelsPerMeter);
             // The origin must be the same as box2d: in the center of the object
-            renderable->shape()->setOrigin(0.5, 0.5);
-            renderable->shape()->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
-            renderable->shape()->setRotation(transform.getAngleRadians() * 180 / b2_pi);
+            renderable->setOrigin(0.5, 0.5);
+            renderable->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
+            renderable->setRotation_RADIANS(transform.getAngleRadians());
         }
 
         RigidBody *rigidBody = registry.try_get<RigidBody>(entity);
@@ -69,12 +71,12 @@ namespace sfge::ecs
 
     void RenderableEvents::created(entt::registry &registry, entt::entity entity) const
     {
-        const auto &renderable = registry.get<Renderable>(entity);
+        auto &renderable = registry.get<Renderable>(entity);
         auto &transformable = registry.get<Transformable>(entity);
 
         // Update the shape scale according to the Transformable component
-        renderable.shape()->setScale({transformable.getScale().x * m_pixelsPerMeter,
-                                      transformable.getScale().y * m_pixelsPerMeter});
+        renderable.setScale(transformable.getScale().x * m_pixelsPerMeter,
+                            transformable.getScale().y * m_pixelsPerMeter);
     }
 
     void RigidbodyEvents::created(entt::registry &registry, entt::entity entity) const
@@ -108,6 +110,7 @@ namespace sfge::ecs
         config.bodyDef.position.x = pos.x;
         config.bodyDef.position.y = pos.y;
         config.bodyDef.angle = transform.getAngleRadians();
+        config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(transform.getGameObject());
 
         const sf::Vector2f scale = transform.getScale();
         config.shape.SetAsBox(scale.x / 2.f, scale.y / 2.f);

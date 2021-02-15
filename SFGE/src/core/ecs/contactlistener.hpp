@@ -18,35 +18,16 @@
 
 #pragma once
 
-#include <entt/entt.hpp>
+#include <box2d/b2_world.h>
 
 namespace sfge
 {
-    class AGameObject;
-}
-
-namespace sfge::ecs
-{
-    class Component
+    class ContactListener : public b2ContactListener
     {
     public:
-        Component() = default;
-        Component(const Component &rhs);
-        Component(Component &&rhs) noexcept;
-        ~Component() = default;
-
-        Component &operator=(const Component &o);
-        Component &operator=(Component &&o) noexcept;
-
-        void attachGameObject(AGameObject *gameObject);
-        [[nodiscard]] AGameObject *getGameObject() const;
-
-        void setRegistry(entt::registry *registry);
-        void setEntity(entt::entity entity);
-
-    protected:
-        AGameObject *m_gameObject = nullptr;
-        entt::registry *m_registry = nullptr;
-        entt::entity m_entity = entt::null;
+        void BeginContact(b2Contact *contact) override;
+        void EndContact(b2Contact *contact) override;
+        void PreSolve(b2Contact *contact, const b2Manifold *oldManifold) override;
+        void PostSolve(b2Contact *contact, const b2ContactImpulse *impulse) override;
     };
-}// namespace sfge::ecs
+}// namespace sfge

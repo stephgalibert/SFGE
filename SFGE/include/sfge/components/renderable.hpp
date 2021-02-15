@@ -39,7 +39,13 @@ namespace sfge::ecs
         Renderable &operator=(Renderable &&rhs) noexcept;
 
         [[nodiscard]] const std::unique_ptr<sf::Shape> &shape() const;
-        [[nodiscard]] std::unique_ptr<sf::Shape> &shape();
+
+        void setOrigin(float x, float y);
+        void setPosition(float x, float y);
+        void setScale(float x, float y);
+        void setRotation_RADIANS(float angle);
+        void setRotation_DEGREES(float angle);
+        void setTexture(sf::Texture *texture);
 
     private:
         std::unique_ptr<sf::Shape> m_shape;

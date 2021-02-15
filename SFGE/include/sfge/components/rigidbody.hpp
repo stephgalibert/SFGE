@@ -42,7 +42,6 @@ namespace sfge
 
         public:
             RigidBody() = default;
-            explicit RigidBody(AGameObject *gameObject, Config config = Config());
 
             void setBody(b2Body *body);
             void setConfig(const Config &config);

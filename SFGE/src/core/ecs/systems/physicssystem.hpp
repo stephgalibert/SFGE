@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "core/ecs/contactlistener.hpp"
 #include "isystem.hpp"
 
 #include <box2d/b2_world.h>
@@ -40,5 +41,6 @@ namespace sfge::ecs
 
     private:
         b2World m_world;
+        ContactListener m_contactListener;
     };
 }// namespace sfge::ecs

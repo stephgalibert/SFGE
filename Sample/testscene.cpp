@@ -64,7 +64,6 @@ void TestScene::init()
     }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});
-        shape->setTexture(texture);
         auto obj = instantiate<sfge::AGameObject>();
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();
@@ -80,7 +79,8 @@ void TestScene::init()
         input.setMouseButton(true);
         input.setMouseMove(true);
 
-        obj->addComponent<sfge::ecs::Renderable>(shape);
+        auto &renderable = obj->addComponent<sfge::ecs::Renderable>(shape);
+        renderable.setTexture(texture);
     }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});// 800, 25

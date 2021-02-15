@@ -29,6 +29,7 @@
 #include "core/input/eventprocessor.hpp"
 #include "core/resources/textureloader.hpp"
 #include "core/scene/scenemanager.hpp"
+
 #include "services/iconfigurationmanagerservice.h"
 
 #include <SFML/Graphics.hpp>
@@ -60,10 +61,7 @@ namespace sfge
     bool BaseApplication::init()
     {
         PIMPL_D(BaseApplication);
-
-        services::ServiceLocator::Provide<services::ILoggerService, Logger>();
-        services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
-        services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
+        loadServices();
 
         auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         config->load();
@@ -125,5 +123,12 @@ namespace sfge
             return false;
         }
         return true;
+    }
+
+    void BaseApplication::loadServices()
+    {
+        services::ServiceLocator::Provide<services::ILoggerService, Logger>();
+        services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
+        services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
     }
 }// namespace sfge
