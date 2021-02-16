@@ -75,4 +75,9 @@ namespace sfge::ecs
         assert(texture);
         m_shape->setTexture(texture);
     }
+
+    void Renderable::setColor(const sf::Color &color)
+    {
+        m_shape->setFillColor(color);
+    }
 }// namespace sfge::ecs

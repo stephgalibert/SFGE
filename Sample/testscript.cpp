@@ -17,9 +17,10 @@
 //
 
 #include "testscript.hpp"
-#include "sfge/services/iloggerservice.hpp"
-#include "sfge/services/servicelocator.hpp"
+#include <sfge/components/renderable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
+#include <sfge/services/iloggerservice.hpp>
+#include <sfge/services/servicelocator.hpp>
 
 TestScript::TestScript()
 {
@@ -32,6 +33,18 @@ TestScript::~TestScript()
 {
     auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
     loggerService->removeLogger(m_logger);
+}
+
+void TestScript::onCollisionEnter(sfge::AGameObject *collided)
+{
+    auto &renderable = m_gameObject->component<sfge::ecs::Renderable>();
+    renderable.setColor(sf::Color::Red);
+}
+
+void TestScript::onCollisionExit(sfge::AGameObject *collided)
+{
+    auto &renderable = m_gameObject->component<sfge::ecs::Renderable>();
+    renderable.setColor(sf::Color::White);
 }
 
 void TestScript::onAwake()
@@ -58,13 +71,13 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
     } else if (event.key == sf::Keyboard::Left) {
         rigidbody.body()->ApplyLinearImpulseToCenter({-1, 0}, true);
     } else if (event.key == sf::Keyboard::Up) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, -5}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, -1}, true);
     } else if (event.key == sf::Keyboard::Down) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, 5}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, 1}, true);
     } else if (event.key == sf::Keyboard::D) {
-        rigidbody.body()->ApplyAngularImpulse(0.5, true);
+        rigidbody.body()->ApplyAngularImpulse(0.25, true);
     } else if (event.key == sf::Keyboard::Q) {
-        rigidbody.body()->ApplyAngularImpulse(-0.5, true);
+        rigidbody.body()->ApplyAngularImpulse(-0.25, true);
     } else if (event.key == sf::Keyboard::S) {
         sfge::ecs::RigidBody::Config config;
         config.bodyDef.type = b2_staticBody;

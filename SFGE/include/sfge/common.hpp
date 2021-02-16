@@ -16,33 +16,6 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/components/ascript.hpp"
-#include "sfge/common.hpp"
+#pragma once
 
-namespace sfge::ecs
-{
-    void AScript::attachGameObject(AGameObject *gameObject)
-    {
-        m_gameObject = gameObject;
-    }
-
-    void AScript::onCollisionEnter(AGameObject *collided)
-    {
-        SFGE_UNUSED(collided);
-    }
-
-    void AScript::onCollisionExit(AGameObject *collided)
-    {
-        SFGE_UNUSED(collided);
-    }
-
-    void AScript::onKeyboardEvent(const input::KeyboardEvent &event)
-    {
-        SFGE_UNUSED(event);
-    }
-
-    void AScript::onMouseButtonEvent(const input::MouseButtonEvent &event)
-    {
-        SFGE_UNUSED(event);
-    }
-}// namespace sfge::ecs
+#define SFGE_UNUSED(x) (void) (x)

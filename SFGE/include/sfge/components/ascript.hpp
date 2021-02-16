@@ -36,14 +36,16 @@ namespace sfge::ecs
     public:
         virtual ~AScript() = default;
 
-        // onCollision[...]()
-        // onMouse[...]()
         void attachGameObject(AGameObject *gameObject);
+
+        virtual void onCollisionEnter(AGameObject *collided);
+        virtual void onCollisionExit(AGameObject *collided);
 
         virtual void onAwake() = 0;
         virtual void onUpdate(float dt) = 0;
         virtual void onDestroy() = 0;
 
+        // onMouse[...]()
         virtual void onKeyboardEvent(const input::KeyboardEvent &event);
         virtual void onMouseButtonEvent(const input::MouseButtonEvent &event);
 

@@ -46,6 +46,7 @@ namespace sfge::ecs
         void setRotation_RADIANS(float angle);
         void setRotation_DEGREES(float angle);
         void setTexture(sf::Texture *texture);
+        void setColor(const sf::Color &color);
 
     private:
         std::unique_ptr<sf::Shape> m_shape;

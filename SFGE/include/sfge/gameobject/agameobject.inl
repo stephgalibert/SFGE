@@ -48,7 +48,16 @@ namespace sfge
     typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
     AGameObject::addComponent()
     {
-        auto &scriptable = addComponent<ecs::Scriptable>();
+        entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
+        entt::entity entt = entity();
+        assert(entt != entt::null);
+
+        auto &scriptable = reg->template get_or_emplace<ecs::Scriptable>(entt);
+        scriptable.attachGameObject(this);
+        scriptable.setRegistry(reg);
+        scriptable.setEntity(entt);
+
         auto &script = scriptable.template addScript<ScriptType>();
         script->attachGameObject(this);
         script->onAwake();

@@ -28,6 +28,9 @@ public:
     TestScript();
     virtual ~TestScript();
 
+    void onCollisionEnter(sfge::AGameObject *collided) override;
+    void onCollisionExit(sfge::AGameObject *collided) override;
+
     void onKeyboardEvent(const sfge::input::KeyboardEvent &event) override;
 
     void onAwake() override;

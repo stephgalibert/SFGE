@@ -146,7 +146,11 @@ namespace sfge
         PIMPL_D(AScene);
         obj->setScene(this);
         obj->setComponentRegistry(&d->m_registry);
+
+        // Create default components
         obj->addComponent<ecs::Transformable>();
+        obj->addComponent<ecs::Scriptable>();
+
         d->m_graph->insert(obj);
         obj->onCreated();
     }

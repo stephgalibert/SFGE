@@ -25,6 +25,20 @@ namespace sfge::ecs
         destroy();
     }
 
+    void Scriptable::onCollisionEnter(AGameObject *collided)
+    {
+        for (const auto &script : m_scripts) {
+            script->onCollisionEnter(collided);
+        }
+    }
+
+    void Scriptable::onCollisionExit(AGameObject *collided)
+    {
+        for (const auto &script : m_scripts) {
+            script->onCollisionExit(collided);
+        }
+    }
+
     void Scriptable::update(float dt)
     {
         for (const auto &script : m_scripts) {

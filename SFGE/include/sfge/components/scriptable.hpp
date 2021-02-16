@@ -44,6 +44,9 @@ namespace sfge::ecs
         Scriptable &operator=(const Scriptable &rhs) = default;
         Scriptable &operator=(Scriptable &&rhs) noexcept = default;
 
+        void onCollisionEnter(AGameObject *collided);
+        void onCollisionExit(AGameObject *collided);
+
         void update(float dt);
         void destroy();
 

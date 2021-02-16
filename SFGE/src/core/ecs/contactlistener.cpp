@@ -17,6 +17,7 @@
 //
 
 #include "contactlistener.hpp"
+#include "sfge/components/scriptable.hpp"
 #include "sfge/gameobject/agameobject.hpp"
 
 #include <box2d/b2_contact.h>
@@ -27,26 +28,38 @@ namespace sfge
 {
     void ContactListener::BeginContact(b2Contact *contact)
     {
-        b2ContactListener::BeginContact(contact);
         b2Fixture *a = contact->GetFixtureA();
         b2Fixture *b = contact->GetFixtureB();
 
         auto obj1 = reinterpret_cast<AGameObject *>(a->GetBody()->GetUserData().pointer);
         auto obj2 = reinterpret_cast<AGameObject *>(b->GetBody()->GetUserData().pointer);
 
-        std::clog << "a: " << obj1->getId() << std::endl;
-        std::clog << "b: " << obj2->getId() << std::endl;
+        auto &scriptable1 = obj1->component<ecs::Scriptable>();
+        scriptable1.onCollisionEnter(obj2);
+
+        auto &scriptable2 = obj2->component<ecs::Scriptable>();
+        scriptable2.onCollisionEnter(obj1);
     }
     void ContactListener::EndContact(b2Contact *contact)
     {
-        b2ContactListener::EndContact(contact);
+        b2Fixture *a = contact->GetFixtureA();
+        b2Fixture *b = contact->GetFixtureB();
+
+        auto obj1 = reinterpret_cast<AGameObject *>(a->GetBody()->GetUserData().pointer);
+        auto obj2 = reinterpret_cast<AGameObject *>(b->GetBody()->GetUserData().pointer);
+
+        auto &scriptable1 = obj1->component<ecs::Scriptable>();
+        scriptable1.onCollisionExit(obj2);
+
+        auto &scriptable2 = obj2->component<ecs::Scriptable>();
+        scriptable2.onCollisionExit(obj1);
     }
     void ContactListener::PreSolve(b2Contact *contact, const b2Manifold *oldManifold)
     {
-        b2ContactListener::PreSolve(contact, oldManifold);
+        // TBD
     }
     void ContactListener::PostSolve(b2Contact *contact, const b2ContactImpulse *impulse)
     {
-        b2ContactListener::PostSolve(contact, impulse);
+        // TBD
     }
 }// namespace sfge
