@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "component.hpp"
+#include "sfge/components/interfaces/component.hpp"
 
 #include <SFML/Graphics.hpp>
 

@@ -30,7 +30,7 @@
 #include "sfge/components/scriptable.hpp"
 #include "sfge/components/transformable.hpp"
 
-#include "core/ecs/componentsevents.hpp"
+#include "core/ecs/events/componentsevents.hpp"
 
 namespace sfge
 {

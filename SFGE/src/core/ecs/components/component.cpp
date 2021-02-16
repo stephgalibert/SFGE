@@ -16,7 +16,7 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/components/component.hpp"
+#include "sfge/components/interfaces/component.hpp"
 
 namespace sfge::ecs
 {

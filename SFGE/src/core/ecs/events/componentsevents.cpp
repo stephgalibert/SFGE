@@ -18,7 +18,7 @@
 
 #include "componentsevents.hpp"
 
-#include "core/ecs/rigidbodyeventscallbacks.hpp"
+#include "rigidbodyeventscallbacks.hpp"
 #include "sfge/components/renderable.hpp"
 
 #include "config/physicsconfig.hpp"
@@ -74,9 +74,15 @@ namespace sfge::ecs
         auto &renderable = registry.get<Renderable>(entity);
         auto &transformable = registry.get<Transformable>(entity);
 
-        // Update the shape scale according to the Transformable component
         renderable.setScale(transformable.getScale().x * m_pixelsPerMeter,
                             transformable.getScale().y * m_pixelsPerMeter);
+
+        renderable.setOrigin(0.5, 0.5);
+
+        renderable.setPosition(transformable.getPosition().x * m_pixelsPerMeter,
+                               transformable.getPosition().y * m_pixelsPerMeter);
+
+        renderable.setRotation_RADIANS(transformable.getAngleRadians());
     }
 
     void RigidbodyEvents::created(entt::registry &registry, entt::entity entity) const

@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include "core/ecs/componentsevents.hpp"
-#include "core/ecs/rigidbodyeventscallbacks.hpp"
+#include "core/ecs/events/componentsevents.hpp"
+#include "core/ecs/events/rigidbodyeventscallbacks.hpp"
 #include "core/ecs/systems/inputsystem.hpp"
 #include "core/ecs/systems/physicssystem.hpp"
 #include "core/ecs/systems/rendersystem.hpp"

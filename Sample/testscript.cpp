@@ -22,6 +22,9 @@
 #include <sfge/services/iloggerservice.hpp>
 #include <sfge/services/servicelocator.hpp>
 
+#include <sfge/services/itextureloaderservice.h>
+#include <sfge/services/servicelocator.hpp>
+
 TestScript::TestScript()
 {
     auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
@@ -54,6 +57,7 @@ void TestScript::onAwake()
 
 void TestScript::onUpdate(float dt)
 {
+    // TODO: we should be able to call instanciate<AGameObject>()
 }
 
 void TestScript::onDestroy()
@@ -65,23 +69,43 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
 {
     assert(m_gameObject);
     auto &rigidbody = m_gameObject->component<sfge::ecs::RigidBody>();
+    auto &transformable = m_gameObject->component<sfge::ecs::Transformable>();
 
     if (event.key == sf::Keyboard::Right) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({1, 0}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({3, 0}, true);
     } else if (event.key == sf::Keyboard::Left) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({-1, 0}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({-3, 0}, true);
     } else if (event.key == sf::Keyboard::Up) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, -1}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, -3}, true);
     } else if (event.key == sf::Keyboard::Down) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, 1}, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, 3}, true);
     } else if (event.key == sf::Keyboard::D) {
-        rigidbody.body()->ApplyAngularImpulse(0.25, true);
+        rigidbody.body()->ApplyAngularImpulse(0.75, true);
     } else if (event.key == sf::Keyboard::Q) {
-        rigidbody.body()->ApplyAngularImpulse(-0.25, true);
+        rigidbody.body()->ApplyAngularImpulse(-0.75, true);
     } else if (event.key == sf::Keyboard::S) {
         sfge::ecs::RigidBody::Config config;
         config.bodyDef.type = b2_staticBody;
         rigidbody.setConfig(config);
+    } else if (event.key == sf::Keyboard::N) {
+        static int i = 0;
+        if (i > 2) return;
+        ++i;
+
+        auto textureService = sfge::services::ServiceLocator::Get<sfge::services::ITextureLoaderService>();
+        sf::Texture *texture = textureService->getTexture("test");
+
+        sf::Shape *shape = new sf::RectangleShape({1, 1});
+        shape->setTexture(texture);
+
+        auto obj = m_gameObject->instantiate<sfge::AGameObject>();
+
+        auto &t = obj->component<sfge::ecs::Transformable>();
+        t.setPosition(transformable.getPosition());
+        t.setAngle(transformable.getAngleRadians());
+        t.setScale(transformable.getScale());
+
+        obj->addComponent<sfge::ecs::Renderable>(shape);
     } else {
         auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
         if (transform.getPosition().y > 6) {

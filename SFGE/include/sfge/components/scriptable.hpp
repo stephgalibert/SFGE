@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include "component.hpp"
+#include "sfge/components/interfaces/component.hpp"
 
-#include "sfge/components/ascript.hpp"
+#include "sfge/components/interfaces/ascript.hpp"
 
 #include <memory>
 #include <vector>

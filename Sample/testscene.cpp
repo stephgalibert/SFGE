@@ -51,7 +51,7 @@ void TestScene::init()
 
     m_logger->info("Init");
     {
-        sf::Shape *shape = new sf::RectangleShape({1, 1});// 50, 50
+        sf::Shape *shape = new sf::RectangleShape({1, 1});
         shape->setFillColor(sf::Color::Green);
         auto obj = instantiate<sfge::AGameObject>();
 
@@ -68,8 +68,8 @@ void TestScene::init()
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();
         transformable.setPosition({0, 0});
-        transformable.setAngle(0.700);
-        transformable.setScale({1, 0.5f});
+        transformable.setAngle(0.00);
+        transformable.setScale({1.80f, 1.80f});
 
         obj->addComponent<sfge::ecs::RigidBody>();
         obj->addComponent<TestScript>();
@@ -83,13 +83,13 @@ void TestScene::init()
         renderable.setTexture(texture);
     }
     {
-        sf::Shape *shape = new sf::RectangleShape({1, 1});// 800, 25
+        sf::Shape *shape = new sf::RectangleShape({1, 1});
         shape->setFillColor(sf::Color::Red);
         auto obj = instantiate<sfge::AGameObject>();
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();
-        transformable.setPosition({-1, 3});
-        transformable.setScale({10, 0.2f});
+        transformable.setPosition({0, 3});
+        transformable.setScale({20, 0.2f});
 
         obj->addComponent<sfge::ecs::Renderable>(shape);
 

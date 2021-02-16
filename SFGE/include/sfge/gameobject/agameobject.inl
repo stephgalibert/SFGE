@@ -16,6 +16,7 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include "sfge/components/interfaces/ascript.hpp"
 #include "sfge/components/scriptable.hpp"
 #include "sfge/scene/ascene.hpp"
 

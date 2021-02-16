@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/ascript.hpp"
+#include "sfge/components/interfaces/ascript.hpp"
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/pimpl.hpp"
 

@@ -21,7 +21,7 @@
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/components/transformable.hpp"
 
-#include "core/ecs/contactlistener.hpp"
+#include "core/collisions/contactlistener.hpp"
 
 #include <box2d/b2_body.h>
 

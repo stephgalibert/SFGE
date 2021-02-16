@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <sfge/components/ascript.hpp>
+#include <sfge/components/interfaces/ascript.hpp>
 #include <sfge/event.hpp>
 #include <sfge/logger/logger.hpp>
 

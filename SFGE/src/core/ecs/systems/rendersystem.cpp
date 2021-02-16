@@ -40,6 +40,7 @@ namespace sfge::ecs
         auto view = registry.view<const ecs::Renderable>();
         for (const auto entity : view) {
             const auto &renderable = view.get<const ecs::Renderable>(entity);
+            auto pos = renderable.shape()->getPosition();
             m_renderTarget->draw(*renderable.shape());
         }
     }

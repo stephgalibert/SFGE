@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "core/ecs/contactlistener.hpp"
+#include "core/collisions/contactlistener.hpp"
 #include "isystem.hpp"
 
 #include <box2d/b2_world.h>
