@@ -32,6 +32,7 @@ Simple & Fast 2D Game Engine SDK - using SFML
 | Collisions | Use box2d API | 1d
 | Resources | Textures, Audio (musics, sounds) | 1d
 | Rendering | Textures, Shaders | 3d
+| Handle different shapes | Circle, complex, ... | 3d
 | GameObjects type | Lights, Camera | 3d
 | GameObjects Management | GetByType (with templates), GetByName | 2d
 | Engine Configuration | Error management | 2d
@@ -47,4 +48,3 @@ Simple & Fast 2D Game Engine SDK - using SFML
 | Support Joystick          | -                    | -              |
 | Network Module            | Generic UDP Protocol | -              |
 | Generic Renderer Library  | SFML, SDL, ...       | -              |
-| Handle Different Shapes   | Circle, ...          | -              |
