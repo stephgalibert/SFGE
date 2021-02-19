@@ -27,6 +27,7 @@
 #include "config/configurationmanager.hpp"
 #include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
+#include "core/renderer/mainrenderer.hpp"
 #include "core/resources/textureloader.hpp"
 #include "core/scene/scenemanager.hpp"
 
@@ -60,23 +61,7 @@ namespace sfge
 
     bool BaseApplication::init()
     {
-        PIMPL_D(BaseApplication);
         loadServices();
-
-        auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
-        config->load();
-
-        std::shared_ptr<config::Renderer> rendererConfig = config->getRenderer();
-        const int width = rendererConfig->getValue<int>(config::Renderer::Key::Width);
-        const int height = rendererConfig->getValue<int>(config::Renderer::Key::Height);
-        const int maxFps = rendererConfig->getValue<int>(config::Renderer::Key::MaxFps);
-        const bool vsync = rendererConfig->getValue<bool>(config::Renderer::Key::VSync);
-
-        d->m_window.create(sf::VideoMode(width, height), "SFML works!");
-        d->m_window.setFramerateLimit(maxFps);
-        d->m_window.setVerticalSyncEnabled(vsync);
-
-        d->m_sceneManager->setRenderTarget(d->m_window);
         return true;
     }
 
@@ -85,16 +70,19 @@ namespace sfge
         if (!isRunnable())
             return -1;
 
+        auto mainRenderer = services::ServiceLocator::Get<services::IMainRendererService>();
+        std::unique_ptr<sf::RenderWindow> &window = mainRenderer->mainRenderer();
+
         sf::Clock clock;
         PIMPL_D(BaseApplication);
-        while (d->m_window.isOpen()) {
+        while (window->isOpen()) {
             float dt = clock.restart().asSeconds();
 
             // 1. Retrieve and process input(s)
             sf::Event event{};
-            while (d->m_window.pollEvent(event)) {
+            while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
-                    d->m_window.close();
+                    window->close();
                 d->m_eventProcessor->process(event);
             }
 
@@ -102,9 +90,9 @@ namespace sfge
             d->m_sceneManager->update(dt);
 
             // 3. Draw
-            d->m_window.clear();
+            window->clear();
             d->m_sceneManager->draw();
-            d->m_window.display();
+            window->display();
         }
         return 0;
     }
@@ -128,7 +116,12 @@ namespace sfge
     void BaseApplication::loadServices()
     {
         services::ServiceLocator::Provide<services::ILoggerService, Logger>();
-        services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
-        services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
+        auto configManager = services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
+        auto mainRenderer = services::ServiceLocator::Provide<services::IMainRendererService, renderer::MainRenderer>();
+        auto textureLoader = services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
+
+        configManager->load();
+        mainRenderer->init();
+        textureLoader->init();
     }
 }// namespace sfge

@@ -47,8 +47,6 @@ namespace sfge
 
         virtual void init();
 
-        void setRenderTarget(sf::RenderTarget *target);
-
         void destroy();
         void onKeyboardEvent(const input::KeyboardEvent &event);
         void onMouseButtonEvent(const input::MouseButtonEvent &event);

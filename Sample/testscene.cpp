@@ -20,13 +20,16 @@
 
 #include "testscript.hpp"
 
+#include <sfge/components/camera.hpp>
 #include <sfge/components/input.hpp>
 #include <sfge/components/renderable.hpp>
 #include <sfge/components/rigidbody.hpp>
 #include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
+#include <sfge/gameobject/camera.hpp>
 
-#include "sfge/services/iloggerservice.hpp"
+#include <sfge/services/iloggerservice.hpp>
+#include <sfge/services/imainrendererservice.hpp>
 #include <sfge/services/itextureloaderservice.h>
 #include <sfge/services/servicelocator.hpp>
 
@@ -50,6 +53,16 @@ void TestScene::init()
     sf::Texture *texture = textureService->getTexture("test");
 
     m_logger->info("Init");
+    {
+        auto mainRenderer = sfge::services::ServiceLocator::Get<sfge::services::IMainRendererService>();
+        auto obj = instantiate<sfge::gameobjects::Camera>();
+        auto &camera = obj->component<sfge::ecs::Camera>();
+
+        camera.setRenderTarget(mainRenderer->mainRenderer().get());
+        camera.setSize(1280, 720);
+        camera.setCenter(0, 0);
+        camera.setActive(true);
+    }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});
         shape->setFillColor(sf::Color::Green);

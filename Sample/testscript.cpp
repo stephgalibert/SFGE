@@ -71,19 +71,19 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
     auto &rigidbody = m_gameObject->component<sfge::ecs::RigidBody>();
     auto &transformable = m_gameObject->component<sfge::ecs::Transformable>();
 
-    if (event.key == sf::Keyboard::Right) {
+    if (event.key == sf::Keyboard::D) {
         rigidbody.body()->ApplyLinearImpulseToCenter({3, 0}, true);
-    } else if (event.key == sf::Keyboard::Left) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({-3, 0}, true);
-    } else if (event.key == sf::Keyboard::Up) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, -3}, true);
-    } else if (event.key == sf::Keyboard::Down) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, 3}, true);
-    } else if (event.key == sf::Keyboard::D) {
-        rigidbody.body()->ApplyAngularImpulse(0.75, true);
     } else if (event.key == sf::Keyboard::Q) {
-        rigidbody.body()->ApplyAngularImpulse(-0.75, true);
+        rigidbody.body()->ApplyLinearImpulseToCenter({-3, 0}, true);
+    } else if (event.key == sf::Keyboard::Z) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, -3}, true);
     } else if (event.key == sf::Keyboard::S) {
+        rigidbody.body()->ApplyLinearImpulseToCenter({0, 3}, true);
+    } else if (event.key == sf::Keyboard::E) {
+        rigidbody.body()->ApplyAngularImpulse(0.75, true);
+    } else if (event.key == sf::Keyboard::A) {
+        rigidbody.body()->ApplyAngularImpulse(-0.75, true);
+    } else if (event.key == sf::Keyboard::H) {
         sfge::ecs::RigidBody::Config config;
         config.bodyDef.type = b2_staticBody;
         rigidbody.setConfig(config);

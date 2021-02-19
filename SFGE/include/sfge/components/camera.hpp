@@ -16,32 +16,32 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "rendersystem.hpp"
+#pragma once
 
-#include "sfge/components/renderable.hpp"
-#include "sfge/components/transformable.hpp"
+#include "sfge/components/interfaces/component.hpp"
+
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/View.hpp>
 
 namespace sfge::ecs
 {
-    RenderSystem::RenderSystem()
+    class Camera : public Component
     {
-        m_view.setSize(1280, 720);
-        m_view.setCenter(0, 0);
-    }
+    public:
+        void setRenderTarget(sf::RenderTarget *target);
+        void setViewport(const sf::FloatRect &rect);
+        void setSize(float x, float y);
+        void setCenter(float x, float y);
+        void setRotation(float degree);
+        void setActive(bool value);
 
-    void RenderSystem::setRenderTarget(sf::RenderTarget *target)
-    {
-        m_renderTarget = target;
-        m_renderTarget->setView(m_view);
-    }
+        [[nodiscard]] bool isActive() const;
+        [[nodiscard]] const sf::View &getView() const;
+        [[nodiscard]] sf::RenderTarget *getRenderTarget() const;
 
-    void RenderSystem::update(entt::registry &registry, float dt)
-    {
-        auto view = registry.view<const ecs::Renderable>();
-        for (const auto entity : view) {
-            const auto &renderable = view.get<const ecs::Renderable>(entity);
-            auto pos = renderable.shape()->getPosition();
-            m_renderTarget->draw(*renderable.shape());
-        }
-    }
+    private:
+        sf::RenderTarget *m_renderTarget = nullptr;
+        sf::View m_view;
+        bool m_active;
+    };
 }// namespace sfge::ecs

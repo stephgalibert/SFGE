@@ -44,7 +44,7 @@ namespace sfge
         m_logger->addLoggingFile("logs/log.txt");
 
         m_graph = std::make_unique<SceneGraph>();
-        m_renderSystem = std::make_unique<ecs::RenderSystem>();
+        m_renderSystem = std::make_unique<ecs::CameraSystem>();
         m_physicsSystem = std::make_unique<ecs::PhysicsSystem>();
         m_scriptSystem = std::make_unique<ecs::ScriptSystem>();
         m_inputSystem = std::make_unique<ecs::InputSystem>();
@@ -100,12 +100,6 @@ namespace sfge
     {
         PIMPL_D(AScene);
         d->m_logger->info("Init");
-    }
-
-    void AScene::setRenderTarget(sf::RenderTarget *target)
-    {
-        PIMPL_D(AScene);
-        d->m_renderSystem->setRenderTarget(target);
     }
 
     void AScene::destroy()

@@ -20,9 +20,9 @@
 
 #include "core/ecs/events/componentsevents.hpp"
 #include "core/ecs/events/rigidbodyeventscallbacks.hpp"
+#include "core/ecs/systems/camerasystem.hpp"
 #include "core/ecs/systems/inputsystem.hpp"
 #include "core/ecs/systems/physicssystem.hpp"
-#include "core/ecs/systems/rendersystem.hpp"
 #include "core/ecs/systems/scriptsystem.hpp"
 #include "scenegraph.hpp"
 #include "sfge/logger/logger.hpp"
@@ -48,7 +48,7 @@ namespace sfge
         std::unique_ptr<SceneGraph> m_graph;
 
         // TODO: encapsulate systems
-        std::unique_ptr<ecs::RenderSystem> m_renderSystem;
+        std::unique_ptr<ecs::CameraSystem> m_renderSystem;
         std::unique_ptr<ecs::PhysicsSystem> m_physicsSystem;
         std::unique_ptr<ecs::ScriptSystem> m_scriptSystem;
         std::unique_ptr<ecs::InputSystem> m_inputSystem;

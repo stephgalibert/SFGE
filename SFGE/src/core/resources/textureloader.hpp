@@ -35,7 +35,7 @@ namespace sfge::resources
 
         bool load(const std::string &key, const std::string &path) override;
         void clear() override;
-
+        bool init() override;
         [[nodiscard]] sf::Texture *getTexture(const std::string &key) const override;
 
     private:

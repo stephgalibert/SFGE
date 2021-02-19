@@ -30,18 +30,6 @@ namespace sfge::resources
     TextureLoaderPrivate::TextureLoaderPrivate(TextureLoader *qq)
         : q_ptr(qq)
     {
-        // TODO: init method
-        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("TextureLoader");
-
-        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
-        const auto globalConfig = config->getGlobal();
-
-        m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
-
-        const auto renderConfig = config->getRenderer();
-        m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
-        m_logger->info("Smoothing=" + std::to_string(m_smoothing));
     }
 
     TextureLoader::TextureLoader()
@@ -58,9 +46,28 @@ namespace sfge::resources
     {
     }
 
+    bool TextureLoader::init()
+    {
+        PIMPL_D(TextureLoader);
+
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        d->m_logger = loggerService->createLogger("TextureLoader");
+
+        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        const auto globalConfig = config->getGlobal();
+
+        d->m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
+
+        const auto renderConfig = config->getRenderer();
+        d->m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
+        d->m_logger->info("Smoothing=" + std::to_string(d->m_smoothing));
+        return false;
+    }
+
     bool TextureLoader::load(const std::string &key, const std::string &path)
     {
         PIMPL_D(TextureLoader);
+        assert(d->m_logger != nullptr);
 
         if (d->m_textures.find(key) != d->m_textures.end()) {
             d->m_logger->warning(key + " already exists");

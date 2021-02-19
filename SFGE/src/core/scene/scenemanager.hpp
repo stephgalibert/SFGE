@@ -31,8 +31,6 @@ namespace sfge
     class SceneManager : public input::EventListener
     {
     public:
-        void setRenderTarget(sf::RenderTarget &target);
-
         void onWindowClosing() override;
         void onKeyboardEvent(const input::KeyboardEvent &event) override;
         void onMouseButtonEvent(const input::MouseButtonEvent &event) override;

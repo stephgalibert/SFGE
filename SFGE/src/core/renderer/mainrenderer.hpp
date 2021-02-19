@@ -18,27 +18,21 @@
 
 #pragma once
 
-#include "sfge/baseapplication.hpp"
+#include "sfge/services/imainrendererservice.hpp"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
-namespace sfge
+#include <iostream>
+
+namespace sfge::renderer
 {
-    namespace input
-    {
-        class EventProcessor;
-    }
-    class SceneManager;
-
-    class BaseApplicationPrivate
+    class MainRenderer : public services::IMainRendererService
     {
     public:
-    private:
-        explicit BaseApplicationPrivate(BaseApplication *qq);
-        PIMPL_DECLARE_PUBLIC(BaseApplication);
+        bool init() override;
+        [[nodiscard]] std::unique_ptr<sf::RenderWindow> &mainRenderer() override;
 
-        std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<input::EventProcessor> m_eventProcessor;
-        // sf::RenderWindow m_window;
+    private:
+        std::unique_ptr<sf::RenderWindow> m_window;
     };
-}// namespace sfge
+}// namespace sfge::renderer

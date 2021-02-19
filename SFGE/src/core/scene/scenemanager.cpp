@@ -24,13 +24,6 @@
 
 namespace sfge
 {
-    void SceneManager::setRenderTarget(sf::RenderTarget &target)
-    {
-        m_renderTarget = &target;
-        if (m_currentScene)
-            m_currentScene->setRenderTarget(m_renderTarget);
-    }
-
     void SceneManager::onWindowClosing()
     {
         m_currentScene->destroy();
@@ -61,7 +54,6 @@ namespace sfge
         // TODO: push into a build queue and only then, set m_currentScene
         m_currentScene = std::move(scene);
         m_currentScene->init();
-        m_currentScene->setRenderTarget(m_renderTarget);
     }
 
     const std::unique_ptr<AScene> &SceneManager::scene() const

@@ -19,14 +19,15 @@
 namespace sfge::services
 {
     template<typename InterfaceT, typename ServiceT>
-    typename std::enable_if_t<std::is_base_of_v<InterfaceT, ServiceT>>
+    typename std::enable_if_t<std::is_base_of_v<InterfaceT, ServiceT>, std::shared_ptr<InterfaceT>>
     ServiceLocator::Provide()
     {
         auto &services = getServices();
         const std::size_t id = typeid(InterfaceT).hash_code();
         assert(services.find(id) == services.end());
-        std::shared_ptr<void> instance = std::make_shared<ServiceT>();
+        std::shared_ptr<InterfaceT> instance = std::make_shared<ServiceT>();
         services.template insert(std::make_pair(id, instance));
+        return instance;
     }
 
     template<typename ServiceT>

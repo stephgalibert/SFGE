@@ -16,29 +16,16 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "sfge/gameobject/camera.hpp"
+#include "sfge/components/camera.hpp"
 
-#include "sfge/baseapplication.hpp"
-
-#include <SFML/Graphics.hpp>
-
-namespace sfge
+namespace sfge::gameobjects
 {
-    namespace input
+    void Camera::onCreated()
     {
-        class EventProcessor;
+        addComponent<sfge::ecs::Camera>();
     }
-    class SceneManager;
-
-    class BaseApplicationPrivate
+    void Camera::onDestroyed()
     {
-    public:
-    private:
-        explicit BaseApplicationPrivate(BaseApplication *qq);
-        PIMPL_DECLARE_PUBLIC(BaseApplication);
-
-        std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<input::EventProcessor> m_eventProcessor;
-        // sf::RenderWindow m_window;
-    };
-}// namespace sfge
+    }
+}// namespace sfge::gameobjects

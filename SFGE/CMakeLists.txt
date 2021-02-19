@@ -35,7 +35,7 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/core/input/eventprocessor.cpp 			src/core/gameobject/agameobject.cpp
 		src/core/scene/scenemanager.cpp				src/core/scene/ascene.cpp
 		src/core/scene/scenegraph.cpp 				src/core/ecs/events/componentsevents.cpp
-		src/core/ecs/systems/rendersystem.cpp		src/core/ecs/systems/scriptsystem.cpp
+        src/core/ecs/systems/camerasystem.cpp src/core/ecs/systems/scriptsystem.cpp
 		src/core/ecs/systems/inputsystem.cpp		src/core/ecs/systems/physicssystem.cpp
 		src/core/ecs/components/component.cpp		src/core/ecs/components/transformable.cpp
 		src/core/ecs/components/renderable.cpp 		src/core/ecs/components/rigidbody.cpp
@@ -43,7 +43,8 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/core/ecs/components/input.cpp 			src/core/resources/textureloader.cpp
 		src/core/resources/fontloader.cpp 			src/core/resources/musicloader.cpp
 		src/core/resources/soundloader.cpp 			src/services/servicelocator.cpp
-		)
+		src/core/ecs/components/camera.cpp 			src/core/renderer/mainrenderer.cpp
+		src/core/gameobject/camera.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

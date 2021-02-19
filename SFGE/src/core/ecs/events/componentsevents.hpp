@@ -22,10 +22,8 @@
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/components/transformable.hpp"
 
-#include <entt/entt.hpp>
-
 #include <SFML/Graphics.hpp>
-
+#include <entt/entt.hpp>
 #include <functional>
 
 namespace sfge::ecs

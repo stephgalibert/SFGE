@@ -18,27 +18,14 @@
 
 #pragma once
 
-#include "sfge/baseapplication.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 
-#include <SFML/Graphics.hpp>
-
-namespace sfge
+namespace sfge::gameobjects
 {
-    namespace input
-    {
-        class EventProcessor;
-    }
-    class SceneManager;
-
-    class BaseApplicationPrivate
+    class Camera : public AGameObject
     {
     public:
-    private:
-        explicit BaseApplicationPrivate(BaseApplication *qq);
-        PIMPL_DECLARE_PUBLIC(BaseApplication);
-
-        std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<input::EventProcessor> m_eventProcessor;
-        // sf::RenderWindow m_window;
+        void onCreated() override;
+        void onDestroyed() override;
     };
-}// namespace sfge
+}// namespace sfge::gameobjects

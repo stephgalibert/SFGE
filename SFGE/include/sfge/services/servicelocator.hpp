@@ -31,7 +31,7 @@ namespace sfge::services
 
     public:
         template<typename T, typename U>
-        static typename std::enable_if_t<std::is_base_of_v<T, U>>
+        static typename std::enable_if_t<std::is_base_of_v<T, U>, std::shared_ptr<T>>
         Provide();
 
         template<typename T>

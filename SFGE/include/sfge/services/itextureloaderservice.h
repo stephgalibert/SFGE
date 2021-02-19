@@ -27,6 +27,7 @@ namespace sfge::services
     struct ITextureLoaderService {
         virtual ~ITextureLoaderService() = default;
 
+        virtual bool init() = 0;
         virtual bool load(const std::string &key, const std::string &path) = 0;
         virtual void clear() = 0;
 

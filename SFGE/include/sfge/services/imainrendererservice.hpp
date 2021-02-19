@@ -18,27 +18,14 @@
 
 #pragma once
 
-#include "sfge/baseapplication.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
 
-#include <SFML/Graphics.hpp>
-
-namespace sfge
+namespace sfge::services
 {
-    namespace input
-    {
-        class EventProcessor;
-    }
-    class SceneManager;
+    struct IMainRendererService {
+        virtual ~IMainRendererService() = default;
 
-    class BaseApplicationPrivate
-    {
-    public:
-    private:
-        explicit BaseApplicationPrivate(BaseApplication *qq);
-        PIMPL_DECLARE_PUBLIC(BaseApplication);
-
-        std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<input::EventProcessor> m_eventProcessor;
-        // sf::RenderWindow m_window;
+        virtual bool init() = 0;
+        [[nodiscard]] virtual std::unique_ptr<sf::RenderWindow> &mainRenderer() = 0;
     };
-}// namespace sfge
+}// namespace sfge::services
