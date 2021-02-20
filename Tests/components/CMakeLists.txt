@@ -22,5 +22,9 @@ set (TARGET "components_tests")
 set (SRCS transformable_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
-target_link_libraries (${TARGET} PUBLIC "gmock" "gtest" "gmock_main")
+target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")
+
+get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+target_include_directories(${TARGET} PRIVATE ${SFGE_PRIVATE_INCLUDES})
+
 add_test(NAME ${TARGET} COMMAND "${TARGET}")

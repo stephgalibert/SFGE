@@ -18,8 +18,6 @@
 
 cmake_minimum_required (VERSION 3.8)
 
-project ("sfge" VERSION 0.1.0 DESCRIPTION "Simple & Fast Game Engine Library")
-
 # On windows, SFML_DIR needs to be set manually in the CMakeCache
 find_package (SFML 2.5.1 COMPONENTS system graphics window audio REQUIRED)
 find_package (box2d 2.4.1 REQUIRED)
@@ -35,7 +33,7 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/core/input/eventprocessor.cpp 			src/core/gameobject/agameobject.cpp
 		src/core/scene/scenemanager.cpp				src/core/scene/ascene.cpp
 		src/core/scene/scenegraph.cpp 				src/core/ecs/events/componentsevents.cpp
-        src/core/ecs/systems/camerasystem.cpp src/core/ecs/systems/scriptsystem.cpp
+        src/core/ecs/systems/camerasystem.cpp 		src/core/ecs/systems/scriptsystem.cpp
 		src/core/ecs/systems/inputsystem.cpp		src/core/ecs/systems/physicssystem.cpp
 		src/core/ecs/components/component.cpp		src/core/ecs/components/transformable.cpp
 		src/core/ecs/components/renderable.cpp 		src/core/ecs/components/rigidbody.cpp

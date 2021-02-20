@@ -27,4 +27,4 @@ add_executable (${TARGET} ${SRCS})
 
 set_target_properties (${TARGET} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 
-target_link_libraries (${TARGET} PUBLIC "sfge")
+target_link_libraries (${TARGET} PUBLIC ${PROJECT_NAME})
