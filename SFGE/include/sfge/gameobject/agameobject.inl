@@ -59,7 +59,7 @@ namespace sfge
         scriptable.setRegistry(reg);
         scriptable.setEntity(entt);
 
-        auto &script = scriptable.template addScript<ScriptType>();
+        auto script = scriptable.template addScript<ScriptType>();
         script->attachGameObject(this);
         script->onAwake();
     }

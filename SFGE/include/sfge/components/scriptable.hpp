@@ -52,15 +52,17 @@ namespace sfge::ecs
         void onKeyboardEvent(const input::KeyboardEvent &event);
         void onMouseButtonEvent(const input::MouseButtonEvent &event);
 
+        [[nodiscard]] std::size_t getSize() const;
+
     public:
-        template<typename T>
-        decltype(auto) addScript();
+        template<typename T, typename... Args>
+        std::shared_ptr<T> addScript(Args &&...);
 
         template<typename T>
-        void removeScript();
+        std::size_t removeScript();
 
     private:
-        std::vector<std::unique_ptr<AScript>> m_scripts;
+        std::vector<std::shared_ptr<AScript>> m_scripts;
     };
 }// namespace sfge::ecs
 

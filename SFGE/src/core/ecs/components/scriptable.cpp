@@ -66,4 +66,9 @@ namespace sfge::ecs
             script->onMouseButtonEvent(event);
         }
     }
+
+    std::size_t Scriptable::getSize() const
+    {
+        return m_scripts.size();
+    }
 }// namespace sfge::ecs

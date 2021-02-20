@@ -19,7 +19,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 set (TARGET "components_tests")
-set (SRCS transformable_tests.cpp)
+set (SRCS transformable_tests.cpp scriptable_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
 target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")

@@ -18,15 +18,16 @@
 
 namespace sfge::ecs
 {
-    template<typename T>
-    decltype(auto) Scriptable::addScript()
+    template<typename T, typename... Args>
+    std::shared_ptr<T> Scriptable::addScript(Args &&... args)
     {
-        m_scripts.push_back(std::make_unique<T>());
-        return m_scripts.back();
+        auto script = std::make_shared<T>(std::forward<Args>(args)...);
+        m_scripts.push_back(script);
+        return script;
     }
 
     template<typename T>
-    void Scriptable::removeScript()
+    std::size_t Scriptable::removeScript()
     {
         auto f = [&](const auto &script) {
             if (typeid(T) == typeid(*script)) {
@@ -37,5 +38,6 @@ namespace sfge::ecs
         };
 
         m_scripts.erase(std::remove_if(m_scripts.begin(), m_scripts.end(), f), m_scripts.end());
+        return m_scripts.size();
     }
 }// namespace sfge::ecs
