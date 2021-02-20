@@ -16,7 +16,7 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/components/transformable.hpp"
+#include "sfge/components/transformable_tests.hpp"
 
 #include <iostream>
 

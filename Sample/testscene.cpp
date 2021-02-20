@@ -24,7 +24,7 @@
 #include <sfge/components/input.hpp>
 #include <sfge/components/renderable.hpp>
 #include <sfge/components/rigidbody.hpp>
-#include <sfge/components/transformable.hpp>
+#include <sfge/components/transformable_tests.hpp>
 #include <sfge/gameobject/agameobject.hpp>
 #include <sfge/gameobject/camera.hpp>
 

@@ -2,7 +2,8 @@
 
 # SFGE
 
-Simple & Fast 2D Game Engine SDK - using SFML
+Simple & Fast 2D Game Engine SDK.  
+For those who don't want to use powerful engines that do too much for you.
 
 ## Dependencies
 
@@ -31,15 +32,17 @@ Simple & Fast 2D Game Engine SDK - using SFML
 
 ## TODO before v1.0
 
+* Last update: 20/02/2021
+
 | Feature | Note | Estimated Time |
 | :-----: | ----- | :------------: |
-| Tests   | Unit tests - Library to define | 5d
+| Tests   | Unit tests with GTests | 10d
+| Coverage | cf. Bomberman | -
 | Documentation | With Doxygen | 5d 
-| Collisions | Use box2d API | 1d
-| Resources | Textures, Audio (musics, sounds) | 1d
-| Rendering | Textures, Shaders | 3d
+| Resources | Font, Audio (musics, sounds) | 1d
+| Rendering | Shaders | 3d
 | Handle different shapes | Circle, complex, ... | 3d
-| GameObjects type | Lights, Camera | 3d
+| GameObjects type | Lights | 3d
 | GameObjects Management | GetByType (with templates), GetByName | 2d
 | Engine Configuration | Error management | 2d
 | GUI | Integrate GUI library (TGUI?) | 5d

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/transformable.hpp"
+#include "sfge/components/transformable_tests.hpp"
 #include "sfge/pimpl.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>

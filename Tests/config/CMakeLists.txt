@@ -18,5 +18,9 @@
 
 cmake_minimum_required (VERSION 3.8)
 
-add_subdirectory("components")
-add_subdirectory("config")
+set (TARGET "config_tests")
+set (SRCS configglobal_tests.cpp)
+
+add_executable (${TARGET} ${SRCS})
+target_link_libraries (${TARGET} PUBLIC "gmock" "gtest" "gmock_main")
+add_test(NAME ${TARGET} COMMAND "${TARGET}")

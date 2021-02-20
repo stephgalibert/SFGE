@@ -24,17 +24,19 @@ set -e
 sudo apt-get -y install xorg-dev libglu1-mesa-dev
 
 # Installs box2d
+echo "Installing box2d"
 git clone --depth 1 --branch v2.4.1 https://github.com/erincatto/box2d.git
 cd box2d && mkdir build && cd build && cmake ../ && sudo make install
 cd ../../
 
 # Installs entt
+echo "Installing entt"
 git clone --depth 1 --branch v3.6.0 https://github.com/skypjack/entt.git
-echo "Copied 'src/entt' to '/usr/include'"
 cd entt && sudo cp -r src/entt /usr/include
 cd ../
 
 # Installs spdlog
+echo "Installing spdlog"
 git clone --depth 1 --branch v1.8.2 https://github.com/gabime/spdlog.git
 cd spdlog && mkdir build && cd build
 cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../ && sudo make install
@@ -43,12 +45,14 @@ cd ../../
 # GTests
 echo "Installing Google Tests"
 git clone --depth 1 --branch release-1.10.0 https://github.com/google/googletest.git
-cd googletest/googletest/
+cd googletest/googlemock/
 cmake -DBUILD_SHARED_LIBS=ON
 make
-sudo cp -r lib/libgtest* /usr/lib
-sudo cp -r include/gtest /usr/include
+sudo cp -r lib/libg* /usr/lib
+sudo cp -r include/gmock /usr/include
 sudo ldconfig -v | grep "test"
+cd ../googletest
+sudo cp -r include/gtest /usr/include
 cd ../../../
 
 # Installs project deps

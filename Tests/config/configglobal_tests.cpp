@@ -18,8 +18,7 @@
 
 #include <gtest/gtest.h>
 
-int main(int ac, char **av)
+TEST(ConfigTest, t1)
 {
-    testing::InitGoogleTest(&ac, av);
-    return RUN_ALL_TESTS();
+    EXPECT_EQ(10, 10);
 }
