@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/interfaces/ascript.hpp"
+#include "sfge/components/base/ascript.hpp"
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/pimpl.hpp"
 
@@ -46,6 +46,8 @@ namespace sfge
         template<typename T, typename... Args>
         std::shared_ptr<T> instantiate(Args &&... args) const;
 
+    public:
+        /** Components management **/
         template<typename T, typename... Args>
         T &addComponent(Args &&... args);
 

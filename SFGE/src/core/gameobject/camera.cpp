@@ -25,7 +25,44 @@ namespace sfge::gameobjects
     {
         addComponent<sfge::ecs::Camera>();
     }
+
     void Camera::onDestroyed()
     {
+    }
+
+    void Camera::setRenderTarget(sf::RenderTarget *target)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setRenderTarget(target);
+    }
+
+    void Camera::setViewport(const sf::FloatRect &rect)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setViewport(rect);
+    }
+
+    void Camera::setSize(float x, float y)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setSize(x, y);
+    }
+
+    void Camera::setCenter(float x, float y)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setCenter(x, y);
+    }
+
+    void Camera::setRotation(float degree)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setRotation(degree);
+    }
+
+    void Camera::setActive(bool value)
+    {
+        auto &camera = component<sfge::ecs::Camera>();
+        camera.setActive(value);
     }
 }// namespace sfge::gameobjects

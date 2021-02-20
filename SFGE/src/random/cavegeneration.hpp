@@ -24,6 +24,18 @@
 
 namespace sfge::random
 {
+    /**
+     * TODO: Collisions
+     * Outline internal edges
+     *
+     * Unity:
+     * // Calculate mesh outlines
+     * edgeCollider = AddComponent<EdgeCollider2D>(); (BoxCollider, CircleCollider, ...)
+     * Vector2[] points = outlines.Count
+     * // ... get edge points from vertices
+     * edgeCollider.points = points
+     */
+
     class CaveGeneration
     {
     public:
@@ -35,18 +47,18 @@ namespace sfge::random
 
         void generate();
 
-        const std::vector<std::vector<bool>> &getGenerated() const;
+        [[nodiscard]] const std::vector<std::vector<bool>> &getGenerated() const;
         void dump();
 
     private:
         void fill();
         void smooth();
-        uint32_t neighborWallCount(int x, int y) const;
+        [[nodiscard]] uint32_t neighborWallCount(int x, int y) const;
 
     private:
         std::vector<std::vector<bool>> m_cave;// TODO: 1d
         Lehmer32 m_random;
-        int m_wallGenerationPercent;
-        int m_smoothPassCount;
+        int m_wallGenerationPercent = 50;
+        int m_smoothPassCount = 5;
     };
 }// namespace sfge::random

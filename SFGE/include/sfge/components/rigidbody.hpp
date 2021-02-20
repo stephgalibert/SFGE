@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/interfaces/component.hpp"
+#include "sfge/components/base/component.hpp"
 
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>

@@ -25,9 +25,10 @@ namespace sfge::random
     class Lehmer32
     {
     public:
-        Lehmer32(uint32_t seed);
+        explicit Lehmer32(uint32_t seed);
 
         void setSeed(uint32_t seed);
+        uint32_t getSeed() const;
 
         bool genBool();
         int genInt(int min, int max);

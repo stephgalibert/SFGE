@@ -19,7 +19,7 @@
 #pragma once
 
 #include "sfge/pimpl.hpp"
-#include "sfge/services/itextureloaderservice.h"
+#include "sfge/services/itextureloaderservice.hpp"
 
 #include <memory>
 

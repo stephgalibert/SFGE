@@ -27,5 +27,12 @@ namespace sfge::gameobjects
     public:
         void onCreated() override;
         void onDestroyed() override;
+
+        void setRenderTarget(sf::RenderTarget *target);
+        void setViewport(const sf::FloatRect &rect);
+        void setSize(float x, float y);
+        void setCenter(float x, float y);
+        void setRotation(float degree);
+        void setActive(bool value);
     };
 }// namespace sfge::gameobjects

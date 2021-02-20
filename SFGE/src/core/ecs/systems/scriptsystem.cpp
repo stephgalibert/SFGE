@@ -18,7 +18,6 @@
 
 #include "scriptsystem.hpp"
 
-#include "sfge/components/interfaces/ascript.hpp"
 #include "sfge/components/scriptable.hpp"
 
 namespace sfge::ecs

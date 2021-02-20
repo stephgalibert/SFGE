@@ -30,7 +30,7 @@
 
 #include <sfge/services/iloggerservice.hpp>
 #include <sfge/services/imainrendererservice.hpp>
-#include <sfge/services/itextureloaderservice.h>
+#include <sfge/services/itextureloaderservice.hpp>
 #include <sfge/services/servicelocator.hpp>
 
 #include <iostream>
@@ -56,12 +56,11 @@ void TestScene::init()
     {
         auto mainRenderer = sfge::services::ServiceLocator::Get<sfge::services::IMainRendererService>();
         auto obj = instantiate<sfge::gameobjects::Camera>();
-        auto &camera = obj->component<sfge::ecs::Camera>();
 
-        camera.setRenderTarget(mainRenderer->mainRenderer().get());
-        camera.setSize(1280, 720);
-        camera.setCenter(0, 0);
-        camera.setActive(true);
+        obj->setRenderTarget(mainRenderer->mainRenderer().get());
+        obj->setSize(1280, 720);
+        obj->setCenter(0, 0);
+        obj->setActive(true);
     }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});
@@ -82,7 +81,7 @@ void TestScene::init()
         auto &transformable = obj->component<sfge::ecs::Transformable>();
         transformable.setPosition({0, 0});
         transformable.setAngle(0.00);
-        transformable.setScale({1.80f, 1.80f});
+        transformable.setScale({1.50f, 1.50f});
 
         obj->addComponent<sfge::ecs::RigidBody>();
         obj->addComponent<TestScript>();

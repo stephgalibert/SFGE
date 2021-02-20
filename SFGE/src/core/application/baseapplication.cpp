@@ -21,7 +21,7 @@
 
 #include "sfge/scene/ascene.hpp"
 #include "sfge/services/iloggerservice.hpp"
-#include "sfge/services/itextureloaderservice.h"
+#include "sfge/services/itextureloaderservice.hpp"
 #include "sfge/services/servicelocator.hpp"
 
 #include "config/configurationmanager.hpp"

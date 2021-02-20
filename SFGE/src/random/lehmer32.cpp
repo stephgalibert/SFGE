@@ -30,6 +30,11 @@ namespace sfge::random
         m_state = seed;
     }
 
+    uint32_t Lehmer32::getSeed() const
+    {
+        return m_state;
+    }
+
     bool Lehmer32::genBool()
     {
         return next() % 2;
@@ -37,7 +42,7 @@ namespace sfge::random
 
     int Lehmer32::genInt(int min, int max)
     {
-        return (next() % (max - min)) + min;
+        return (static_cast<int>(next()) % (max - min)) + min;
     }
 
     double Lehmer32::genDouble(double min, double max)
@@ -48,10 +53,9 @@ namespace sfge::random
     uint32_t Lehmer32::next()
     {
         m_state += 0xe120fc15;
-        uint64_t tmp = static_cast<uint64_t>(m_state) * 0x4a39b70d;
-        uint32_t m1 = static_cast<uint32_t>((tmp >> 32) ^ tmp);
+        auto tmp = static_cast<uint64_t>(m_state) * 0x4a39b70d;
+        const auto m1 = static_cast<uint32_t>((tmp >> 32) ^ tmp);
         tmp = static_cast<uint64_t>(m1) * 0x12fad5c9;
-        uint32_t m2 = static_cast<uint32_t>((tmp >> 32) ^ tmp);
-        return m2;
+        return static_cast<uint32_t>((tmp >> 32) ^ tmp);
     }
 }// namespace sfge::random

@@ -55,9 +55,9 @@ namespace sfge::random
 
     void CaveGeneration::dump()
     {
-        for (std::size_t j = 0; j < m_cave.size(); ++j) {
-            for (std::size_t i = 0; i < m_cave[j].size(); ++i)
-                std::cout << m_cave[j][i] << " ";
+        for (auto &col : m_cave) {
+            for (auto &&row : col)
+                std::cout << row << " ";
             std::cout << std::endl;
         }
     }

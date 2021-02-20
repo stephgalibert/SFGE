@@ -120,6 +120,7 @@ namespace sfge::ecs
 
         const sf::Vector2f scale = transform.getScale();
         config.shape.SetAsBox(scale.x / 2.f, scale.y / 2.f);
+        // config.shape.Set(*points, count);
 
         config.fixtureDef.shape = &config.shape;
         config.fixtureDef.density = 1.0f;

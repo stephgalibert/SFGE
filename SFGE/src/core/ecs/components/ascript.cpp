@@ -16,7 +16,7 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/components/interfaces/ascript.hpp"
+#include "sfge/components/base/ascript.hpp"
 #include "sfge/common.hpp"
 
 namespace sfge::ecs

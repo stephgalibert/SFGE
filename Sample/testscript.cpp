@@ -22,8 +22,10 @@
 #include <sfge/services/iloggerservice.hpp>
 #include <sfge/services/servicelocator.hpp>
 
-#include <sfge/services/itextureloaderservice.h>
+#include <sfge/services/itextureloaderservice.hpp>
 #include <sfge/services/servicelocator.hpp>
+
+#include <iostream>
 
 TestScript::TestScript()
 {
@@ -72,11 +74,14 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
     auto &transformable = m_gameObject->component<sfge::ecs::Transformable>();
 
     if (event.key == sf::Keyboard::D) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({3, 0}, true);
+        rigidbody.body()->SetLinearVelocity({3, 0});
+        // rigidbody.body()->ApplyLinearImpulseToCenter({3, 0}, true);
     } else if (event.key == sf::Keyboard::Q) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({-3, 0}, true);
+        // rigidbody.body()->ApplyLinearImpulseToCenter({-3, 0}, true);
+        rigidbody.body()->SetLinearVelocity({-3, 0});
     } else if (event.key == sf::Keyboard::Z) {
-        rigidbody.body()->ApplyLinearImpulseToCenter({0, -3}, true);
+        rigidbody.body()->SetLinearVelocity({0, -3});
+        // rigidbody.body()->ApplyLinearImpulseToCenter({0, -3}, true);
     } else if (event.key == sf::Keyboard::S) {
         rigidbody.body()->ApplyLinearImpulseToCenter({0, 3}, true);
     } else if (event.key == sf::Keyboard::E) {

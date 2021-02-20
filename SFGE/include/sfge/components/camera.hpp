@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/interfaces/component.hpp"
+#include "sfge/components/base/component.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/View.hpp>

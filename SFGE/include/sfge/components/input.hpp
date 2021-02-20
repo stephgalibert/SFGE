@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "sfge/components/interfaces/component.hpp"
+#include "sfge/components/base/component.hpp"
 
 namespace sfge::ecs
 {
