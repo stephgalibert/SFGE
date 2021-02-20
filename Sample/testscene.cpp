@@ -24,7 +24,7 @@
 #include <sfge/components/input.hpp>
 #include <sfge/components/renderable.hpp>
 #include <sfge/components/rigidbody.hpp>
-#include <sfge/components/transformable_tests.hpp>
+#include <sfge/components/transformable.hpp>
 #include <sfge/gameobject/agameobject.hpp>
 #include <sfge/gameobject/camera.hpp>
 
@@ -80,7 +80,7 @@ void TestScene::init()
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();
         transformable.setPosition({0, 0});
-        transformable.setAngle(0.00);
+        transformable.setAngle_DEGREES(0.00);
         transformable.setScale({1.50f, 1.50f});
 
         obj->addComponent<sfge::ecs::RigidBody>();

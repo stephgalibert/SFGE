@@ -62,6 +62,7 @@ namespace sfge::ecs
 
     void Renderable::setRotation_RADIANS(float angle)
     {
+        // convert angle from radians
         m_shape->setRotation(angle * 180 / b2_pi);
     }
 

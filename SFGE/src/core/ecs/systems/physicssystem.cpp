@@ -19,7 +19,7 @@
 #include "physicssystem.hpp"
 
 #include "sfge/components/rigidbody.hpp"
-#include "sfge/components/transformable_tests.hpp"
+#include "sfge/components/transformable.hpp"
 
 #include "core/collisions/contactlistener.hpp"
 

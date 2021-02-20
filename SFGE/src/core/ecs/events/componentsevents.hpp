@@ -20,7 +20,7 @@
 
 #include "config/physicsconfig.hpp"
 #include "sfge/components/rigidbody.hpp"
-#include "sfge/components/transformable_tests.hpp"
+#include "sfge/components/transformable.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <entt/entt.hpp>

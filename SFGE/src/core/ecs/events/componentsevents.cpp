@@ -25,8 +25,6 @@
 #include "services/iconfigurationmanagerservice.h"
 #include "sfge/services/servicelocator.hpp"
 
-#include <iostream>
-
 namespace sfge::ecs
 {
     TransformableEvents::TransformableEvents()
@@ -48,16 +46,16 @@ namespace sfge::ecs
             // The origin must be the same as box2d: in the center of the object
             renderable->setOrigin(0.5, 0.5);
             renderable->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
-            renderable->setRotation_RADIANS(transform.getAngleRadians());
+            renderable->setRotation_DEGREES(transform.getAngle_DEGREES());
         }
 
         RigidBody *rigidBody = registry.try_get<RigidBody>(entity);
         if (rigidBody) {
             b2Vec2 b2Pos = rigidBody->body()->GetPosition();
-            if (b2Pos.x != transform.getPosition().x || b2Pos.y != transform.getPosition().y || rigidBody->body()->GetAngle() != transform.getAngleRadians()) {
+            if (b2Pos.x != transform.getPosition().x || b2Pos.y != transform.getPosition().y || rigidBody->body()->GetAngle() != transform.getAngle_RADIANS()) {
                 // Update the b2body ONLY IF it has a different transform (position and angle)
                 b2Pos = {transform.getPosition().x, transform.getPosition().y};
-                rigidBody->body()->SetTransform(b2Pos, transform.getAngleRadians());
+                rigidBody->body()->SetTransform(b2Pos, transform.getAngle_RADIANS());
             }
         }
     }
@@ -82,7 +80,7 @@ namespace sfge::ecs
         renderable.setPosition(transformable.getPosition().x * m_pixelsPerMeter,
                                transformable.getPosition().y * m_pixelsPerMeter);
 
-        renderable.setRotation_RADIANS(transformable.getAngleRadians());
+        renderable.setRotation_DEGREES(transformable.getAngle_DEGREES());
     }
 
     void RigidbodyEvents::created(entt::registry &registry, entt::entity entity) const
@@ -115,7 +113,7 @@ namespace sfge::ecs
         const sf::Vector2f pos = transform.getPosition();
         config.bodyDef.position.x = pos.x;
         config.bodyDef.position.y = pos.y;
-        config.bodyDef.angle = transform.getAngleRadians();
+        config.bodyDef.angle = transform.getAngle_RADIANS();
         config.bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(transform.getGameObject());
 
         const sf::Vector2f scale = transform.getScale();

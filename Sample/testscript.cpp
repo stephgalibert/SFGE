@@ -107,7 +107,7 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
 
         auto &t = obj->component<sfge::ecs::Transformable>();
         t.setPosition(transformable.getPosition());
-        t.setAngle(transformable.getAngleRadians());
+        t.setAngle_DEGREES(transformable.getAngle_DEGREES());
         t.setScale(transformable.getScale());
 
         obj->addComponent<sfge::ecs::Renderable>(shape);

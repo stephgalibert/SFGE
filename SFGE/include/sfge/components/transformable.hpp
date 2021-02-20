@@ -29,16 +29,18 @@ namespace sfge::ecs
     public:
         void setPosition(const sf::Vector2f &pos);
         void setScale(const sf::Vector2f &scale);
-        void setAngle(float radians);
+        void setAngle_RADIANS(float angle);
+        void setAngle_DEGREES(float angle);
         void setTransform(const sf::Vector2f &pos, float angleRadians);
 
         [[nodiscard]] sf::Vector2f getPosition() const;
         [[nodiscard]] sf::Vector2f getScale() const;
-        [[nodiscard]] float getAngleRadians() const;
+        [[nodiscard]] float getAngle_RADIANS() const;
+        [[nodiscard]] float getAngle_DEGREES() const;
 
     private:
         sf::Vector2f m_position;      // meters
         sf::Vector2f m_scale = {1, 1};// meters
-        float m_radians = 0.f;        // radians
+        float m_angle = 0.f;          // degrees
     };
 }// namespace sfge::ecs

@@ -19,7 +19,7 @@
 #include "sfge/gameobject/agameobject.hpp"
 #include "agameobject_p.hpp"
 
-#include "sfge/components/transformable_tests.hpp"
+#include "sfge/components/transformable.hpp"
 #include <iostream>
 
 namespace sfge

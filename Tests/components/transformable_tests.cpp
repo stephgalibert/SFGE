@@ -16,19 +16,71 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include <sfge/components/transformable.hpp>
+
+#include <box2d/b2_common.h>
 #include <gtest/gtest.h>
 
-TEST(SampleTest, t)
+#include <iostream>
+
+class TransformableTest : public testing::Test
 {
-    EXPECT_EQ(2, 2);
+protected:
+    void SetUp() override
+    {
+        entity = registry.create();
+        transformable = registry.emplace<sfge::ecs::Transformable>(entity);
+        transformable.setRegistry(&registry);
+        transformable.setEntity(entity);
+    }
+
+    void TearDown() override
+    {
+        registry.remove_all(entity);
+    }
+
+    entt::registry registry;
+    entt::entity entity = entt::null;
+    sfge::ecs::Transformable transformable;
+};
+
+TEST_F(TransformableTest, Position)
+{
+    const sf::Vector2f pos = {42, 84};
+
+    transformable.setPosition(pos);
+    EXPECT_EQ(pos.x, transformable.getPosition().x);
+    EXPECT_EQ(pos.y, transformable.getPosition().y);
 }
 
-TEST(SampleTest2, tt)
+TEST_F(TransformableTest, Rotation)
 {
-    EXPECT_EQ(4, 4);
+    const float degrees = 154;
+    const float radians = degrees * b2_pi / 180.f;
+
+    transformable.setAngle_RADIANS(radians);
+    EXPECT_EQ(radians, transformable.getAngle_RADIANS());
+    EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
 }
 
-TEST(SampleTest3, ttt)
+TEST_F(TransformableTest, Scale)
 {
-    EXPECT_EQ(3, 3);
+    const sf::Vector2f scale = {3, 1};
+
+    transformable.setScale(scale);
+    EXPECT_EQ(scale.x, transformable.getScale().x);
+    EXPECT_EQ(scale.y, transformable.getScale().y);
+}
+
+TEST_F(TransformableTest, Transform)
+{
+    const sf::Vector2f pos = {87, 24};
+    const float radians = 0.5602f;
+    const float degrees = radians * 180.f / b2_pi;
+
+    transformable.setTransform(pos, radians);
+    EXPECT_EQ(pos.x, transformable.getPosition().x);
+    EXPECT_EQ(pos.y, transformable.getPosition().y);
+    EXPECT_EQ(radians, transformable.getAngle_RADIANS());
+    EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
 }

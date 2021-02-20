@@ -28,7 +28,7 @@
 #include "sfge/components/renderable.hpp"
 #include "sfge/components/rigidbody.hpp"
 #include "sfge/components/scriptable.hpp"
-#include "sfge/components/transformable_tests.hpp"
+#include "sfge/components/transformable.hpp"
 
 #include "core/ecs/events/componentsevents.hpp"
 

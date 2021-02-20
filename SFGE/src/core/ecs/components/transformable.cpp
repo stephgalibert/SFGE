@@ -16,39 +16,41 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "sfge/components/transformable_tests.hpp"
+#include "sfge/components/transformable.hpp"
 
-#include <iostream>
+#include <box2d/b2_common.h>
 
 namespace sfge::ecs
 {
     void Transformable::setPosition(const sf::Vector2f &pos)
     {
-        m_registry->patch<Transformable>(m_entity, [&pos](Transformable &transform) {
-            transform.m_position = pos;
-        });
+        m_position = pos;
+        m_registry->patch<Transformable>(m_entity);
     }
 
     void Transformable::setScale(const sf::Vector2f &scale)
     {
-        m_registry->patch<Transformable>(m_entity, [&scale](Transformable &transform) {
-            transform.m_scale = scale;
-        });
+        m_scale = scale;
+        m_registry->patch<Transformable>(m_entity);
     }
 
-    void Transformable::setAngle(float radians)
+    void Transformable::setAngle_RADIANS(float angle)
     {
-        m_registry->patch<Transformable>(m_entity, [radians](Transformable &transform) {
-            transform.m_radians = radians;
-        });
+        m_angle = angle * 180 / b2_pi;
+        m_registry->patch<Transformable>(m_entity);
+    }
+
+    void Transformable::setAngle_DEGREES(float angle)
+    {
+        m_angle = angle;
+        m_registry->patch<Transformable>(m_entity);
     }
 
     void Transformable::setTransform(const sf::Vector2f &pos, float radians)
     {
-        m_registry->patch<Transformable>(m_entity, [&pos, radians](Transformable &transform) {
-            transform.m_position = pos;
-            transform.m_radians = radians;
-        });
+        m_position = pos;
+        m_angle = radians * 180 / b2_pi;
+        m_registry->patch<Transformable>(m_entity);
     }
 
     sf::Vector2f Transformable::getPosition() const
@@ -61,8 +63,13 @@ namespace sfge::ecs
         return m_scale;
     }
 
-    float Transformable::getAngleRadians() const
+    float Transformable::getAngle_RADIANS() const
     {
-        return m_radians;
+        return m_angle * b2_pi / 180;
+    }
+
+    float Transformable::getAngle_DEGREES() const
+    {
+        return m_angle;
     }
 }// namespace sfge::ecs
