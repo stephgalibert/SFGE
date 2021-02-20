@@ -7,17 +7,23 @@ Simple & Fast 2D Game Engine SDK - using SFML
 ## Dependencies
 
 | Name   | Version | Type    | Link |
-| :----: | :----: | :------: | :-----------------------------------------------------: |
-| SFML   | 2.5.1  | Renderer | https://github.com/SFML/SFML/tree/2.5.1                 |
-| Box2D  | v2.4.1 | Physics  | https://github.com/erincatto/box2d/tree/v2.4.1          |
-| Entt   | v3.6.0 | ECS      | https://github.com/skypjack/entt/tree/v3.6.0            |
-| Spdlog | v1.8.2 | Logger   | https://github.com/gabime/spdlog/tree/v1.8.2            |
-| Boost  | 1.71.0 | Utility  | https://www.boost.org/users/history/version_1_71_0.html |
+| :----: | :----: | :------: | :------------------------------------------------------: |
+| SFML   | 2.5.1  | Renderer | https://github.com/SFML/SFML/tree/2.5.1                  |
+| Box2D  | v2.4.1 | Physics  | https://github.com/erincatto/box2d/tree/v2.4.1           |
+| Entt   | v3.6.0 | ECS      | https://github.com/skypjack/entt/tree/v3.6.0             |
+| Spdlog | v1.8.2 | Logger   | https://github.com/gabime/spdlog/tree/v1.8.2             |
+| Boost  | 1.71.0 | Utility  | https://www.boost.org/users/history/version_1_71_0.html  |
+| GTests | 1.10.0 | Tests    | https://github.com/google/googletest/tree/release-1.10.0 | 
  
 ## Build
 
 * `scripts/deps.sh`
 * `scripts/build.sh`
+
+## Tests
+
+* Run CMake with `-DTests=ON`
+* `make test`
 
 ## Run
 
@@ -37,7 +43,7 @@ Simple & Fast 2D Game Engine SDK - using SFML
 | GameObjects Management | GetByType (with templates), GetByName | 2d
 | Engine Configuration | Error management | 2d
 | GUI | Integrate GUI library (TGUI?) | 5d
-| QoL | Improve APIs, Remove useless deps | -
+| QoL | Improve APIs, Remove useless deps (boost-all i'm looking at you) | -
 
   
 ## Enhancement
