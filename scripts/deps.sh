@@ -18,6 +18,8 @@
 # along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 #
 
+set -e
+
 # Installs box2d deps
 sudo apt-get -y install xorg-dev libglu1-mesa-dev
 
@@ -37,6 +39,17 @@ git clone --depth 1 --branch v1.8.2 https://github.com/gabime/spdlog.git
 cd spdlog && mkdir build && cd build
 cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../ && sudo make install
 cd ../../
+
+# GTests
+echo "Installing Google Tests"
+git clone --depth 1 --branch release-1.10.0 https://github.com/google/googletest.git
+cd googletest/googletest/
+cmake -DBUILD_SHARED_LIBS=ON
+make
+sudo cp -r lib/libgtest* /usr/lib
+sudo cp -r include/gtest /usr/include
+sudo ldconfig -v | grep "test"
+cd ../../../
 
 # Installs project deps
 sudo apt-get -y install libsfml-dev

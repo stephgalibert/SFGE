@@ -18,5 +18,8 @@
 # along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 #
 
+set -e
+
 mkdir build && cd build
-cmake --target all -- -j -DTESTS=ON && make
+cmake -DTESTS=ON ../
+make -j
