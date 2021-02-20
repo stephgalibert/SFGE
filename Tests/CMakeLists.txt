@@ -18,5 +18,8 @@
 
 cmake_minimum_required (VERSION 3.8)
 
+# Retrieve private headers from the SFGE library
+get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+
 add_subdirectory("components")
 add_subdirectory("config")

@@ -30,14 +30,6 @@ namespace sfge::ecs
     class Component
     {
     public:
-        Component() = default;
-        Component(const Component &rhs);
-        Component(Component &&rhs) noexcept;
-        ~Component() = default;
-
-        Component &operator=(const Component &o);
-        Component &operator=(Component &&o) noexcept;
-
         void attachGameObject(AGameObject *gameObject);
         [[nodiscard]] AGameObject *getGameObject() const;
 

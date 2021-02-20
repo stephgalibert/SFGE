@@ -21,8 +21,6 @@
 #include <box2d/b2_common.h>
 #include <gtest/gtest.h>
 
-#include <iostream>
-
 class TransformableTest : public testing::Test
 {
 protected:

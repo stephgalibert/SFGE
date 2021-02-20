@@ -20,34 +20,6 @@
 
 namespace sfge::ecs
 {
-    Component::Component(const Component &rhs)
-    {
-        *this = rhs;
-    }
-
-    Component::Component(Component &&rhs) noexcept
-    {
-        *this = std::move(rhs);
-    }
-
-    Component &Component::operator=(const Component &rhs)
-    {
-        if (this != &rhs) {
-            m_registry = rhs.m_registry;
-            m_entity = rhs.m_entity;
-        }
-        return *this;
-    }
-
-    Component &Component::operator=(Component &&rhs) noexcept
-    {
-        m_registry = rhs.m_registry;
-        m_entity = rhs.m_entity;
-        rhs.m_registry = nullptr;
-        rhs.m_entity = entt::null;
-        return *this;
-    }
-
     void Component::attachGameObject(AGameObject *gameObject)
     {
         m_gameObject = gameObject;
