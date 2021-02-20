@@ -19,7 +19,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 set (TARGET "sample")
-
 set (SRCS "main.cpp"
         "testscene.cpp"
         "testscript.cpp")

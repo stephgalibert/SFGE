@@ -16,23 +16,10 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include "sfge/services/imainrendererservice.hpp"
-
-#include <SFML/Graphics/RenderWindow.hpp>
-
-#include <iostream>
-
-namespace sfge::renderer
+int main(int ac, char **av)
 {
-    class MainRenderer : public services::IMainRendererService
-    {
-    public:
-        bool init() override;
-        [[nodiscard]] std::unique_ptr<sf::RenderWindow> &renderer() override;
-
-    private:
-        std::unique_ptr<sf::RenderWindow> m_window;
-    };
-}// namespace sfge::renderer
+    testing::InitGoogleTest(&ac, av);
+    return RUN_ALL_TESTS();
+}

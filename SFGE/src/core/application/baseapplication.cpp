@@ -71,7 +71,7 @@ namespace sfge
             return -1;
 
         auto mainRenderer = services::ServiceLocator::Get<services::IMainRendererService>();
-        std::unique_ptr<sf::RenderWindow> &window = mainRenderer->mainRenderer();
+        std::unique_ptr<sf::RenderWindow> &window = mainRenderer->renderer();
 
         sf::Clock clock;
         PIMPL_D(BaseApplication);
@@ -115,6 +115,9 @@ namespace sfge
 
     void BaseApplication::loadServices()
     {
+        // TODO: Not really happy about this...
+        //  The services are known at compile-time, it should be declared as const static
+        //  to be put into the .rodata section.
         services::ServiceLocator::Provide<services::ILoggerService, Logger>();
         auto configManager = services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
         auto mainRenderer = services::ServiceLocator::Provide<services::IMainRendererService, renderer::MainRenderer>();

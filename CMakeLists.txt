@@ -25,3 +25,8 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory ("SFGE")
 add_subdirectory ("Sample")
+
+if (TESTS)
+    enable_testing()
+    add_subdirectory ("Tests")
+endif ()

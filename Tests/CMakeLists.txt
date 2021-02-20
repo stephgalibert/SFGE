@@ -1,5 +1,3 @@
-#!/bin/sh
-
 #
 # This file is part of SFGE.
 # Copyright (C) 2020-2021 sgalibert (stephane.galibert.perso@outlook.com)
@@ -18,5 +16,11 @@
 # along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 #
 
-mkdir build && cd build
-cmake --target all -- -j -DTESTS=ON && make
+cmake_minimum_required (VERSION 3.8)
+
+set (TARGET "tests")
+set (SRCS main.cpp test.cpp)
+
+add_executable (${TARGET} ${SRCS})
+target_link_libraries (${TARGET} PUBLIC "gtest")
+add_test(NAME component1 COMMAND "${TARGET}")

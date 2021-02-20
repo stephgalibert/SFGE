@@ -26,6 +26,6 @@ namespace sfge::services
         virtual ~IMainRendererService() = default;
 
         virtual bool init() = 0;
-        [[nodiscard]] virtual std::unique_ptr<sf::RenderWindow> &mainRenderer() = 0;
+        [[nodiscard]] virtual std::unique_ptr<sf::RenderWindow> &renderer() = 0;
     };
 }// namespace sfge::services

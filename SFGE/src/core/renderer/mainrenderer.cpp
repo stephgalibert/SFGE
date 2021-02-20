@@ -43,7 +43,7 @@ namespace sfge::renderer
         return true;
     }
 
-    std::unique_ptr<sf::RenderWindow> &MainRenderer::mainRenderer()
+    std::unique_ptr<sf::RenderWindow> &MainRenderer::renderer()
     {
         return m_window;
     }

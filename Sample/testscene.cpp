@@ -57,7 +57,7 @@ void TestScene::init()
         auto mainRenderer = sfge::services::ServiceLocator::Get<sfge::services::IMainRendererService>();
         auto obj = instantiate<sfge::gameobjects::Camera>();
 
-        obj->setRenderTarget(mainRenderer->mainRenderer().get());
+        obj->setRenderTarget(mainRenderer->renderer().get());
         obj->setSize(1280, 720);
         obj->setCenter(0, 0);
         obj->setActive(true);

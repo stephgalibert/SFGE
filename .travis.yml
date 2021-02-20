@@ -12,3 +12,5 @@ before_install:
 
 script:
   - scripts/build.sh
+  - cd build
+  - make test
