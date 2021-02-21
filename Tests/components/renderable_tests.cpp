@@ -36,24 +36,21 @@ TEST_F(RenderableTest, Origin)
 {
     const sf::Vector2f origin = {2.2f, 3.9f};
     renderable.setOrigin(origin.x, origin.y);
-    EXPECT_EQ(origin.x, renderable.getOrigin().x);
-    EXPECT_EQ(origin.y, renderable.getOrigin().y);
+    EXPECT_EQ(origin, renderable.getOrigin());
 }
 
 TEST_F(RenderableTest, Position)
 {
     const sf::Vector2f position = {2, 3};
     renderable.setPosition(position.x, position.y);
-    EXPECT_EQ(position.x, renderable.getPosition().x);
-    EXPECT_EQ(position.y, renderable.getPosition().y);
+    EXPECT_EQ(position, renderable.getPosition());
 }
 
 TEST_F(RenderableTest, Scale)
 {
     const sf::Vector2f scale = {2, 1};
     renderable.setScale(scale.x, scale.y);
-    EXPECT_EQ(scale.x, renderable.getScale().x);
-    EXPECT_EQ(scale.y, renderable.getScale().y);
+    EXPECT_EQ(scale, renderable.getScale());
 }
 
 TEST_F(RenderableTest, Rotation)

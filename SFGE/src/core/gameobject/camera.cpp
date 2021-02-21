@@ -57,7 +57,7 @@ namespace sfge::gameobjects
     void Camera::setRotation(float degree)
     {
         auto &camera = component<sfge::ecs::Camera>();
-        camera.setRotation(degree);
+        camera.setRotation_DEGREES(degree);
     }
 
     void Camera::setActive(bool value)

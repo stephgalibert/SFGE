@@ -45,17 +45,14 @@ protected:
 TEST_F(TransformableTest, Position)
 {
     const sf::Vector2f pos = {42, 84};
-
     transformable.setPosition(pos);
-    EXPECT_EQ(pos.x, transformable.getPosition().x);
-    EXPECT_EQ(pos.y, transformable.getPosition().y);
+    EXPECT_EQ(pos, transformable.getPosition());
 }
 
 TEST_F(TransformableTest, Rotation)
 {
     const float degrees = 154;
     const float radians = degrees * b2_pi / 180.f;
-
     transformable.setAngle_RADIANS(radians);
     EXPECT_EQ(radians, transformable.getAngle_RADIANS());
     EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
@@ -64,10 +61,8 @@ TEST_F(TransformableTest, Rotation)
 TEST_F(TransformableTest, Scale)
 {
     const sf::Vector2f scale = {3, 1};
-
     transformable.setScale(scale);
-    EXPECT_EQ(scale.x, transformable.getScale().x);
-    EXPECT_EQ(scale.y, transformable.getScale().y);
+    EXPECT_EQ(scale, transformable.getScale());
 }
 
 TEST_F(TransformableTest, Transform)
@@ -75,10 +70,8 @@ TEST_F(TransformableTest, Transform)
     const sf::Vector2f pos = {87, 24};
     const float radians = 0.5602f;
     const float degrees = radians * 180.f / b2_pi;
-
     transformable.setTransform(pos, radians);
-    EXPECT_EQ(pos.x, transformable.getPosition().x);
-    EXPECT_EQ(pos.y, transformable.getPosition().y);
+    EXPECT_EQ(pos, transformable.getPosition());
     EXPECT_EQ(radians, transformable.getAngle_RADIANS());
     EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
 }

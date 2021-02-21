@@ -34,9 +34,9 @@ namespace sfge::ecs
         [[nodiscard]] bool getKeyboardButton() const;
 
     private:
-        bool m_mouseMove;
-        bool m_mouseButton;
-        bool m_keyboardButton;
+        bool m_mouseMove = false;
+        bool m_mouseButton = false;
+        bool m_keyboardButton = false;
     };
 
 }// namespace sfge::ecs

@@ -32,9 +32,13 @@ namespace sfge::ecs
         void setViewport(const sf::FloatRect &rect);
         void setSize(float x, float y);
         void setCenter(float x, float y);
-        void setRotation(float degree);
+        void setRotation_DEGREES(float angle);
         void setActive(bool value);
 
+        [[nodiscard]] const sf::FloatRect &getViewport() const;
+        [[nodiscard]] const sf::Vector2f &getSize() const;
+        [[nodiscard]] const sf::Vector2f &getCenter() const;
+        [[nodiscard]] float getRotation_DEGREES() const;
         [[nodiscard]] bool isActive() const;
         [[nodiscard]] const sf::View &getView() const;
         [[nodiscard]] sf::RenderTarget *getRenderTarget() const;
@@ -42,6 +46,6 @@ namespace sfge::ecs
     private:
         sf::RenderTarget *m_renderTarget = nullptr;
         sf::View m_view;
-        bool m_active;
+        bool m_active = false;
     };
 }// namespace sfge::ecs

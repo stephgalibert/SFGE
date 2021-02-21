@@ -26,30 +26,50 @@ namespace sfge::ecs
     }
     void Camera::setViewport(const sf::FloatRect &rect)
     {
-        assert(m_renderTarget);
         m_view.setViewport(rect);
-        m_renderTarget->setView(m_view);
+        if (m_renderTarget)
+            m_renderTarget->setView(m_view);
     }
 
     void Camera::setSize(float x, float y)
     {
-        assert(m_renderTarget);
         m_view.setSize(x, y);
-        m_renderTarget->setView(m_view);
+        if (m_renderTarget)
+            m_renderTarget->setView(m_view);
     }
 
     void Camera::setCenter(float x, float y)
     {
-        assert(m_renderTarget);
         m_view.setCenter(x, y);
-        m_renderTarget->setView(m_view);
+        if (m_renderTarget)
+            m_renderTarget->setView(m_view);
     }
 
-    void Camera::setRotation(float degree)
+    void Camera::setRotation_DEGREES(float angle)
     {
-        assert(m_renderTarget);
-        m_view.setRotation(degree);
-        m_renderTarget->setView(m_view);
+        m_view.setRotation(angle);
+        if (m_renderTarget)
+            m_renderTarget->setView(m_view);
+    }
+
+    const sf::FloatRect &Camera::getViewport() const
+    {
+        return m_view.getViewport();
+    }
+
+    const sf::Vector2f &Camera::getSize() const
+    {
+        return m_view.getSize();
+    }
+
+    const sf::Vector2f &Camera::getCenter() const
+    {
+        return m_view.getCenter();
+    }
+
+    float Camera::getRotation_DEGREES() const
+    {
+        return m_view.getRotation();
     }
 
     void Camera::setActive(bool value)
@@ -57,7 +77,7 @@ namespace sfge::ecs
         m_active = value;
     }
 
-    [[nodiscard]] bool Camera::isActive() const
+    bool Camera::isActive() const
     {
         return m_active;
     }
