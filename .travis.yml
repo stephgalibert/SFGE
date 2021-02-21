@@ -13,4 +13,16 @@ before_install:
 script:
   - scripts/build.sh
   - cd build
+  - make docs
   - make test
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: main
+  local_dir: documentation
+  repo: stephgalibert/SFGE
+  target-branch: main

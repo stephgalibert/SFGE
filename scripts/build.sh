@@ -21,5 +21,5 @@
 set -e
 
 mkdir build && cd build
-cmake -DTESTS=ON ../
+cmake -DTESTS=ON -DDOCS=ON ../
 make -j

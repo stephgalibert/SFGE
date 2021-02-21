@@ -21,6 +21,11 @@ For those who don't want to use powerful engines that do too much for you.
 * `scripts/deps.sh`
 * `scripts/build.sh`
 
+## Documentation
+
+* Run CMake with `-DDOCS=ON`
+* make docs
+
 ## Tests
 
 * Run CMake with `-DTests=ON`
