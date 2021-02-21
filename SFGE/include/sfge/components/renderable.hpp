@@ -38,8 +38,7 @@ namespace sfge::ecs
         Renderable &operator=(const Renderable &rhs) = delete;
         Renderable &operator=(Renderable &&rhs) noexcept;
 
-        [[nodiscard]] const std::unique_ptr<sf::Shape> &shape() const;
-
+        void setShape(sf::Shape *shape);
         void setOrigin(float x, float y);
         void setPosition(float x, float y);
         void setScale(float x, float y);
@@ -47,6 +46,14 @@ namespace sfge::ecs
         void setRotation_DEGREES(float angle);
         void setTexture(sf::Texture *texture);
         void setColor(const sf::Color &color);
+
+        [[nodiscard]] const std::unique_ptr<sf::Shape> &shape() const;
+        [[nodiscard]] const sf::Vector2f &getOrigin() const;
+        [[nodiscard]] const sf::Vector2f &getPosition() const;
+        [[nodiscard]] const sf::Vector2f &getScale() const;
+        [[nodiscard]] const sf::Color &getColor() const;
+        [[nodiscard]] float getAngle_DEGREES() const;
+        [[nodiscard]] float getAngle_RADIANS() const;
 
     private:
         std::unique_ptr<sf::Shape> m_shape;

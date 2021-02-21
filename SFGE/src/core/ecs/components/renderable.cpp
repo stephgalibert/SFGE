@@ -40,9 +40,9 @@ namespace sfge::ecs
         return *this;
     }
 
-    const std::unique_ptr<sf::Shape> &Renderable::shape() const
+    void Renderable::setShape(sf::Shape *shape)
     {
-        return m_shape;
+        m_shape.reset(shape);
     }
 
     void Renderable::setOrigin(float x, float y)
@@ -80,5 +80,40 @@ namespace sfge::ecs
     void Renderable::setColor(const sf::Color &color)
     {
         m_shape->setFillColor(color);
+    }
+
+    const std::unique_ptr<sf::Shape> &Renderable::shape() const
+    {
+        return m_shape;
+    }
+
+    const sf::Vector2f &Renderable::getOrigin() const
+    {
+        return m_shape->getOrigin();
+    }
+
+    const sf::Vector2f &Renderable::getPosition() const
+    {
+        return m_shape->getPosition();
+    }
+
+    const sf::Vector2f &Renderable::getScale() const
+    {
+        return m_shape->getScale();
+    }
+
+    const sf::Color &Renderable::getColor() const
+    {
+        return m_shape->getFillColor();
+    }
+
+    float Renderable::getAngle_DEGREES() const
+    {
+        return m_shape->getRotation();
+    }
+
+    float Renderable::getAngle_RADIANS() const
+    {
+        return m_shape->getRotation() * b2_pi / 180.f;
     }
 }// namespace sfge::ecs

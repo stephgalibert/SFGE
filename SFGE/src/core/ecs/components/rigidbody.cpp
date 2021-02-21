@@ -32,9 +32,8 @@ namespace sfge::ecs
 
     void RigidBody::setConfig(const Config &config)
     {
-        m_registry->patch<RigidBody>(m_entity, [&config](RigidBody &rigidBody) {
-            rigidBody.m_config = config;
-        });
+        m_config = config;
+        m_registry->patch<RigidBody>(m_entity);
     }
 
     b2Body *RigidBody::body() const

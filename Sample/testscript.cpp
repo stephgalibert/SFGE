@@ -104,13 +104,14 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         shape->setTexture(texture);
 
         auto obj = m_gameObject->instantiate<sfge::AGameObject>();
+        obj->addComponent<sfge::ecs::Renderable>(shape);
 
         auto &t = obj->component<sfge::ecs::Transformable>();
         t.setPosition(transformable.getPosition());
         t.setAngle_DEGREES(transformable.getAngle_DEGREES());
         t.setScale(transformable.getScale());
 
-        obj->addComponent<sfge::ecs::Renderable>(shape);
+
     } else {
         auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
         if (transform.getPosition().y > 6) {

@@ -13,8 +13,8 @@ before_install:
 script:
   - scripts/build.sh
   - cd build
-  - make docs
   - make test
+  - make docs
 
 deploy:
   provider: pages
