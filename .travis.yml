@@ -25,4 +25,3 @@ deploy:
     branch: main
   local_dir: documentation
   repo: stephgalibert/SFGE
-  target-branch: main
