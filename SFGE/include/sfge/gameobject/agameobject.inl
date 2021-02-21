@@ -46,7 +46,7 @@ namespace sfge
     }
 
     template<typename ScriptType>
-    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
+    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
     AGameObject::addComponent()
     {
         entt::registry *reg = componentRegistry();
@@ -62,6 +62,7 @@ namespace sfge
         auto script = scriptable.template addScript<ScriptType>();
         script->attachGameObject(this);
         script->onAwake();
+        return script;
     }
 
     template<typename T>
@@ -82,13 +83,41 @@ namespace sfge
         return reg->template get<T>(entity());
     }
 
+    template<typename ScriptType>
+    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+    AGameObject::component()
+    {
+        entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
+        entt::entity entt = entity();
+        assert(entt != entt::null);
+
+        auto &scriptable = reg->template get<ecs::Scriptable>(entt);
+        return scriptable.template getScript<ScriptType>();
+    }
+
+    template<typename ScriptType>
+    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+    AGameObject::component() const
+    {
+        entt::registry *reg = componentRegistry();
+        assert(reg != nullptr);
+        entt::entity entt = entity();
+        assert(entt != entt::null);
+
+        auto &scriptable = reg->template get<ecs::Scriptable>(entt);
+        return scriptable.template getScript<ScriptType>();
+    }
+
     template<typename T>
     typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
     AGameObject::removeComponent()
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        reg->template remove<T>();
+        entt::entity entt = entity();
+        assert(entt != entt::null);
+        reg->template remove<T>(entt);
     }
 
     template<typename ScriptType>

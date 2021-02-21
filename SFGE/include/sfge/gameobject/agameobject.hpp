@@ -52,7 +52,7 @@ namespace sfge
         T &addComponent(Args &&... args);
 
         template<typename ScriptType>
-        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
+        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
         addComponent();
 
         template<typename T>
@@ -60,6 +60,14 @@ namespace sfge
 
         template<typename T>
         T &component();
+
+        template<typename ScriptType>
+        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+        component();
+
+        template<typename ScriptType>
+        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+        component() const;
 
         template<typename T>
         typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
@@ -69,10 +77,6 @@ namespace sfge
         typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>>
         removeComponent();
 
-    private:
-        explicit AGameObject(AGameObjectPrivate *dd);
-        PIMPL_DECLARE_PRIVATE(AGameObject);
-
         void setEntity(entt::entity entity);
         [[nodiscard]] entt::entity entity() const;
         void setComponentRegistry(entt::registry *reg);
@@ -80,7 +84,9 @@ namespace sfge
         void setScene(AScene *scene);
         [[nodiscard]] AScene *getScene() const;
 
-        friend AScene;
+    private:
+        explicit AGameObject(AGameObjectPrivate *dd);
+        PIMPL_DECLARE_PRIVATE(AGameObject);
     };
 }// namespace sfge
 

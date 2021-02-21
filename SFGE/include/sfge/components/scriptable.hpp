@@ -59,6 +59,9 @@ namespace sfge::ecs
         std::shared_ptr<T> addScript(Args &&...);
 
         template<typename T>
+        std::shared_ptr<T> getScript() const;
+
+        template<typename T>
         std::size_t removeScript();
 
     private:

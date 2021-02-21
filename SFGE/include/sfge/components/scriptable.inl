@@ -27,6 +27,15 @@ namespace sfge::ecs
     }
 
     template<typename T>
+    std::shared_ptr<T> Scriptable::getScript() const
+    {
+        const auto found = std::find_if(m_scripts.begin(), m_scripts.end(), [&](const auto &script) {
+            return typeid(T) == typeid(*script);
+        });
+        return (found != m_scripts.end()) ? *found : nullptr;
+    }
+
+    template<typename T>
     std::size_t Scriptable::removeScript()
     {
         auto f = [&](const auto &script) {

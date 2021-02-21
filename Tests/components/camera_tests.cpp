@@ -24,9 +24,6 @@
 class CameraTest : public testing::Test
 {
 protected:
-    void SetUp() override
-    {
-    }
     sfge::ecs::Camera camera;
 };
 
@@ -55,7 +52,7 @@ TEST_F(CameraTest, Rotation)
 {
     const float angle = 45.5f;
     camera.setRotation_DEGREES(angle);
-    EXPECT_EQ(angle, camera.getRotation_DEGREES());
+    EXPECT_FLOAT_EQ(angle, camera.getRotation_DEGREES());
 }
 
 TEST_F(CameraTest, IsActive)

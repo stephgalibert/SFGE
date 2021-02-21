@@ -54,8 +54,8 @@ TEST_F(TransformableTest, Rotation)
     const float degrees = 154;
     const float radians = degrees * b2_pi / 180.f;
     transformable.setAngle_RADIANS(radians);
-    EXPECT_EQ(radians, transformable.getAngle_RADIANS());
-    EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
+    EXPECT_FLOAT_EQ(radians, transformable.getAngle_RADIANS());
+    EXPECT_FLOAT_EQ(degrees, transformable.getAngle_DEGREES());
 }
 
 TEST_F(TransformableTest, Scale)
@@ -72,6 +72,6 @@ TEST_F(TransformableTest, Transform)
     const float degrees = radians * 180.f / b2_pi;
     transformable.setTransform(pos, radians);
     EXPECT_EQ(pos, transformable.getPosition());
-    EXPECT_EQ(radians, transformable.getAngle_RADIANS());
-    EXPECT_EQ(degrees, transformable.getAngle_DEGREES());
+    EXPECT_FLOAT_EQ(radians, transformable.getAngle_RADIANS());
+    EXPECT_FLOAT_EQ(degrees, transformable.getAngle_DEGREES());
 }

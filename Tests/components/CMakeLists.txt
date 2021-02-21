@@ -22,7 +22,8 @@ set (TARGET "components_tests")
 set (SRCS transformable_tests.cpp
         scriptable_tests.cpp
         renderable_tests.cpp
-        camera_tests.cpp)
+        camera_tests.cpp
+        agameobject_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
 target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")

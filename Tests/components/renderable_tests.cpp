@@ -58,8 +58,8 @@ TEST_F(RenderableTest, Rotation)
     const float radians = 0.725;
     const float degrees = radians * 180.f / b2_pi;
     renderable.setRotation_RADIANS(radians);
-    EXPECT_EQ(radians, renderable.getAngle_RADIANS());
-    EXPECT_EQ(degrees, renderable.getAngle_DEGREES());
+    EXPECT_FLOAT_EQ(radians, renderable.getAngle_RADIANS());
+    EXPECT_FLOAT_EQ(degrees, renderable.getAngle_DEGREES());
 }
 
 TEST_F(RenderableTest, Color)
