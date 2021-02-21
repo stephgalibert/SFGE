@@ -107,13 +107,13 @@ TEST_F(AGameObjectTest, RemoveComponents)
     add();
     gameObject.removeComponent<sfge::ecs::Transformable>();
     gameObject.removeComponent<sfge::ecs::Renderable>();
-    gameObject.removeComponent<sfge::ecs::Scriptable>();
     gameObject.removeComponent<sfge::ecs::RigidBody>();
     gameObject.removeComponent<sfge::ecs::Camera>();
     gameObject.removeComponent<sfge::ecs::Input>();
-//    gameObject.removeComponent<ScriptA>();
-//    gameObject.removeComponent<ScriptB>();
-//
-//    const auto &scriptable = gameObject.component<sfge::ecs::Scriptable>();
-//    EXPECT_EQ(0, scriptable.getSize());
+    gameObject.removeComponent<ScriptA>();
+    gameObject.removeComponent<ScriptB>();
+
+    const auto &scriptable = gameObject.component<sfge::ecs::Scriptable>();
+    EXPECT_EQ(0, scriptable.getSize());
+    gameObject.removeComponent<sfge::ecs::Scriptable>();
 }

@@ -113,6 +113,7 @@ namespace sfge
     typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
     AGameObject::removeComponent()
     {
+        //std::clog << std::is_base_of_v<sfge::ecs::AScript, T> << std::endl;
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
         entt::entity entt = entity();
