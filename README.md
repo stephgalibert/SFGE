@@ -23,6 +23,7 @@ For those who don't want to use powerful engines that do too much for you.
 
 ## Documentation
 
+* Online Doxygen [Documentation](https://stephgalibert.github.io/SFGE/)
 * Run CMake with `-DDOCS=ON`
 * make docs
 
