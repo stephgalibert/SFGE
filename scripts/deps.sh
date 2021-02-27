@@ -20,6 +20,12 @@
 
 set -e
 
+if [ -z "${NO_SUDO}" ]; then
+  alias sudo='sudo'
+else
+  alias sudo=''
+fi
+
 # Installs box2d deps
 sudo apt-get -y install xorg-dev libglu1-mesa-dev
 
