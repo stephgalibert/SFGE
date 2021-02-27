@@ -29,7 +29,7 @@ For those who don't want to use powerful engines that do too much for you.
 * Run CMake with `-DTests=ON`
 * `make test`
 
-## Code smell
+## Code Smell
 * [Sonarcloud.io](https://sonarcloud.io/dashboard?id=stephgalibert_SFGE)
 
 

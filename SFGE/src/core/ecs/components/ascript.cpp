@@ -26,6 +26,11 @@ namespace sfge::ecs
         m_gameObject = gameObject;
     }
 
+    AGameObject *AScript::getGameObject() const
+    {
+        return m_gameObject;
+    }
+
     void AScript::onCollisionEnter(AGameObject *collided)
     {
         SFGE_UNUSED(collided);

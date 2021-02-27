@@ -35,14 +35,6 @@ namespace sfge::ecs
     class Scriptable : public Component
     {
     public:
-        Scriptable() = default;
-        Scriptable(const Scriptable &rhs) = default;
-        Scriptable(Scriptable &&rhs) noexcept = default;
-        ~Scriptable();
-
-        Scriptable &operator=(const Scriptable &rhs) = default;
-        Scriptable &operator=(Scriptable &&rhs) noexcept = default;
-
         void onCollisionEnter(AGameObject *collided);
         void onCollisionExit(AGameObject *collided);
 

@@ -31,12 +31,14 @@ namespace sfge::ecs
     {
     public:
         void attachGameObject(AGameObject *gameObject);
-        [[nodiscard]] AGameObject *getGameObject() const;
-
         void setRegistry(entt::registry *registry);
         void setEntity(entt::entity entity);
 
-    protected:
+        [[nodiscard]] AGameObject *getGameObject() const;
+        [[nodiscard]] entt::registry *getRegistry() const;
+        [[nodiscard]] entt::entity getEntity() const;
+
+    private:
         AGameObject *m_gameObject = nullptr;
         entt::registry *m_registry = nullptr;
         entt::entity m_entity = entt::null;

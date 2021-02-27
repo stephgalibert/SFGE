@@ -91,9 +91,6 @@ namespace sfge
 
     AScene::~AScene()
     {
-        PIMPL_D(AScene);
-        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        loggerService->removeLogger(d->m_logger);
     }
 
     void AScene::init()
@@ -106,6 +103,9 @@ namespace sfge
     {
         PIMPL_D(AScene);
         d->m_logger->info("Destroy");
+
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        loggerService->removeLogger(d->m_logger);
     }
 
     void AScene::onKeyboardEvent(const input::KeyboardEvent &event)

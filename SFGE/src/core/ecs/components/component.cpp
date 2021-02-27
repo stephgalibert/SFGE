@@ -17,17 +17,13 @@
 //
 
 #include "sfge/components/base/component.hpp"
+#include "sfge/gameobject/agameobject.hpp"
 
 namespace sfge::ecs
 {
     void Component::attachGameObject(AGameObject *gameObject)
     {
         m_gameObject = gameObject;
-    }
-
-    AGameObject *Component::getGameObject() const
-    {
-        return m_gameObject;
     }
 
     void Component::setRegistry(entt::registry *registry)
@@ -38,5 +34,20 @@ namespace sfge::ecs
     void Component::setEntity(entt::entity entity)
     {
         m_entity = entity;
+    }
+
+    AGameObject *Component::getGameObject() const
+    {
+        return m_gameObject;
+    }
+
+    entt::registry *Component::getRegistry() const
+    {
+        return m_registry;
+    }
+
+    entt::entity Component::getEntity() const
+    {
+        return m_entity;
     }
 }// namespace sfge::ecs

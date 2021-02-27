@@ -42,13 +42,13 @@ TestScript::~TestScript()
 
 void TestScript::onCollisionEnter(sfge::AGameObject *collided)
 {
-    auto &renderable = m_gameObject->component<sfge::ecs::Renderable>();
+    auto &renderable = getGameObject()->component<sfge::ecs::Renderable>();
     renderable.setColor(sf::Color::Red);
 }
 
 void TestScript::onCollisionExit(sfge::AGameObject *collided)
 {
-    auto &renderable = m_gameObject->component<sfge::ecs::Renderable>();
+    auto &renderable = getGameObject()->component<sfge::ecs::Renderable>();
     renderable.setColor(sf::Color::White);
 }
 
@@ -69,9 +69,11 @@ void TestScript::onDestroy()
 
 void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
 {
-    assert(m_gameObject);
-    auto &rigidbody = m_gameObject->component<sfge::ecs::RigidBody>();
-    auto &transformable = m_gameObject->component<sfge::ecs::Transformable>();
+    sfge::AGameObject *gameObject = getGameObject();
+    assert(gameObject);
+
+    auto &rigidbody = gameObject->component<sfge::ecs::RigidBody>();
+    auto &transformable = gameObject->component<sfge::ecs::Transformable>();
 
     if (event.key == sf::Keyboard::D) {
         rigidbody.body()->SetLinearVelocity({3, 0});
@@ -103,7 +105,7 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         sf::Shape *shape = new sf::RectangleShape({1, 1});
         shape->setTexture(texture);
 
-        auto obj = m_gameObject->instantiate<sfge::AGameObject>();
+        auto obj = gameObject->instantiate<sfge::AGameObject>();
         obj->addComponent<sfge::ecs::Renderable>(shape);
 
         auto &t = obj->component<sfge::ecs::Transformable>();
@@ -113,7 +115,7 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
 
 
     } else {
-        auto &transform = m_gameObject->component<sfge::ecs::Transformable>();
+        auto &transform = gameObject->component<sfge::ecs::Transformable>();
         if (transform.getPosition().y > 6) {
             transform.setPosition({0, -5});
         }

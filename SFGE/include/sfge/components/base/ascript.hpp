@@ -39,6 +39,7 @@ namespace sfge::ecs
         virtual ~AScript() = default;
 
         void attachGameObject(AGameObject *gameObject);
+        [[nodiscard]] AGameObject *getGameObject() const;
 
         virtual void onCollisionEnter(AGameObject *collided);
         virtual void onCollisionExit(AGameObject *collided);
@@ -47,11 +48,10 @@ namespace sfge::ecs
         virtual void onUpdate(float dt) = 0;
         virtual void onDestroy() = 0;
 
-        // onMouse[...]()
         virtual void onKeyboardEvent(const input::KeyboardEvent &event);
         virtual void onMouseButtonEvent(const input::MouseButtonEvent &event);
 
-    protected:
+    private:
         AGameObject *m_gameObject = nullptr;
     };
 }// namespace sfge::ecs

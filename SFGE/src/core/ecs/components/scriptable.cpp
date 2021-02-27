@@ -20,11 +20,6 @@
 
 namespace sfge::ecs
 {
-    Scriptable::~Scriptable()
-    {
-        destroy();
-    }
-
     void Scriptable::onCollisionEnter(AGameObject *collided)
     {
         for (const auto &script : m_scripts) {
