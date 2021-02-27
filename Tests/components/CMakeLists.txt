@@ -27,6 +27,7 @@ set (SRCS transformable_tests.cpp
 
 add_executable (${TARGET} ${SRCS})
 target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")
+target_link_libraries (${TARGET} PRIVATE "mock_classes")
 
 # Inject SFGE private libraries into the test suite includes tree
 target_include_directories(${TARGET} PRIVATE ${SFGE_PRIVATE_INCLUDES})

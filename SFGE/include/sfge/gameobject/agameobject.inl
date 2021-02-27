@@ -66,7 +66,8 @@ namespace sfge
     }
 
     template<typename T>
-    const T &AGameObject::component() const
+    typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>, const T &>
+    AGameObject::component() const
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
@@ -76,24 +77,10 @@ namespace sfge
     }
 
     template<typename T>
-    T &AGameObject::component()
-    {
-        entt::registry *reg = componentRegistry();
-        assert(reg != nullptr);
-        return reg->template get<T>(entity());
-    }
-
-    template<typename ScriptType>
-    typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+    typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>, T &>
     AGameObject::component()
     {
-        entt::registry *reg = componentRegistry();
-        assert(reg != nullptr);
-        entt::entity entt = entity();
-        assert(entt != entt::null);
-
-        auto &scriptable = reg->template get<ecs::Scriptable>(entt);
-        return scriptable.template getScript<ScriptType>();
+        return const_cast<T&>(static_cast<const AGameObject &>(*this).template component<T>());
     }
 
     template<typename ScriptType>
@@ -113,7 +100,6 @@ namespace sfge
     typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>>
     AGameObject::removeComponent()
     {
-        //std::clog << std::is_base_of_v<sfge::ecs::AScript, T> << std::endl;
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
         entt::entity entt = entity();

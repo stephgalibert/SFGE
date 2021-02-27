@@ -18,9 +18,12 @@
 
 cmake_minimum_required (VERSION 3.8)
 
-# Retrieve private headers from the SFGE library
-get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+set (TARGET "mock_classes")
+set (SRCS script.cpp
+        objectregister.cpp
+        scriptablestates.cpp)
 
-add_subdirectory("common")
-add_subdirectory("components")
-add_subdirectory("config")
+add_library(${TARGET} STATIC ${SRCS})
+
+target_include_directories(${TARGET} PUBLIC "./")
+target_include_directories(${TARGET} PRIVATE ${SFGE_PRIVATE_INCLUDES})

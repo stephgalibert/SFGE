@@ -32,7 +32,10 @@ namespace sfge::ecs
         const auto found = std::find_if(m_scripts.begin(), m_scripts.end(), [&](const auto &script) {
             return typeid(T) == typeid(*script);
         });
-        return (found != m_scripts.end()) ? *found : nullptr;
+        if (found != m_scripts.end()) {
+           return std::static_pointer_cast<T>(*found);
+        }
+        return nullptr;
     }
 
     template<typename T>

@@ -16,6 +16,8 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include "mock/script.hpp"
+
 #include <sfge/components/camera.hpp>
 #include <sfge/components/input.hpp>
 #include <sfge/components/renderable.hpp>
@@ -25,22 +27,6 @@
 #include <sfge/gameobject/agameobject.hpp>
 
 #include <gtest/gtest.h>
-
-class ScriptA : public sfge::ecs::AScript
-{
-public:
-    void onAwake() override {}
-    void onUpdate(float dt) override {}
-    void onDestroy() override {}
-};
-
-class ScriptB : public sfge::ecs::AScript
-{
-public:
-    void onAwake() override {}
-    void onUpdate(float dt) override {}
-    void onDestroy() override {}
-};
 
 class AGameObjectTest : public testing::Test
 {
@@ -66,9 +52,9 @@ protected:
         EXPECT_FALSE(camera.isActive());
         const auto &input = gameObject.addComponent<sfge::ecs::Input>();
         EXPECT_FALSE(input.getKeyboardButton());
-        const auto script1 = gameObject.addComponent<ScriptA>();
+        const auto script1 = gameObject.addComponent<ScriptMockAlpha>();
         EXPECT_TRUE(script1);
-        const auto script2 = gameObject.addComponent<ScriptB>();
+        const auto script2 = gameObject.addComponent<ScriptMockBeta>();
         EXPECT_TRUE(script2);
     }
     entt::registry registry;
@@ -96,10 +82,12 @@ TEST_F(AGameObjectTest, GetComponents)
     EXPECT_FALSE(camera.isActive());
     const auto &input = gameObject.component<sfge::ecs::Input>();
     EXPECT_FALSE(input.getKeyboardButton());
-//    std::shared_ptr<ScriptA> script1 = gameObject.component<ScriptA>();
-//    (void)script1;
-//    const auto &script2 = gameObject.component<ScriptB>();
-//    (void)script2;
+    std::shared_ptr<ScriptMockAlpha> script1 = gameObject.component<ScriptMockAlpha>();
+    EXPECT_TRUE(script1);
+    EXPECT_EQ(0, script1->getType());
+    std::shared_ptr<ScriptMockBeta> script2 = gameObject.component<ScriptMockBeta>();
+    EXPECT_TRUE(script2);
+    EXPECT_EQ(1, script2->getType());
 }
 
 TEST_F(AGameObjectTest, RemoveComponents)
@@ -110,8 +98,8 @@ TEST_F(AGameObjectTest, RemoveComponents)
     gameObject.removeComponent<sfge::ecs::RigidBody>();
     gameObject.removeComponent<sfge::ecs::Camera>();
     gameObject.removeComponent<sfge::ecs::Input>();
-    gameObject.removeComponent<ScriptA>();
-    gameObject.removeComponent<ScriptB>();
+    gameObject.removeComponent<ScriptMockAlpha>();
+    gameObject.removeComponent<ScriptMockBeta>();
 
     const auto &scriptable = gameObject.component<sfge::ecs::Scriptable>();
     EXPECT_EQ(0, scriptable.getSize());

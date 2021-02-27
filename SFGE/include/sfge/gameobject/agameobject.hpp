@@ -56,13 +56,11 @@ namespace sfge
         addComponent();
 
         template<typename T>
-        const T &component() const;
+        typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>, const T &>
+        component() const;
 
         template<typename T>
-        T &component();
-
-        template<typename ScriptType>
-        typename std::enable_if_t<std::is_base_of_v<ecs::AScript, ScriptType>, std::shared_ptr<ScriptType>>
+        typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>, T &>
         component();
 
         template<typename ScriptType>
