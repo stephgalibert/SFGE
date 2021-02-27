@@ -1,12 +1,12 @@
 [![Build Status](https://travis-ci.com/stephgalibert/sfge.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/sfge)
+[![GitHub license](https://img.shields.io/github/license/stephgalibert/SFGE)](https://github.com/stephgalibert/SFGE/blob/main/LICENSE)
+
 
 # SFGE
-
 Simple & Fast 2D Game Engine SDK.  
 For those who don't want to use powerful engines that do too much for you.
 
 ## Dependencies
-
 | Name   | Version | Type    | Link |
 | :----: | :----: | :------: | :------------------------------------------------------: |
 | SFML   | 2.5.1  | Renderer | https://github.com/SFML/SFML/tree/2.5.1                  |
@@ -17,27 +17,26 @@ For those who don't want to use powerful engines that do too much for you.
 | GTests | 1.10.0 | Tests    | https://github.com/google/googletest/tree/release-1.10.0 | 
  
 ## Build
-
-* `scripts/deps.sh`
-* `scripts/build.sh`
+* `Scripts/deps.sh`
+* `Scripts/build.sh`
 
 ## Documentation
-
-* Online Doxygen [Documentation](https://stephgalibert.github.io/SFGE/)
+* Check the [Online doxygen documentation](https://stephgalibert.github.io/SFGE/)
 * Run CMake with `-DDOCS=ON`
 * make docs
 
 ## Tests
-
 * Run CMake with `-DTests=ON`
 * `make test`
 
-## Run
+## Code smell
+* [Sonarcloud.io](https://sonarcloud.io/dashboard?id=stephgalibert_SFGE)
 
+
+## Run
 * ./sample
 
 ## TODO before v1.0
-
 * Last update: 20/02/2021
 
 | Feature | Note | Estimated Time |
@@ -56,7 +55,6 @@ For those who don't want to use powerful engines that do too much for you.
 
   
 ## Enhancement
-
 | Feature                   | Note                 | Estimated Time |
 | :-----------------------: | -------------------- | :------------: |
 | Scene Graph               | Parenting            | -              |

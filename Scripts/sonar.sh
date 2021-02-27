@@ -20,6 +20,14 @@
 
 set -e
 
-mkdir build && cd build
-cmake -DTESTS=ON -DDOCS=ON ../
-make -j
+# Prepare build environment
+mkdir build-sonar && cd build-sonar
+cmake -DTESTS=OFF -DDOCS=OFF ../
+cd ../
+
+# Wraps the compilation with the Build Wrapper to generate configuration (used
+# later by the SonarScanner) into the "bw-output" folder
+build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build-sonar/ -j
+# And finally run the SonarCloud analysis - read the "sonar-project.properties"
+# file to see the specific configuration
+sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output

@@ -6,21 +6,24 @@ compiler: gcc
 addons:
   apt:
     update: true
+  sonarcloud:
+    organization: "stephgalibert"
+    token:
+      secure: "TOD6Vwr86dR1XODCuVWHbRt+AwuCfRL4dj06rbSpGlCItrkyCjYKwi3vIyenCz2ZAFhiGoxNbpQ6BhBLK9TvVEPO9NZqnkC3iFmBRfJNwkGriMtMERpx/5XxMK/jnljvIwY4B05uuyd9js5sOYQQnhFb6oxKL1rKWwPXa6ZRArVDaFL43u8nIib1jMWdtCQ4Ey7rUmXYjn+R2/rSr0QugexpU7S/rUdCO2X3kamnIUA6Q3T6eUgbUt2EchJrfVlsEXcuYRCtvpS0F21pohVnYWSWw4aiBUlDudPxUnDk4bJafG61p1AhU4/6HfgRYFV2sUBLuWPS2vF6NqNcGxtPj6u2HP7gRyWuxD58Wy4Q9K107AaE6mJklAaZHp+VGXIa3XXEyjv0l4RLA4w6Y9mnfwoVKgBhKpOD0+EjePkd65Yjiar1TtAFqR1+SZoOlUoQYASyLqaOhanhsTNYOlBzv4bi8gI5rb3t0w9zGKD1jgNlc0rCioMDDdsg5HXpDJ5HiCKhSNCc7QUPPxRkcZqJP5NT38sVh0M0EI0+h17I31tyK3xsz7JoeGLOOi+22i5Ri0W6mIZIbPajRwIsWkwtH4QL5jkuuqJKO7gP/jUlzZB1VW3yxmrqHZv84iglL7P1Kw+cEJVpvYiV9E4VBhobQ6nP98kGLvChBNYdKUDfSVM="
 
 before_install:
-  - scripts/deps.sh
+  - Scripts/deps.sh
 
 script:
-  - scripts/build.sh
-  - cd build
-  - make test
-  - make docs
+  - Scripts/build.sh
+  - Scripts/sonar.sh
 
 deploy:
+  strategy: git
   provider: pages
   skip_cleanup: true
-  github-token: $GITHUB_TOKEN
-  on:
-    branch: main
+  token: "$GITHUB_TOKEN"
   local_dir: documentation
   repo: stephgalibert/SFGE
+  on:
+    branch: main
