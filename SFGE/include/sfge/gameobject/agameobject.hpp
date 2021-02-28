@@ -76,7 +76,7 @@ namespace sfge
         removeComponent();
 
         void setEntity(entt::entity entity);
-        [[nodiscard]] entt::entity entity() const;
+        [[nodiscard]] entt::entity getEntity() const;
         void setComponentRegistry(entt::registry *reg);
         [[nodiscard]] entt::registry *componentRegistry() const;
         void setScene(AScene *scene);

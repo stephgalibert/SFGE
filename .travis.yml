@@ -22,7 +22,7 @@ deploy:
   strategy: git
   provider: pages
   skip_cleanup: true
-  token: "$GITHUB_TOKEN"
+  github_token: "$GITHUB_TOKEN"
   local_dir: documentation
   repo: stephgalibert/SFGE
   on:

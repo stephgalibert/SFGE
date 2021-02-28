@@ -38,24 +38,24 @@ namespace sfge::ecs
     {
         // A Transformable component has been changed
         // We need to update the attached Renderable and the Rigidbody, if any.
-        auto &transform = registry.get<Transformable>(entity);
+        const auto &transformable = registry.get<Transformable>(entity);
 
         auto renderable = registry.try_get<Renderable>(entity);
         if (renderable) {
-            renderable->setScale(transform.getScale().x * m_pixelsPerMeter, transform.getScale().y * m_pixelsPerMeter);
+            renderable->setScale(transformable.getScale().x * m_pixelsPerMeter, transformable.getScale().y * m_pixelsPerMeter);
             // The origin must be the same as box2d: in the center of the object
             renderable->setOrigin(0.5, 0.5);
-            renderable->setPosition(transform.getPosition().x * m_pixelsPerMeter, transform.getPosition().y * m_pixelsPerMeter);
-            renderable->setRotation_DEGREES(transform.getAngle_DEGREES());
+            renderable->setPosition(transformable.getPosition().x * m_pixelsPerMeter, transformable.getPosition().y * m_pixelsPerMeter);
+            renderable->setRotation_DEGREES(transformable.getAngle_DEGREES());
         }
 
-        RigidBody *rigidBody = registry.try_get<RigidBody>(entity);
+        auto rigidBody = registry.try_get<RigidBody>(entity);
         if (rigidBody) {
             b2Vec2 b2Pos = rigidBody->body()->GetPosition();
-            if (b2Pos.x != transform.getPosition().x || b2Pos.y != transform.getPosition().y || rigidBody->body()->GetAngle() != transform.getAngle_RADIANS()) {
+            if (b2Pos.x != transformable.getPosition().x || b2Pos.y != transformable.getPosition().y || rigidBody->body()->GetAngle() != transformable.getAngle_RADIANS()) {
                 // Update the b2body ONLY IF it has a different transform (position and angle)
-                b2Pos = {transform.getPosition().x, transform.getPosition().y};
-                rigidBody->body()->SetTransform(b2Pos, transform.getAngle_RADIANS());
+                b2Pos = {transformable.getPosition().x, transformable.getPosition().y};
+                rigidBody->body()->SetTransform(b2Pos, transformable.getAngle_RADIANS());
             }
         }
     }
@@ -67,19 +67,16 @@ namespace sfge::ecs
         m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
     }
 
-    void RenderableEvents::created(entt::registry &registry, entt::entity entity) const
+    void RenderableEvents::changed(entt::registry &registry, entt::entity entity) const
     {
+        const auto &transformable = registry.get<Transformable>(entity);
         auto &renderable = registry.get<Renderable>(entity);
-        auto &transformable = registry.get<Transformable>(entity);
 
         renderable.setScale(transformable.getScale().x * m_pixelsPerMeter,
                             transformable.getScale().y * m_pixelsPerMeter);
-
         renderable.setOrigin(0.5, 0.5);
-
         renderable.setPosition(transformable.getPosition().x * m_pixelsPerMeter,
                                transformable.getPosition().y * m_pixelsPerMeter);
-
         renderable.setRotation_DEGREES(transformable.getAngle_DEGREES());
     }
 
@@ -95,8 +92,8 @@ namespace sfge::ecs
 
     void RigidbodyEvents::createConfig(entt::registry &registry, entt::entity entity) const
     {
+        const ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
         ecs::RigidBody &rigidBody = registry.get<ecs::RigidBody>(entity);
-        ecs::Transformable &transform = registry.get<ecs::Transformable>(entity);
 
         ecs::RigidBody::Config config = rigidBody.config();
         b2Body *body = load(config, transform);

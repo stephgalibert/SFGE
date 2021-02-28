@@ -25,33 +25,46 @@ namespace sfge::ecs
 {
     void Transformable::setPosition(const sf::Vector2f &pos)
     {
-        m_position = pos;
-        getRegistry()->patch<Transformable>(getEntity());
+        if (m_position != pos) {
+            m_position = pos;
+            getRegistry()->patch<Transformable>(getEntity());
+        }
     }
 
     void Transformable::setScale(const sf::Vector2f &scale)
     {
-        m_scale = scale;
-        getRegistry()->patch<Transformable>(getEntity());
+        if (m_scale != scale) {
+            m_scale = scale;
+            getRegistry()->patch<Transformable>(getEntity());
+        }
     }
 
     void Transformable::setAngle_RADIANS(float angle)
     {
-        m_angle = angle * 180 / b2_pi;
-        getRegistry()->patch<Transformable>(getEntity());
+        const float degrees = angle * 180 / b2_pi;
+        if (degrees != m_angle) {
+            m_angle = degrees;
+            getRegistry()->patch<Transformable>(getEntity());
+        }
     }
 
     void Transformable::setAngle_DEGREES(float angle)
     {
-        m_angle = angle;
-        getRegistry()->patch<Transformable>(getEntity());
+        if (m_angle != angle) {
+            m_angle = angle;
+            getRegistry()->patch<Transformable>(getEntity());
+        }
     }
 
     void Transformable::setTransform(const sf::Vector2f &pos, float radians)
     {
-        m_position = pos;
-        m_angle = radians * 180 / b2_pi;
-        getRegistry()->patch<Transformable>(getEntity());
+        const float degrees = radians * 180 / b2_pi;
+
+        if (m_position != pos || degrees != m_angle) {
+            m_position = pos;
+            m_angle = degrees;
+            getRegistry()->patch<Transformable>(getEntity());
+        }
     }
 
     sf::Vector2f Transformable::getPosition() const

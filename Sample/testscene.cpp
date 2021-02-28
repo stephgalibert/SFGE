@@ -67,7 +67,8 @@ void TestScene::init()
         shape->setFillColor(sf::Color::Green);
         auto obj = instantiate<sfge::AGameObject>();
 
-        obj->addComponent<sfge::ecs::Renderable>(shape);
+        auto &renderable = obj->addComponent<sfge::ecs::Renderable>();
+        renderable.setShape(shape);
 
         auto &transformable = obj->component<sfge::ecs::Transformable>();
         transformable.setPosition({0, -7});
@@ -91,7 +92,8 @@ void TestScene::init()
         input.setMouseButton(true);
         input.setMouseMove(true);
 
-        auto &renderable = obj->addComponent<sfge::ecs::Renderable>(shape);
+        auto &renderable = obj->addComponent<sfge::ecs::Renderable>();
+        renderable.setShape(shape);
         renderable.setTexture(texture);
     }
     {
@@ -103,7 +105,8 @@ void TestScene::init()
         transformable.setPosition({0, 3});
         transformable.setScale({20, 0.2f});
 
-        obj->addComponent<sfge::ecs::Renderable>(shape);
+        auto &renderable = obj->addComponent<sfge::ecs::Renderable>();
+        renderable.setShape(shape);
 
         auto &rigidbody = obj->addComponent<sfge::ecs::RigidBody>();
         sfge::ecs::RigidBody::Config config;

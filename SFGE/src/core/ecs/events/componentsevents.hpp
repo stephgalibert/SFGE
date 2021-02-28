@@ -42,7 +42,7 @@ namespace sfge::ecs
     {
     public:
         RenderableEvents();
-        void created(entt::registry &registry, entt::entity entity) const;
+        void changed(entt::registry &registry, entt::entity entity) const;
 
     private:
         float m_pixelsPerMeter;

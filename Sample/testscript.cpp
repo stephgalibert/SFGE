@@ -25,8 +25,6 @@
 #include <sfge/services/itextureloaderservice.hpp>
 #include <sfge/services/servicelocator.hpp>
 
-#include <iostream>
-
 TestScript::TestScript()
 {
     auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
@@ -73,7 +71,6 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
     assert(gameObject);
 
     auto &rigidbody = gameObject->component<sfge::ecs::RigidBody>();
-    auto &transformable = gameObject->component<sfge::ecs::Transformable>();
 
     if (event.key == sf::Keyboard::D) {
         rigidbody.body()->SetLinearVelocity({3, 0});
@@ -96,7 +93,7 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         rigidbody.setConfig(config);
     } else if (event.key == sf::Keyboard::N) {
         static int i = 0;
-        if (i > 2) return;
+        if (i > 6) return;
         ++i;
 
         auto textureService = sfge::services::ServiceLocator::Get<sfge::services::ITextureLoaderService>();
@@ -106,13 +103,15 @@ void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
         shape->setTexture(texture);
 
         auto obj = gameObject->instantiate<sfge::AGameObject>();
-        obj->addComponent<sfge::ecs::Renderable>(shape);
 
-        auto &t = obj->component<sfge::ecs::Transformable>();
-        t.setPosition(transformable.getPosition());
-        t.setAngle_DEGREES(transformable.getAngle_DEGREES());
-        t.setScale(transformable.getScale());
+        auto &renderable = obj->addComponent<sfge::ecs::Renderable>();
+        renderable.setShape(shape);
 
+        const auto &transformable = gameObject->component<sfge::ecs::Transformable>();
+        auto &transform = obj->component<sfge::ecs::Transformable>();
+        transform.setPosition(transformable.getPosition());
+        transform.setAngle_DEGREES(transformable.getAngle_DEGREES());
+        transform.setScale(transformable.getScale());
 
     } else {
         auto &transform = gameObject->component<sfge::ecs::Transformable>();

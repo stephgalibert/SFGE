@@ -65,7 +65,7 @@ namespace sfge
         d->m_entity = entity;
     }
 
-    entt::entity AGameObject::entity() const
+    entt::entity AGameObject::getEntity() const
     {
         const PIMPL_D(AGameObject);
         return d->m_entity;

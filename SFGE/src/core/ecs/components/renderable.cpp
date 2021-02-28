@@ -22,27 +22,10 @@
 
 namespace sfge::ecs
 {
-    Renderable::Renderable(sf::Shape *shape)
-        : m_shape(shape)
-    {
-    }
-
-    Renderable::Renderable(Renderable &&rhs) noexcept
-        : Component(std::move(rhs))
-    {
-        m_shape = std::move(rhs.m_shape);
-    }
-
-    Renderable &Renderable::operator=(Renderable &&rhs) noexcept
-    {
-        m_shape = std::move(rhs.m_shape);
-        Component::operator=(std::move(rhs));
-        return *this;
-    }
-
     void Renderable::setShape(sf::Shape *shape)
     {
         m_shape.reset(shape);
+        getRegistry()->patch<Renderable>(getEntity());
     }
 
     void Renderable::setOrigin(float x, float y)
@@ -62,7 +45,6 @@ namespace sfge::ecs
 
     void Renderable::setRotation_RADIANS(float angle)
     {
-        // convert angle from radians
         m_shape->setRotation(angle * 180 / b2_pi);
     }
 

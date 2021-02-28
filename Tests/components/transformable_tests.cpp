@@ -17,6 +17,7 @@
 //
 
 #include <sfge/components/transformable.hpp>
+#include <sfge/gameobject/agameobject.hpp>
 
 #include <box2d/b2_common.h>
 #include <gtest/gtest.h>
@@ -26,19 +27,22 @@ class TransformableTest : public testing::Test
 protected:
     void SetUp() override
     {
-        entity = registry.create();
-        transformable = registry.emplace<sfge::ecs::Transformable>(entity);
-        transformable.setRegistry(&registry);
-        transformable.setEntity(entity);
+        gameObject.setComponentRegistry(&registry);
+        EXPECT_NE(static_cast<uint32_t>(entt::null), gameObject.getId());
+
+        transformable = registry.emplace<sfge::ecs::Transformable>(gameObject.getEntity());
+        EXPECT_EQ(1, registry.size<sfge::ecs::Transformable>());
+        transformable.attachGameObject(&gameObject);
     }
 
     void TearDown() override
     {
-        registry.remove_all(entity);
+        registry.remove<sfge::ecs::Transformable>(transformable.getEntity());
+        EXPECT_EQ(0, registry.size<sfge::ecs::Transformable>());
     }
 
     entt::registry registry;
-    entt::entity entity = entt::null;
+    sfge::AGameObject gameObject;
     sfge::ecs::Transformable transformable;
 };
 

@@ -26,16 +26,6 @@ namespace sfge::ecs
         m_gameObject = gameObject;
     }
 
-    void Component::setRegistry(entt::registry *registry)
-    {
-        m_registry = registry;
-    }
-
-    void Component::setEntity(entt::entity entity)
-    {
-        m_entity = entity;
-    }
-
     AGameObject *Component::getGameObject() const
     {
         return m_gameObject;
@@ -43,11 +33,13 @@ namespace sfge::ecs
 
     entt::registry *Component::getRegistry() const
     {
-        return m_registry;
+        assert(m_gameObject);
+        return m_gameObject->componentRegistry();
     }
 
     entt::entity Component::getEntity() const
     {
-        return m_entity;
+        assert(m_gameObject);
+        return m_gameObject->getEntity();
     }
 }// namespace sfge::ecs

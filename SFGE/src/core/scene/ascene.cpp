@@ -58,11 +58,11 @@ namespace sfge
         m_registry.on_construct<ecs::Input>().connect<&entt::registry::get_or_emplace<ecs::Scriptable>>();
 
         // Setup construct listeners
-        m_registry.on_construct<ecs::Renderable>().connect<&ecs::RenderableEvents::created>(m_renderableEvents);
         m_registry.on_construct<ecs::RigidBody>().connect<&ecs::RigidbodyEvents::created>(m_rigidbodyEvents);
 
         // Setup change listeners
         m_registry.on_update<ecs::Transformable>().connect<&ecs::TransformableEvents::changed>(m_transformableEvents);
+        m_registry.on_update<ecs::Renderable>().connect<&ecs::RenderableEvents::changed>(m_renderableEvents);
         m_registry.on_update<ecs::RigidBody>().connect<&ecs::RigidbodyEvents::changed>(m_rigidbodyEvents);
         // entt::observer observer(m_registry, entt::collector.update<ecs::Transformable>());
     }

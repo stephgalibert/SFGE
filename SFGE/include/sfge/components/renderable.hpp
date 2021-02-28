@@ -29,15 +29,6 @@ namespace sfge::ecs
     class Renderable : public Component
     {
     public:
-        Renderable() = default;
-        explicit Renderable(sf::Shape *shape);
-        Renderable(const Renderable &rhs) = delete;
-        Renderable(Renderable &&rhs) noexcept;
-        ~Renderable() = default;
-
-        Renderable &operator=(const Renderable &rhs) = delete;
-        Renderable &operator=(Renderable &&rhs) noexcept;
-
         void setShape(sf::Shape *shape);
         void setOrigin(float x, float y);
         void setPosition(float x, float y);

@@ -35,13 +35,11 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
 
         T &component = reg->template emplace<T>(entt, std::forward<Args>(args)...);
         component.attachGameObject(this);
-        component.setRegistry(reg);
-        component.setEntity(entt);
         return component;
     }
 
@@ -51,13 +49,11 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
 
         auto &scriptable = reg->template get_or_emplace<ecs::Scriptable>(entt);
         scriptable.attachGameObject(this);
-        scriptable.setRegistry(reg);
-        scriptable.setEntity(entt);
 
         auto script = scriptable.template addScript<ScriptType>();
         script->attachGameObject(this);
@@ -71,7 +67,7 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
         return reg->template get<T>(entt);
     }
@@ -80,7 +76,7 @@ namespace sfge
     typename std::enable_if_t<!std::is_base_of_v<ecs::AScript, T>, T &>
     AGameObject::component()
     {
-        return const_cast<T&>(static_cast<const AGameObject &>(*this).template component<T>());
+        return const_cast<T &>(static_cast<const AGameObject &>(*this).template component<T>());
     }
 
     template<typename ScriptType>
@@ -89,7 +85,7 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
 
         auto &scriptable = reg->template get<ecs::Scriptable>(entt);
@@ -102,7 +98,7 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
         reg->template remove<T>(entt);
     }
@@ -113,7 +109,7 @@ namespace sfge
     {
         entt::registry *reg = componentRegistry();
         assert(reg != nullptr);
-        entt::entity entt = entity();
+        entt::entity entt = getEntity();
         assert(entt != entt::null);
 
         auto &scriptable = reg->template get<ecs::Scriptable>(entt);
