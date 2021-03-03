@@ -28,7 +28,7 @@ namespace sfge
     SceneGraph::SceneGraph()
     {
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("SceneGraph");
+        m_logger = loggerService->getOrCreateLogger("SceneGraph");
         m_logger->addLoggingFile("logs/log.txt");
     }
 

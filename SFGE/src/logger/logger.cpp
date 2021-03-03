@@ -23,7 +23,7 @@
 
 namespace sfge
 {
-    std::shared_ptr<ILogger> Logger::createLogger(const std::string &category)
+    std::shared_ptr<ILogger> Logger::getOrCreateLogger(const std::string &category)
     {
         const auto found = m_loggers.find(category);
         if (found != m_loggers.end()) {

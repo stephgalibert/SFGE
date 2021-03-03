@@ -28,7 +28,7 @@
 TestScript::TestScript()
 {
     auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
-    m_logger = loggerService->createLogger("TestScript");
+    m_logger = loggerService->getOrCreateLogger("TestScript");
     m_logger->addLoggingFile("logs/sample.txt");
 }
 

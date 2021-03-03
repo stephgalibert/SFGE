@@ -39,6 +39,5 @@ namespace sfge
 
         std::unique_ptr<SceneManager> m_sceneManager;
         std::unique_ptr<input::EventProcessor> m_eventProcessor;
-        // sf::RenderWindow m_window;
     };
 }// namespace sfge

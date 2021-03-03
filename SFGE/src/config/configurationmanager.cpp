@@ -41,7 +41,7 @@ namespace sfge::config
         m_configurations.push_back(m_physicsConfig);
 
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("ConfigurationManager");
+        m_logger = loggerService->getOrCreateLogger("ConfigurationManager");
         m_logger->addLoggingFile(m_globalConfig->getValue(Global::Key::LoggingFile));
     }
 

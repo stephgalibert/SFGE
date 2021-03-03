@@ -29,7 +29,7 @@ namespace sfge
     class Logger : public services::ILoggerService
     {
     public:
-        std::shared_ptr<ILogger> createLogger(const std::string &category) override;
+        std::shared_ptr<ILogger> getOrCreateLogger(const std::string &category) override;
         bool removeLogger(const std::string &category) override;
         bool removeLogger(const std::shared_ptr<ILogger> &logger) override;
 

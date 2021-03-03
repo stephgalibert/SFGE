@@ -30,7 +30,7 @@ namespace sfge::resources
     bool TextureLoader::init()
     {
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("TextureLoader");
+        m_logger = loggerService->getOrCreateLogger("TextureLoader");
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();

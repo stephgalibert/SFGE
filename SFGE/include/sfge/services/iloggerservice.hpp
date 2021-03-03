@@ -31,7 +31,7 @@ namespace sfge::services
     struct ILoggerService {
         virtual ~ILoggerService() = default;
 
-        virtual std::shared_ptr<ILogger> createLogger(const std::string &category) = 0;
+        virtual std::shared_ptr<ILogger> getOrCreateLogger(const std::string &category) = 0;
         virtual bool removeLogger(const std::string &category) = 0;
         virtual bool removeLogger(const std::shared_ptr<ILogger> &logger) = 0;
 

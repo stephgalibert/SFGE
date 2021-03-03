@@ -62,7 +62,7 @@ namespace sfge
 
     bool BaseApplication::init()
     {
-        loadServices();
+        LoadServices();
         return true;
     }
 
@@ -114,7 +114,7 @@ namespace sfge
         return true;
     }
 
-    void BaseApplication::loadServices()
+    void BaseApplication::LoadServices()
     {
         // TODO: Not really happy about this...
         //  The services are known at compile-time, it should be declared as const static

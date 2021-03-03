@@ -40,7 +40,7 @@ namespace sfge
     {
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
 
-        m_logger = loggerService->createLogger("AScene");
+        m_logger = loggerService->getOrCreateLogger("AScene");
         m_logger->addLoggingFile("logs/log.txt");
 
         m_graph = std::make_unique<SceneGraph>();

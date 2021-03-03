@@ -39,7 +39,7 @@ TestScene::TestScene()
 {
     auto loggerService = sfge::services::ServiceLocator::Get<sfge::services::ILoggerService>();
 
-    m_logger = loggerService->createLogger("TestScene");
+    m_logger = loggerService->getOrCreateLogger("TestScene");
     m_logger->addLoggingFile("logs/sample.txt");
 }
 
@@ -94,7 +94,9 @@ void TestScene::init()
 
         auto &renderable = obj->addComponent<sfge::ecs::Renderable>();
         renderable.setShape(shape);
-        renderable.setTexture(texture);
+        if (texture) {
+            renderable.setTexture(texture);
+        }
     }
     {
         sf::Shape *shape = new sf::RectangleShape({1, 1});

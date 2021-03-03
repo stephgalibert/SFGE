@@ -29,7 +29,7 @@ namespace sfge::config
     IniConfig::IniConfig()
     {
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("IniConfig");
+        m_logger = loggerService->getOrCreateLogger("IniConfig");
         m_logger->addLoggingFile("logs/log.txt");
     }
 

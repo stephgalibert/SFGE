@@ -31,7 +31,7 @@ namespace sfge::resources
     bool SoundLoader::init()
     {
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        m_logger = loggerService->createLogger("SoundLoader");
+        m_logger = loggerService->getOrCreateLogger("SoundLoader");
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();
