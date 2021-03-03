@@ -18,29 +18,21 @@
 
 #pragma once
 
-#include "sfge/services/isoundloaderservice.hpp"
+#include <SFML/Audio//Music.hpp>
 
-#include <unordered_map>
+#include <string>
+#include <memory>
 
-namespace sfge
+namespace sfge::services
 {
-    struct ILogger;
-}
+    struct IMusicLoaderService {
+        virtual ~IMusicLoaderService() = default;
 
-namespace sfge::resources
-{
-    class SoundLoader : public services::ISoundLoaderService
-    {
-    public:
-        bool init() override;
-        bool loadFromFile(const std::string &key, const std::string &path) override;
-        bool remove(const std::string &key) override;
-        void clear() override;
+        virtual bool init() = 0;
+        virtual bool openFromFile(const std::string &key, const std::string &path) = 0;
+        virtual bool remove(const std::string &key) = 0;
+        virtual void clear() = 0;
 
-        [[nodiscard]] std::unique_ptr<sf::Sound> getSound(const std::string &key) const override;
-
-    private:
-        std::shared_ptr<ILogger> m_logger;
-        std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> m_sounds;
+        [[nodiscard]] virtual std::shared_ptr<sf::Music> getMusic(const std::string &key) const = 0;
     };
-}// namespace sfge::resources
+}

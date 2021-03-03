@@ -30,6 +30,7 @@
 #include "core/renderer/mainrenderer.hpp"
 #include "core/resources/soundloader.hpp"
 #include "core/resources/textureloader.hpp"
+#include "core/resources/musicloader.hpp"
 #include "core/scene/scenemanager.hpp"
 
 #include "services/iconfigurationmanagerservice.h"
@@ -124,10 +125,12 @@ namespace sfge
         auto mainRenderer = services::ServiceLocator::Provide<services::IMainRendererService, renderer::MainRenderer>();
         auto textureLoader = services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
         auto soundLoader = services::ServiceLocator::Provide<services::ISoundLoaderService, resources::SoundLoader>();
+        auto musicLoader = services::ServiceLocator::Provide<services::IMusicLoaderService, resources::MusicLoader>();
 
         configManager->load();
         mainRenderer->init();
         textureLoader->init();
         soundLoader->init();
+        musicLoader->init();
     }
 }// namespace sfge

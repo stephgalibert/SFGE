@@ -16,4 +16,71 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
+#include "config/globalconfig.hpp"
+#include "services/iconfigurationmanagerservice.h"
+#include "sfge/logger/logger.hpp"
+#include "sfge/services/iloggerservice.hpp"
+#include "sfge/services/servicelocator.hpp"
+
 #include "musicloader.hpp"
+
+namespace sfge::resources
+{
+    bool MusicLoader::init()
+    {
+        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+        m_logger = loggerService->getOrCreateLogger("MusicLoader");
+
+        const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
+        const auto globalConfig = config->getGlobal();
+        m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
+
+        m_logger->info("init");
+        return true;
+    }
+
+    bool MusicLoader::openFromFile(const std::string &key, const std::string &path)
+    {
+        if (m_musics.find(key) != m_musics.end()) {
+            m_logger->warning("openFromFile: " + key + " already exists");
+            return false;
+        }
+
+        auto music = std::make_shared<sf::Music>();
+        if (!music->openFromFile(path)) {
+            m_logger->warning("openFromFile: " + path + " unable to load");
+            return false;
+        }
+
+        m_musics.insert({key, music});
+        m_logger->info("openFromFile: " + key + ": " + path + " loaded");
+        return true;
+    }
+
+    bool MusicLoader::remove(const std::string &key)
+    {
+        const auto found = m_musics.find(key);
+
+        if (found == m_musics.end()) {
+            m_logger->warning("remove: " + key + " not found");
+            return false;
+        }
+        m_musics.erase(found);
+        return true;
+    }
+
+    void MusicLoader::clear()
+    {
+        m_logger->info("clear: " + std::to_string(m_musics.size()) + " music(s) cleared");
+        m_musics.clear();
+    }
+
+    std::shared_ptr<sf::Music> MusicLoader::getMusic(const std::string &key) const
+    {
+        const auto found = m_musics.find(key);
+
+        if (found == m_musics.end())
+            return nullptr;
+        return found->second;
+    }
+}

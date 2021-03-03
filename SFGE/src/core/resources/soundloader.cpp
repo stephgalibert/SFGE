@@ -43,8 +43,6 @@ namespace sfge::resources
 
     bool SoundLoader::loadFromFile(const std::string &key, const std::string &path)
     {
-        assert(m_logger != nullptr);
-
         if (m_sounds.find(key) != m_sounds.end()) {
             m_logger->warning("loadFromFile: " + key + " already exists");
             return false;
@@ -75,7 +73,7 @@ namespace sfge::resources
 
     void SoundLoader::clear()
     {
-        m_logger->info("clear: " + std::to_string(m_sounds.size()) + " sounds cleared");
+        m_logger->info("clear: " + std::to_string(m_sounds.size()) + " sound(s) cleared");
         m_sounds.clear();
     }
 

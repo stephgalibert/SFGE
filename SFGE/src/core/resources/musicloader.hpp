@@ -18,7 +18,29 @@
 
 #pragma once
 
-class MusicLoader
+#include "sfge/services/imusicloaderservice.hpp"
+
+#include <unordered_map>
+
+namespace sfge
 {
-public:
-};
+    struct ILogger;
+}
+
+namespace sfge::resources
+{
+    class MusicLoader : public services::IMusicLoaderService
+    {
+    public:
+        bool init() override;
+        bool openFromFile(const std::string &key, const std::string &path) override;
+        bool remove(const std::string &key) override;
+        void clear() override;
+
+        [[nodiscard]] std::shared_ptr<sf::Music> getMusic(const std::string &key) const override;
+
+    private:
+        std::shared_ptr<ILogger> m_logger;
+        std::unordered_map<std::string, std::shared_ptr<sf::Music>> m_musics;
+    };
+}// namespace sfge::resources

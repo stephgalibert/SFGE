@@ -83,8 +83,8 @@ namespace sfge::resources
     {
         const auto found = m_textures.find(key);
 
-        if (found != m_textures.end())
-            return found->second.get();
-        return nullptr;
+        if (found == m_textures.end())
+            return nullptr;
+        return found->second.get();
     }
 }// namespace sfge::resources
