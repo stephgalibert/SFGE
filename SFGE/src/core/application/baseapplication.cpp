@@ -28,6 +28,7 @@
 #include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
 #include "core/renderer/mainrenderer.hpp"
+#include "core/resources/soundloader.hpp"
 #include "core/resources/textureloader.hpp"
 #include "core/scene/scenemanager.hpp"
 
@@ -122,9 +123,11 @@ namespace sfge
         auto configManager = services::ServiceLocator::Provide<services::IConfigurationManagerService, config::ConfigurationManager>();
         auto mainRenderer = services::ServiceLocator::Provide<services::IMainRendererService, renderer::MainRenderer>();
         auto textureLoader = services::ServiceLocator::Provide<services::ITextureLoaderService, resources::TextureLoader>();
+        auto soundLoader = services::ServiceLocator::Provide<services::ISoundLoaderService, resources::SoundLoader>();
 
         configManager->load();
         mainRenderer->init();
         textureLoader->init();
+        soundLoader->init();
     }
 }// namespace sfge

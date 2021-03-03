@@ -28,7 +28,8 @@ namespace sfge::services
         virtual ~ITextureLoaderService() = default;
 
         virtual bool init() = 0;
-        virtual bool load(const std::string &key, const std::string &path) = 0;
+        virtual bool loadFromFile(const std::string &key, const std::string &path) = 0;
+        virtual bool remove(const std::string &key) = 0;
         virtual void clear() = 0;
 
         [[nodiscard]] virtual sf::Texture *getTexture(const std::string &key) const = 0;

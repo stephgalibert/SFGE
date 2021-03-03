@@ -18,26 +18,21 @@
 
 #pragma once
 
-#include "sfge/logger/logger.hpp"
-#include "textureloader.hpp"
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
-#include "config/configurationmanager.hpp"
-#include "config/globalconfig.hpp"
-#include "config/rendererconfig.hpp"
+#include <string>
 
-#include <unordered_map>
-
-namespace sfge::resources
+namespace sfge::services
 {
-    class TextureLoaderPrivate
-    {
-    public:
-    private:
-        explicit TextureLoaderPrivate(TextureLoader *qq);
-        PIMPL_DECLARE_PUBLIC(TextureLoader);
+    struct ISoundLoaderService {
+        virtual ~ISoundLoaderService() = default;
 
-        bool m_smoothing;
-        std::shared_ptr<ILogger> m_logger;
-        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
+        virtual bool init() = 0;
+        virtual bool loadFromFile(const std::string &key, const std::string &path) = 0;
+        virtual bool remove(const std::string &key) = 0;
+        virtual void clear() = 0;
+
+        [[nodiscard]] virtual std::unique_ptr<sf::Sound> getSound(const std::string &key) const = 0;
     };
-}// namespace sfge::resources
+}// namespace sfge::services

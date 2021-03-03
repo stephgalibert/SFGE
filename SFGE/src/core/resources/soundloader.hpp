@@ -18,7 +18,31 @@
 
 #pragma once
 
-class SoundLoader
+#include "sfge/pimpl.hpp"
+#include "sfge/services/isoundloaderservice.hpp"
+
+#include <memory>
+#include <unordered_map>
+
+namespace sfge
 {
-public:
-};
+    struct ILogger;
+}
+
+namespace sfge::resources
+{
+    class SoundLoader : public services::ISoundLoaderService
+    {
+    public:
+        bool init() override;
+        bool loadFromFile(const std::string &key, const std::string &path) override;
+        bool remove(const std::string &key) override;
+        void clear() override;
+
+        [[nodiscard]] std::unique_ptr<sf::Sound> getSound(const std::string &key) const override;
+
+    private:
+        std::shared_ptr<ILogger> m_logger;
+        std::unordered_map<std::string, std::unique_ptr<sf::SoundBuffer>> m_sounds;
+    };
+}// namespace sfge::resources

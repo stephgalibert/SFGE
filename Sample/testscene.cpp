@@ -49,7 +49,7 @@ void TestScene::init()
 
     // TODO: test purpose, remove it
     auto textureService = sfge::services::ServiceLocator::Get<sfge::services::ITextureLoaderService>();
-    textureService->load("test", "texture.jpg");
+    textureService->loadFromFile("test", "texture.jpg");
     sf::Texture *texture = textureService->getTexture("test");
 
     m_logger->info("Init");

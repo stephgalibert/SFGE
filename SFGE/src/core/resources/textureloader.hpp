@@ -18,28 +18,31 @@
 
 #pragma once
 
-#include "sfge/pimpl.hpp"
 #include "sfge/services/itextureloaderservice.hpp"
 
 #include <memory>
+#include <unordered_map>
+
+namespace sfge
+{
+    struct ILogger;
+}
 
 namespace sfge::resources
 {
-    class TextureLoaderPrivate;
-
     class TextureLoader : public services::ITextureLoaderService
     {
     public:
-        TextureLoader();
-        ~TextureLoader();
-
-        bool load(const std::string &key, const std::string &path) override;
-        void clear() override;
         bool init() override;
+        bool loadFromFile(const std::string &key, const std::string &path) override;
+        bool remove(const std::string &key) override;
+        void clear() override;
+
         [[nodiscard]] sf::Texture *getTexture(const std::string &key) const override;
 
     private:
-        explicit TextureLoader(TextureLoaderPrivate *dd);
-        PIMPL_DECLARE_PRIVATE(TextureLoader);
+        bool m_smoothing;
+        std::shared_ptr<ILogger> m_logger;
+        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
     };
 }// namespace sfge::resources

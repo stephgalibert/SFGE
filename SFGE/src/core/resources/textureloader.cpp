@@ -17,88 +17,74 @@
 //
 
 #include "textureloader.hpp"
-#include "textureloader_p.hpp"
 
+#include "config/globalconfig.hpp"
+#include "config/rendererconfig.hpp"
 #include "services/iconfigurationmanagerservice.h"
+#include "sfge/logger/logger.hpp"
 #include "sfge/services/iloggerservice.hpp"
 #include "sfge/services/servicelocator.hpp"
 
-#include <cassert>
-
 namespace sfge::resources
 {
-    TextureLoaderPrivate::TextureLoaderPrivate(TextureLoader *qq)
-        : q_ptr(qq)
-    {
-    }
-
-    TextureLoader::TextureLoader()
-        : TextureLoader(new TextureLoaderPrivate(this))
-    {
-    }
-
-    TextureLoader::~TextureLoader()
-    {
-    }
-
-    TextureLoader::TextureLoader(TextureLoaderPrivate *dd)
-        : d_ptr(dd)
-    {
-    }
-
     bool TextureLoader::init()
     {
-        PIMPL_D(TextureLoader);
-
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        d->m_logger = loggerService->createLogger("TextureLoader");
+        m_logger = loggerService->createLogger("TextureLoader");
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();
 
-        d->m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
+        m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
 
         const auto renderConfig = config->getRenderer();
-        d->m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
-        d->m_logger->info("Smoothing=" + std::to_string(d->m_smoothing));
-        return false;
+        m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
+        m_logger->info("init: Smoothing=" + std::to_string(m_smoothing));
+        return true;
     }
 
-    bool TextureLoader::load(const std::string &key, const std::string &path)
+    bool TextureLoader::loadFromFile(const std::string &key, const std::string &path)
     {
-        PIMPL_D(TextureLoader);
-        assert(d->m_logger != nullptr);
-
-        if (d->m_textures.find(key) != d->m_textures.end()) {
-            d->m_logger->warning(key + " already exists");
+        if (m_textures.find(key) != m_textures.end()) {
+            m_logger->warning("loadFromFile: " + key + " already exists");
             return false;
         }
 
         auto texture = std::make_unique<sf::Texture>();
         if (!texture->loadFromFile(path)) {
-            d->m_logger->warning(path + " unable to load");
+            m_logger->warning("loadFromFile: " + path + " unable to load");
             return false;
         }
-        texture->setSmooth(d->m_smoothing);
-        d->m_textures.insert({key, std::move(texture)});
-        d->m_logger->info(key + ": " + path + " loaded");
+        texture->setSmooth(m_smoothing);
+        m_textures.insert({key, std::move(texture)});
+        m_logger->info("loadFromFile: " + key + ": " + path + " loaded");
         return true;
     }
 
-    sf::Texture *TextureLoader::getTexture(const std::string &key) const
+    bool TextureLoader::remove(const std::string &key)
     {
-        const PIMPL_D(TextureLoader);
+        const auto found = m_textures.find(key);
 
-        const auto found = d->m_textures.find(key);
-        assert(found != d->m_textures.end());
-        return found->second.get();
+        if (found == m_textures.end()) {
+            m_logger->warning("remove: " + key + " not found");
+            return false;
+        }
+        m_textures.erase(found);
+        return true;
     }
 
     void TextureLoader::clear()
     {
-        PIMPL_D(TextureLoader);
+        m_logger->info("clear: " + std::to_string(m_textures.size()) + " textures cleared");
+        m_textures.clear();
+    }
 
-        d->m_logger->info(std::to_string(d->m_textures.size()) + " textures cleared");
-        d->m_textures.clear();
+    sf::Texture *TextureLoader::getTexture(const std::string &key) const
+    {
+        const auto found = m_textures.find(key);
+
+        if (found != m_textures.end())
+            return found->second.get();
+        return nullptr;
     }
 }// namespace sfge::resources

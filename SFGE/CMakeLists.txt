@@ -43,7 +43,7 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/core/resources/soundloader.cpp 			src/services/servicelocator.cpp
 		src/core/ecs/components/camera.cpp 			src/core/renderer/mainrenderer.cpp
 		src/core/gameobject/camera.cpp				src/random/cavegeneration.cpp
-		src/random/lehmer32.cpp)
+		src/random/lehmer32.cpp include/sfge/services/isoundloaderservice.hpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 
