@@ -21,8 +21,8 @@
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 
-#include <string>
 #include <memory>
+#include <string>
 
 namespace sfge::services
 {

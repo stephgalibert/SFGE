@@ -21,6 +21,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include <string>
+#include <vector>
 
 namespace sfge::services
 {
@@ -29,6 +30,7 @@ namespace sfge::services
 
         virtual bool init() = 0;
         virtual bool loadFromFile(const std::string &key, const std::string &path) = 0;
+        virtual bool loadFromMemory(const std::string &key, const std::vector<unsigned char> &data) = 0;
         virtual bool remove(const std::string &key) = 0;
         virtual void clear() = 0;
 

@@ -34,30 +34,42 @@ namespace sfge::resources
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();
-
         m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
-
         const auto renderConfig = config->getRenderer();
         m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
+
         m_logger->info("init: Smoothing=" + std::to_string(m_smoothing));
         return true;
     }
 
     bool TextureLoader::loadFromFile(const std::string &key, const std::string &path)
     {
-        if (m_textures.find(key) != m_textures.end()) {
-            m_logger->warning("loadFromFile: " + key + " already exists");
+        if (exists(key))
             return false;
-        }
 
         auto texture = std::make_unique<sf::Texture>();
         if (!texture->loadFromFile(path)) {
-            m_logger->warning("loadFromFile: " + path + " unable to load");
+            if (m_logger)
+                m_logger->warning("loadFromFile: " + path + " unable to load");
             return false;
         }
-        texture->setSmooth(m_smoothing);
-        m_textures.insert({key, std::move(texture)});
-        m_logger->info("loadFromFile: " + key + ": " + path + " loaded");
+        insert(key, std::move(texture));
+        return true;
+    }
+
+    bool TextureLoader::loadFromMemory(const std::string &key, const std::vector<unsigned char> &data)
+    {
+        if (exists(key))
+            return false;
+
+        const void *vdata = static_cast<const void *>(data.data());
+        auto texture = std::make_unique<sf::Texture>();
+        if (!texture->loadFromMemory(vdata, data.size())) {
+            if (m_logger)
+                m_logger->warning("loadFromMemory: " + key + " unable to load");
+            return false;
+        }
+        insert(key, std::move(texture));
         return true;
     }
 
@@ -66,7 +78,8 @@ namespace sfge::resources
         const auto found = m_textures.find(key);
 
         if (found == m_textures.end()) {
-            m_logger->warning("remove: " + key + " not found");
+            if (m_logger)
+                m_logger->warning("remove: " + key + " not found");
             return false;
         }
         m_textures.erase(found);
@@ -75,7 +88,8 @@ namespace sfge::resources
 
     void TextureLoader::clear()
     {
-        m_logger->info("clear: " + std::to_string(m_textures.size()) + " textures cleared");
+        if (m_logger)
+            m_logger->info("clear: " + std::to_string(m_textures.size()) + " textures cleared");
         m_textures.clear();
     }
 
@@ -86,5 +100,23 @@ namespace sfge::resources
         if (found == m_textures.end())
             return nullptr;
         return found->second.get();
+    }
+
+    bool TextureLoader::exists(const std::string &key) const
+    {
+        if (m_textures.find(key) != m_textures.end()) {
+            if (m_logger)
+                m_logger->warning("loadFromFile: " + key + " already exists");
+            return true;
+        }
+        return false;
+    }
+
+    void TextureLoader::insert(const std::string &key, std::unique_ptr<sf::Texture> texture)
+    {
+        texture->setSmooth(m_smoothing);
+        m_textures.insert({key, std::move(texture)});
+        if (m_logger)
+            m_logger->info("loadFromFile: " + key + " loaded");
     }
 }// namespace sfge::resources

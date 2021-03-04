@@ -35,13 +35,18 @@ namespace sfge::resources
     public:
         bool init() override;
         bool loadFromFile(const std::string &key, const std::string &path) override;
+        bool loadFromMemory(const std::string &key, const std::vector<unsigned char> &data) override;
         bool remove(const std::string &key) override;
         void clear() override;
 
         [[nodiscard]] sf::Texture *getTexture(const std::string &key) const override;
 
     private:
-        bool m_smoothing;
+        bool exists(const std::string &key) const;
+        void insert(const std::string &key, std::unique_ptr<sf::Texture> texture);
+
+    private:
+        bool m_smoothing = false;
         std::shared_ptr<ILogger> m_logger;
         std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
     };

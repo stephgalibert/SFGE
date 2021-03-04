@@ -37,7 +37,6 @@ namespace sfge::services
         template<typename T>
         static std::shared_ptr<T> Get();
     };
-
 }// namespace sfge::services
 
 #include "servicelocator.inl"

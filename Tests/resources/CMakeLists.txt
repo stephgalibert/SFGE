@@ -18,10 +18,14 @@
 
 cmake_minimum_required (VERSION 3.8)
 
-# Retrieve private headers from the SFGE library
-get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+set (TARGET "resources_tests")
+set (SRCS textures_tests.cpp)
 
-add_subdirectory("common")
-add_subdirectory("components")
-add_subdirectory("resources")
-add_subdirectory("config")
+add_executable (${TARGET} ${SRCS})
+target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")
+target_link_libraries (${TARGET} PRIVATE "mock_classes")
+
+# Inject SFGE private libraries into the test suite includes tree
+target_include_directories(${TARGET} PRIVATE ${SFGE_PRIVATE_INCLUDES})
+
+add_test(NAME ${TARGET} COMMAND "${TARGET}")

@@ -24,7 +24,6 @@ namespace sfge::services
     {
         auto &services = getServices();
         const std::size_t id = typeid(InterfaceT).hash_code();
-        assert(services.find(id) == services.end());
         std::shared_ptr<InterfaceT> instance = std::make_shared<ServiceT>();
         services.template insert(std::make_pair(id, instance));
         return instance;
@@ -36,7 +35,8 @@ namespace sfge::services
         auto &services = getServices();
         const std::size_t id = typeid(ServiceT).hash_code();
         const auto found = services.find(id);
-        assert(found != services.end());
+        if (services.find(id) == services.end())
+            return nullptr;
         return std::static_pointer_cast<ServiceT>(found->second);
     }
 }// namespace sfge::services
