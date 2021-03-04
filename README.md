@@ -23,10 +23,10 @@ For those who don't want to use powerful engines that do too much for you.
 ## Documentation
 * Check the [Online doxygen documentation](https://stephgalibert.github.io/SFGE/)
 * Run CMake with `-DDOCS=ON`
-* make docs
+* `make docs`
 
 ## Tests
-* Run CMake with `-DTests=ON`
+* Run CMake with `-DTESTS=ON`
 * `make test`
 
 ## Code Smell

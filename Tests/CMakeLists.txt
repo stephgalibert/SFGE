@@ -23,5 +23,13 @@ get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
 
 add_subdirectory("common")
 add_subdirectory("components")
-add_subdirectory("resources")
+
+if (DEFINED ENV{CI})
+    # No GPU on the CI, skip resources tests
+    message("Skipping resources tests")
+else ()
+    message("with resources tests")
+    add_subdirectory("resources")
+endif()
+
 add_subdirectory("config")
