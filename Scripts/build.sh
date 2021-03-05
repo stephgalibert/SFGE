@@ -25,4 +25,4 @@ cmake -DTESTS=ON -DDOCS=ON ../
 make -j
 
 make test
-make docs
+# make docs

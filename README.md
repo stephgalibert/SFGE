@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/stephgalibert/sfge.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/sfge)
+[![Coverage Status](https://coveralls.io/repos/github/stephgalibert/SFGE/badge.svg)](https://coveralls.io/github/stephgalibert/SFGE)
 [![GitHub license](https://img.shields.io/github/license/stephgalibert/SFGE)](https://github.com/stephgalibert/SFGE/blob/main/LICENSE)
 
 

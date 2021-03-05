@@ -23,6 +23,19 @@ project ("SFGE" LANGUAGES CXX VERSION 0.1.0 DESCRIPTION "Simple & Fast Game Engi
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# TODO: Only SFGE / Tests + -DCOVERALLS=ON
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+# set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
+# add_compile_definitions(--coverage)
+# link_libraries(--coverage)
+
 add_subdirectory ("SFGE")
 add_subdirectory ("Sample")
 
