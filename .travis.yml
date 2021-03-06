@@ -17,15 +17,8 @@ before_install:
 script:
   - Scripts/build.sh
 
-# coveralls -r ..  -i "src/" -i "test/"   --exclude "utils" --exclude "benchmark" --exclude "example" --exclude "build/CMakeFiles/memory_allocator.dir/"
-# Creating '#home#travis#build#stephgalibert#SFGE#build#Sample#CMakeFiles#sample.dir#main.cpp.o###usr#include#c++#9#bits#unique_ptr.h.gcov'
-# Creating '/home/travis/build/stephgalibert/SFGE/build/Sample/CMakeFiles/sample.dir/main.cpp.o###usr#include#c++#9#bits#unique_ptr.h.gcov'
-# components_tests.dir
-#
-
 after_success:
   - Scripts/sonar.sh
-#  - coveralls -r . -e "Sample" -i "SFGE" -e "Tests" -E "/usr/.*" --gcov-options '\-lp'
 
 deploy:
   strategy: git

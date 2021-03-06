@@ -22,7 +22,7 @@ set -e
 
 # Prepare build environment
 mkdir build-sonar && cd build-sonar
-cmake -DTESTS=ON -DDOCS=OFF ../
+cmake -DTESTS=OFF -DDOCS=OFF ../
 cd ../
 
 # Wraps the compilation with the Build Wrapper to generate configuration (used

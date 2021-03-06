@@ -21,8 +21,9 @@
 set -e
 
 mkdir build && cd build
-cmake -DTESTS=ON -DDOCS=ON ../
+cmake -DTESTS=ON -DDOCS=ON -DCOVERAGE=ON ../
 make -j
 
-make test
+# make test # useless with coverage?
+make coverage
 # make docs
