@@ -23,18 +23,18 @@ project ("SFGE" LANGUAGES CXX VERSION 0.1.0 DESCRIPTION "Simple & Fast Game Engi
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# TODO: Only SFGE / Tests + -DCOVERALLS=ON
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g ")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftest-coverage")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-# set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-
-# add_compile_definitions(--coverage)
-# link_libraries(--coverage)
+if (COVERAGE)
+     set (CMAKE_BUILD_TYPE "Debug")
+     include (CodeCoverage.cmake)
+     set (CODE_COVERAGE_VERBOSE ON)
+     append_coverage_compiler_flags()
+        setup_target_for_coverage_gcovr_xml(
+                NAME coverage
+                EXECUTABLE ctest
+                BASE_DIRECTORY .
+                EXCLUDE "Sample" "Tests"
+        )
+endif()
 
 add_subdirectory ("SFGE")
 add_subdirectory ("Sample")
@@ -49,5 +49,5 @@ if (DOCS)
     add_custom_target(docs
             COMMAND "${DOXYGEN_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile"
             WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-            COMMENT "Generating SFGE documentation")
+            COMMENT "Generating SFGE documentation...")
 endif()

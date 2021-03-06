@@ -21,8 +21,16 @@
 set -e
 
 mkdir build && cd build
-cmake -DTESTS=ON -DDOCS=ON ../
+cmake -DTESTS=ON -DDOCS=ON -DCOVERAGE=ON ../
 make -j
 
-make test
-# make docs
+# make test
+make coverage
+
+echo "--------- printing coverage.xml ----------"
+echo "GCOV executable: $GCOV"
+ls -lR
+cat coverage.xml
+echo "------ end ------"
+
+make docs
