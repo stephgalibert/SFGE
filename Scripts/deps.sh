@@ -72,7 +72,5 @@ sudo rm -rf googletest
 sudo apt-get -y install doxygen graphviz
 sudo apt-get -y install libsfml-dev
 sudo apt-get -y install libboost-all-dev
-# sudo apt-get -y install python3-pip
-# sudo apt-get -y install clang++ llvm
-sudo pip3 install pyOpenSSL cryptography # cpp-coveralls
+# sudo pip3 install pyOpenSSL cryptography
 sudo pip3 install gcovr

@@ -59,6 +59,40 @@ namespace sfge::ecs
     private:
         std::vector<std::shared_ptr<AScript>> m_scripts;
     };
-}// namespace sfge::ecs
 
-#include "scriptable.inl"
+
+    template<typename T, typename... Args>
+    std::shared_ptr<T> Scriptable::addScript(Args &&... args)
+    {
+        auto script = std::make_shared<T>(std::forward<Args>(args)...);
+        m_scripts.push_back(script);
+        return script;
+    }
+
+    template<typename T>
+    std::shared_ptr<T> Scriptable::getScript() const
+    {
+        const auto found = std::find_if(m_scripts.begin(), m_scripts.end(), [&](const auto &script) {
+            return typeid(T) == typeid(*script);
+        });
+        if (found != m_scripts.end()) {
+            return std::static_pointer_cast<T>(*found);
+        }
+        return nullptr;
+    }
+
+    template<typename T>
+    std::size_t Scriptable::removeScript()
+    {
+        auto f = [&](const auto &script) {
+            if (typeid(T) == typeid(*script)) {
+                script->onDestroy();
+                return true;
+            }
+            return false;
+        };
+
+        m_scripts.erase(std::remove_if(m_scripts.begin(), m_scripts.end(), f), m_scripts.end());
+        return m_scripts.size();
+    }
+}// namespace sfge::ecs

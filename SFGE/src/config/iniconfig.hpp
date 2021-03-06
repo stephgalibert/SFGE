@@ -44,6 +44,17 @@ namespace sfge::config
         std::shared_ptr<ILogger> m_logger;
         boost::property_tree::ptree m_ptree;
     };
-}// namespace sfge::config
 
-#include "iniconfig.inl"
+
+    template<typename T>
+    T IniConfig::get(const std::string &key)
+    {
+        return m_ptree.template get<T>(key);
+    }
+
+    template<typename T>
+    void IniConfig::put(const std::string &key, const T &value)
+    {
+        m_ptree.put(key, value);
+    }
+}// namespace sfge::config

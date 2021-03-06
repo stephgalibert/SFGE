@@ -37,6 +37,26 @@ namespace sfge::services
         template<typename T>
         static std::shared_ptr<T> Get();
     };
-}// namespace sfge::services
 
-#include "servicelocator.inl"
+    template<typename InterfaceT, typename ServiceT>
+    typename std::enable_if_t<std::is_base_of_v<InterfaceT, ServiceT>, std::shared_ptr<InterfaceT>>
+    ServiceLocator::Provide()
+    {
+        auto &services = getServices();
+        const std::size_t id = typeid(InterfaceT).hash_code();
+        std::shared_ptr<InterfaceT> instance = std::make_shared<ServiceT>();
+        services.template insert(std::make_pair(id, instance));
+        return instance;
+    }
+
+    template<typename ServiceT>
+    std::shared_ptr<ServiceT> ServiceLocator::Get()
+    {
+        auto &services = getServices();
+        const std::size_t id = typeid(ServiceT).hash_code();
+        const auto found = services.find(id);
+        if (services.find(id) == services.end())
+            return nullptr;
+        return std::static_pointer_cast<ServiceT>(found->second);
+    }
+}// namespace sfge::services

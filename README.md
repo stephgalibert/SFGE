@@ -1,7 +1,10 @@
 [![Build Status](https://travis-ci.com/stephgalibert/sfge.svg?token=4xRtKLGfqqmAj18wsve3&branch=main)](https://travis-ci.com/stephgalibert/sfge)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=stephgalibert_SFGE&metric=coverage)](https://sonarcloud.io/dashboard?id=stephgalibert_SFGE)
 [![GitHub license](https://img.shields.io/github/license/stephgalibert/SFGE)](https://github.com/stephgalibert/SFGE/blob/main/LICENSE)
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=stephgalibert_SFGE)
 
+---
 # SFGE
 Simple & Fast 2D Game Engine SDK.  
 For those who don't want to use powerful engines that do too much for you.
@@ -29,22 +32,16 @@ For those who don't want to use powerful engines that do too much for you.
 * Run CMake with `-DTESTS=ON`
 * `make test`
 
-## Code Smell
-* [Sonarcloud.io](https://sonarcloud.io/dashboard?id=stephgalibert_SFGE)
-
-
 ## Run
 * ./sample
 
 ## TODO before v1.0
-* Last update: 20/02/2021
+* Last update: 06/03/2021
 
 | Feature | Note | Estimated Time |
 | :-----: | ----- | :------------: |
-| Tests   | Unit tests with GTests | 10d
-| Coverage | cf. Bomberman | -
-| Documentation | With Doxygen | 5d 
-| Resources | Font, Audio (musics, sounds) | 1d
+| Tests   | Unit tests with GTests | -
+| Documentation | With Doxygen | -
 | Rendering | Shaders | 3d
 | Handle different shapes | Circle, complex, ... | 3d
 | GameObjects type | Lights | 3d
