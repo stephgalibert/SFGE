@@ -18,23 +18,38 @@
 
 #pragma once
 
+#include "frame.hpp"
+
+#include <boost/asio.hpp>
+
+using boost::asio::ip::udp;
+
 namespace sfge::network
 {
-    class ARequest
+    class UdpConnection
     {
     public:
-        ARequest() = default;
-        virtual ~ARequest() = default;
+        explicit UdpConnection(boost::asio::io_service &ios);
+        ~UdpConnection() = default;
 
-        // to_bytearray() const;
+        void open();
+        void bind(int16_t port);
 
-    protected:
-        // virtual get_body() const = 0;
+        void read();
+
+        void write(const frame &frame);
+        void write(const char *data, std::size_t len, const udp::endpoint &endpoint);
+
+        void setOnMessageReceived(std::function<void(const Frame &)> frame);
 
     private:
-        // request_id;
-        // message_id;
+        void doWrite(const frame &frame);
+        void doRead(const boost::system::error_code &errorCode, std::size_t len);
 
-        // message_type (non, con, ack, error)
+    private:
+        udp::socket m_socket;
+        udp::endpoint m_recvEndpoint;
+        boost::asio::streambuf m_recvData;
+        std::function<void(const frame &)> m_onMessageReceived;
     };
 }// namespace sfge::network

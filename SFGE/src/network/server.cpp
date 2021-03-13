@@ -16,25 +16,33 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "sfge/network/server.hpp"
 
 namespace sfge::network
 {
-    class ARequest
+    Server::Server(boost::asio::io_service &ios)
+        : m_connection(ios)
     {
-    public:
-        ARequest() = default;
-        virtual ~ARequest() = default;
+    }
 
-        // to_bytearray() const;
+    void Server::start(int16_t port)
+    {
+        m_connection.bind(port);
+        m_connection.read();
+    }
 
-    protected:
-        // virtual get_body() const = 0;
+    void Server::setOnMessageReceived(std::function<void(const Frame &)> frame)
+    {
+        m_connection.setOnMessageReceived(frame);
+    }
 
-    private:
-        // request_id;
-        // message_id;
+    void Server::sendResponse(const Frame &frame)
+    {
+        m_connection.write(frame);
+    }
 
-        // message_type (non, con, ack, error)
-    };
+    void Server::sendResponse(const udp::endpoint &endpoint, const char *data, std::size_t len)
+    {
+        sendResponse({data, len, endpoint});
+    }
 }// namespace sfge::network

@@ -16,13 +16,21 @@
 # along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 #
 
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required(VERSION 3.8)
 
-# Retrieve private headers from the SFGE library
-get_target_property(SFGE_PRIVATE_INCLUDES ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+# project(network)
+set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory("common")
-add_subdirectory("components")
-add_subdirectory("resources")
+find_package(Boost 1.71 REQUIRED COMPONENTS system thread chrono date_time)
 
-add_subdirectory("config")
+include_directories(include)
+
+set(SRCS client.cpp
+        server.cpp
+        udpconnection.cpp)
+
+# add_definitions(-DNETWORK_EXPORTS)
+
+add_library(network SHARED ${SRCS})
+
+target_link_libraries(network boost_system boost_thread)
