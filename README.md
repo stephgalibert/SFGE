@@ -40,6 +40,7 @@ For those who don't want to use powerful engines that do too much for you.
 
 | Feature | Note | Estimated Time |
 | :-----: | ----- | :------------: |
+| Version | - | -
 | Tests   | Unit tests with GTests | -
 | Documentation | With Doxygen | -
 | Rendering | Shaders | 3d
