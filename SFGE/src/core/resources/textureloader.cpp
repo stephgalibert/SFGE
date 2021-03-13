@@ -106,7 +106,7 @@ namespace sfge::resources
     {
         if (m_textures.find(key) != m_textures.end()) {
             if (m_logger)
-                m_logger->warning("loadFromFile: " + key + " already exists");
+                m_logger->warning(key + " already exists");
             return true;
         }
         return false;
@@ -117,6 +117,6 @@ namespace sfge::resources
         texture->setSmooth(m_smoothing);
         m_textures.insert({key, std::move(texture)});
         if (m_logger)
-            m_logger->info("loadFromFile: " + key + " loaded");
+            m_logger->info(key + " loaded");
     }
 }// namespace sfge::resources

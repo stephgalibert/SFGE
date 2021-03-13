@@ -30,6 +30,7 @@
 
 #include <sfge/services/iloggerservice.hpp>
 #include <sfge/services/imainrendererservice.hpp>
+#include <sfge/services/isoundloaderservice.hpp>
 #include <sfge/services/itextureloaderservice.hpp>
 #include <sfge/services/servicelocator.hpp>
 
@@ -51,6 +52,11 @@ void TestScene::init()
     auto textureService = sfge::services::ServiceLocator::Get<sfge::services::ITextureLoaderService>();
     textureService->loadFromFile("test", "texture.jpg");
     sf::Texture *texture = textureService->getTexture("test");
+
+    // auto soundService = sfge::services::ServiceLocator::Get<sfge::services::ISoundLoaderService>();
+    //    soundService->loadFromFile("splash", "sound.wav");
+    //    m_splashSound = soundService->getSound("splash");
+    //    m_splashSound->play();
 
     m_logger->info("Init");
     {

@@ -41,21 +41,34 @@ namespace sfge::resources
         return true;
     }
 
-    bool SoundLoader::loadFromFile(const std::string &key, const std::string &path)
+    bool SoundLoader::loadFromSamples(const std::string &key, const std::vector<sf::Int16> &samples,
+                                      uint32_t nbChannel, uint32_t rate)
     {
-        if (m_sounds.find(key) != m_sounds.end()) {
-            m_logger->warning("loadFromFile: " + key + " already exists");
+        if (exists(key))
+            return false;
+
+        auto sound = std::make_unique<sf::SoundBuffer>();
+        if (!sound->loadFromSamples(&samples[0], samples.size(), nbChannel, rate)) {
+            if (m_logger)
+                m_logger->warning("loadFromSamples: " + key + " unable to load");
             return false;
         }
+        insert(key, std::move(sound));
+        return true;
+    }
+
+    bool SoundLoader::loadFromFile(const std::string &key, const std::string &path)
+    {
+        if (exists(key))
+            return false;
 
         auto sound = std::make_unique<sf::SoundBuffer>();
         if (!sound->loadFromFile(path)) {
-            m_logger->warning("loadFromFile: " + path + " unable to load");
+            if (m_logger)
+                m_logger->warning("loadFromFile: " + path + " unable to load");
             return false;
         }
-
-        m_sounds.insert({key, std::move(sound)});
-        m_logger->info("loadFromFile: " + key + ": " + path + " loaded");
+        insert(key, std::move(sound));
         return true;
     }
 
@@ -64,7 +77,8 @@ namespace sfge::resources
         const auto found = m_sounds.find(key);
 
         if (found == m_sounds.end()) {
-            m_logger->warning("remove: " + key + " not found");
+            if (m_logger)
+                m_logger->warning("remove: " + key + " not found");
             return false;
         }
         m_sounds.erase(found);
@@ -73,7 +87,8 @@ namespace sfge::resources
 
     void SoundLoader::clear()
     {
-        m_logger->info("clear: " + std::to_string(m_sounds.size()) + " sound(s) cleared");
+        if (m_logger)
+            m_logger->info("clear: " + std::to_string(m_sounds.size()) + " sound(s) cleared");
         m_sounds.clear();
     }
 
@@ -87,5 +102,21 @@ namespace sfge::resources
         auto sound = std::make_unique<sf::Sound>();
         sound->setBuffer(*found->second);
         return std::move(sound);
+    }
+
+    bool SoundLoader::exists(const std::string &key) const
+    {
+        if (m_sounds.find(key) != m_sounds.end()) {
+            m_logger->warning(key + " already exists");
+            return true;
+        }
+        return false;
+    }
+
+    void SoundLoader::insert(const std::string &key, std::unique_ptr<sf::SoundBuffer> sound)
+    {
+        m_sounds.insert({key, std::move(sound)});
+        if (m_logger)
+            m_logger->info(key + ": " + key + " loaded");
     }
 }// namespace sfge::resources

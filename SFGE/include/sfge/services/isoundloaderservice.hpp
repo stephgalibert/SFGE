@@ -30,6 +30,8 @@ namespace sfge::services
         virtual ~ISoundLoaderService() = default;
 
         virtual bool init() = 0;
+        virtual bool loadFromSamples(const std::string &key, const std::vector<sf::Int16> &samples,
+                                     uint32_t nbChannel, uint32_t rate) = 0;
         virtual bool loadFromFile(const std::string &key, const std::string &path) = 0;
         virtual bool remove(const std::string &key) = 0;
         virtual void clear() = 0;

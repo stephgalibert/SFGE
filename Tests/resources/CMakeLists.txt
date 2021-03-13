@@ -19,7 +19,8 @@
 cmake_minimum_required (VERSION 3.8)
 
 set (TARGET "resources_tests")
-set (SRCS textures_tests.cpp)
+set (SRCS textures_tests.cpp
+        sounds_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
 target_link_libraries (${TARGET} PRIVATE ${PROJECT_NAME} "gmock" "gtest" "gmock_main")

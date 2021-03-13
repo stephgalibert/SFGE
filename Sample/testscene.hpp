@@ -21,6 +21,8 @@
 #include "sfge/logger/logger.hpp"
 #include "sfge/scene/ascene.hpp"
 
+#include <SFML/Audio.hpp>
+
 class TestScene : public sfge::AScene
 {
 public:
@@ -29,4 +31,5 @@ public:
 
 private:
     std::shared_ptr<sfge::ILogger> m_logger;
+    std::unique_ptr<sf::Sound> m_splashSound;
 };

@@ -33,11 +33,17 @@ namespace sfge::resources
     {
     public:
         bool init() override;
+        bool loadFromSamples(const std::string &key, const std::vector<sf::Int16> &samples,
+                             uint32_t nbChannel, uint32_t rate) override;
         bool loadFromFile(const std::string &key, const std::string &path) override;
         bool remove(const std::string &key) override;
         void clear() override;
 
         [[nodiscard]] std::unique_ptr<sf::Sound> getSound(const std::string &key) const override;
+
+    private:
+        bool exists(const std::string &key) const;
+        void insert(const std::string &key, std::unique_ptr<sf::SoundBuffer> texture);
 
     private:
         std::shared_ptr<ILogger> m_logger;
