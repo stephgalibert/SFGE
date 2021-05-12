@@ -16,12 +16,18 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "sfge/exceptions/exception.hpp"
 
-namespace sfge::utils
+namespace sfge::exception
 {
-    class AStateMachine
+    Exception::Exception(const char *msg)
+        : m_msg(msg)
     {
-    public:
-    };
-}// namespace sfge::utils
+    }
+
+    const char *Exception::what() const noexcept
+    {
+        return m_msg;
+    }
+
+}// namespace sfge::exception

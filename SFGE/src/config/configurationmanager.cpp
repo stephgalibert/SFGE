@@ -73,7 +73,7 @@ namespace sfge::config
                 }
             }
         } else {
-            // No able to parse the configuration file,
+            // Not able to parse the configuration file,
             // Save default.
             save();
         }

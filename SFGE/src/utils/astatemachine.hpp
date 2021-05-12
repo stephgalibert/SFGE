@@ -16,9 +16,16 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#include "astatemachine.hpp"
+#pragma once
 
 namespace sfge::utils
 {
-
-}
+    template<typename State>
+    class AStateMachine
+    {
+    public:
+        void action(State state)
+        {
+        }
+    };
+}// namespace sfge::utils

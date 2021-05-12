@@ -19,6 +19,7 @@
 #pragma once
 
 #include "iconfiguration.hpp"
+#include "types.hpp"
 
 namespace sfge::config
 {
@@ -49,18 +50,18 @@ namespace sfge::config
         typename std::enable_if_t<std::is_same_v<int, T>, T>
         getValue(Key key) const
         {
-            return std::stoi(m_values.at(KeyToString(key)));
+            return std::stoi(m_values.at(KeyToString(key).name));
         }
 
         template<typename T>
         typename std::enable_if_t<std::is_same_v<float, T>, T>
         getValue(Key key) const
         {
-            return std::stof(m_values.at(KeyToString(key)));
+            return std::stof(m_values.at(KeyToString(key).name));
         }
 
     private:
-        [[nodiscard]] static std::string KeyToString(Key key);
+        [[nodiscard]] static ConfigKey KeyToString(Key key);
 
     private:
         std::unordered_map<std::string, std::string> m_values;

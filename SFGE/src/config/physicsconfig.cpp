@@ -20,10 +20,10 @@
 
 namespace sfge::config
 {
-    std::string Physics::KeyToString(Key key)
+    ConfigKey Physics::KeyToString(Key key)
     {
-        static const std::unordered_map<Key, std::string> map = {
-                {{Key::PixelsPerMeter}, {"PixelsPerMeter"}}};
+        static const std::unordered_map<Key, ConfigKey> map = {
+                {{Key::PixelsPerMeter}, {"PixelsPerMeter", Type::Float}}};
         return map.at(key);
     }
 
@@ -44,33 +44,38 @@ namespace sfge::config
 
     void Physics::setValue(const std::string &key, const std::string &value)
     {
+        // TODO: Check type matching key here. If error, throw an exception.
+        //   - Using Design pattern Decorator?
+        //   - Define which exception to be thrown.
+
+
         m_values[key] = value;
     }
 
     void Physics::reset()
     {
         static const std::unordered_map<std::string, std::string> values = {
-                {{KeyToString(Key::PixelsPerMeter)}, {"50"}}};
+                {{KeyToString(Key::PixelsPerMeter).name}, {"50.0"}}};
         m_values = values;
     }
 
     std::string Physics::getValue(Key key) const
     {
-        return m_values.at(KeyToString(key));
+        return m_values.at(KeyToString(key).name);
     }
 
     void Physics::setValue(Key key, int value)
     {
-        setValue(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key).name, std::to_string(value));
     }
 
     void Physics::setValue(Key key, float value)
     {
-        setValue(KeyToString(key), std::to_string(value));
+        setValue(KeyToString(key).name, std::to_string(value));
     }
 
     void Physics::setValue(Key key, const std::string &value)
     {
-        setValue(KeyToString(key), value);
+        setValue(KeyToString(key).name, value);
     }
 }// namespace sfge::config
