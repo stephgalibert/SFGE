@@ -22,24 +22,21 @@
 #include "services/iconfigurationmanagerservice.h"
 #include "sfge/services/servicelocator.hpp"
 
+#include <iostream>
 #include <memory>
 
 namespace sfge::renderer
 {
     bool sfge::renderer::MainRenderer::init()
     {
-        auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
-
-        std::shared_ptr<config::Renderer> rendererConfig = config->getRenderer();
-        const int width = rendererConfig->getValue<int>(config::Renderer::Key::Width);
-        const int height = rendererConfig->getValue<int>(config::Renderer::Key::Height);
-        const int maxFps = rendererConfig->getValue<int>(config::Renderer::Key::MaxFps);
-        const bool vsync = rendererConfig->getValue<bool>(config::Renderer::Key::VSync);
-
+        const auto rendererConfig = services::ServiceLocator::Get<services::IConfigurationManagerService>()->getRenderer();
         m_window = std::make_unique<sf::RenderWindow>();
-        m_window->create(sf::VideoMode(width, height), "SFML works!");
-        m_window->setFramerateLimit(maxFps);
-        m_window->setVerticalSyncEnabled(vsync);
+        m_window->create(sf::VideoMode(rendererConfig->getWidth(), rendererConfig->getHeight()), "SFML works!");
+        m_window->setFramerateLimit(rendererConfig->getMaxFps());
+        m_window->setVerticalSyncEnabled(rendererConfig->getVSync());
+
+        std::clog << "vsync: " << rendererConfig->getVSync() << std::endl;
+
         return true;
     }
 

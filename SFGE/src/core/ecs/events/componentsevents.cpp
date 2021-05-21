@@ -30,8 +30,7 @@ namespace sfge::ecs
     TransformableEvents::TransformableEvents()
     {
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
-        const auto physicsConfig = config->getPhysics();
-        m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
+        m_pixelsPerMeter = config->getPhysics()->getPixelsPerMeter();
     }
 
     void TransformableEvents::changed(entt::registry &registry, entt::entity entity) const
@@ -64,7 +63,7 @@ namespace sfge::ecs
     {
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto physicsConfig = config->getPhysics();
-        m_pixelsPerMeter = physicsConfig->getValue<float>(config::Physics::Key::PixelsPerMeter);
+        m_pixelsPerMeter = config->getPhysics()->getPixelsPerMeter();
     }
 
     void RenderableEvents::changed(entt::registry &registry, entt::entity entity) const

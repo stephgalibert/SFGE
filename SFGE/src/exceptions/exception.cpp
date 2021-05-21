@@ -20,14 +20,8 @@
 
 namespace sfge::exception
 {
-    Exception::Exception(const char *msg)
-        : m_msg(msg)
+    Exception::Exception(const std::string &msg)
+        : std::runtime_error(msg)
     {
     }
-
-    const char *Exception::what() const noexcept
-    {
-        return m_msg;
-    }
-
 }// namespace sfge::exception

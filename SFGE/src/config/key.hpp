@@ -18,27 +18,28 @@
 
 #pragma once
 
-#include "types.hpp"
-
-#include <functional>
 #include <string>
-#include <unordered_map>
+
+#include "types.hpp"
 
 namespace sfge::config
 {
-    class TypeValidator
-    {
-    public:
-        bool operator()(Type type, const std::string &value) const;
-
-    private:
-        static bool validateInt(const std::string &value);
-        static bool validateFloat(const std::string &value);
-        static bool validateDouble(const std::string &value);
-        static bool validateBool(const std::string &value);
-        static bool validateString(const std::string &value);
-
-    private:
-        static const std::unordered_map<Type, std::function<bool(const std::string &)>> Validators;
+    struct KeyInfo {
+        std::string name;
+        Type type = Type::Int;
+        std::string defaultValue = "0";
     };
+
+    inline bool operator<(const KeyInfo &lhs, const KeyInfo &rhs)
+    {
+        return lhs.name < rhs.name;
+    }
+
+    inline std::set<KeyInfo>::const_iterator findKey(const std::set<KeyInfo> &keys, const std::string &name)
+    {
+        //        KeyInfo toFind;
+        //        toFind.name = name;
+        return keys.find({name});
+    }
+
 }// namespace sfge::config

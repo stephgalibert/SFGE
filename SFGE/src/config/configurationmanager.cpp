@@ -42,7 +42,8 @@ namespace sfge::config
 
         auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
         m_logger = loggerService->getOrCreateLogger("ConfigurationManager");
-        m_logger->addLoggingFile(m_globalConfig->getValue(Global::Key::LoggingFile));
+        // m_logger->addLoggingFile(m_globalConfig->getValue(Global::Key::LoggingFile));
+        m_logger->addLoggingFile(m_globalConfig->getLoggingFilePath());
     }
 
     ConfigurationManager::~ConfigurationManager()

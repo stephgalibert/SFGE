@@ -35,7 +35,7 @@ namespace sfge::resources
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();
-        m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
+        m_logger->addLoggingFile(globalConfig->getLoggingFilePath());
 
         m_logger->info("init");
         return true;

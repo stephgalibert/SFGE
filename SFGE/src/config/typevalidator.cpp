@@ -17,6 +17,8 @@
 //
 
 #include "typevalidator.hpp"
+#include <iostream>
+#include <sstream>
 
 namespace sfge::config
 {
@@ -27,7 +29,7 @@ namespace sfge::config
             {Type::Bool, [](const std::string &value) { return TypeValidator::validateBool(value); }},
             {Type::String, [](const std::string &value) { return TypeValidator::validateString(value); }}};
 
-    bool TypeValidator::operator()(Type type, const std::string &value)
+    bool TypeValidator::operator()(Type type, const std::string &value) const
     {
         const auto found = Validators.find(type);
         if (found != Validators.end()) {
@@ -36,28 +38,47 @@ namespace sfge::config
         return false;
     }
 
-    bool TypeValidator::validateInt(const std::string &)
+    bool TypeValidator::validateInt(const std::string &value)
     {
-        return true;
+        return std::all_of(value.begin(), value.end(), ::isdigit);
     }
 
-    bool TypeValidator::validateFloat(const std::string &)
+    bool TypeValidator::validateFloat(const std::string &value)
     {
-        return true;
+        std::istringstream iss(value);
+
+        float f;
+        iss >> f;
+        bool success = !iss.fail();
+        std::cout << "value " << value << " is float=" << success << std::endl;
+
+        return success;
     }
 
-    bool TypeValidator::validateDouble(const std::string &)
+    bool TypeValidator::validateDouble(const std::string &value)
     {
-        return true;
+        std::istringstream iss(value);
+
+        double d;
+        iss >> d;
+        bool success = !iss.fail();
+        std::cout << "value " << value << " is double=" << success << std::endl;
+        return success;
     }
 
-    bool TypeValidator::validateBool(const std::string &)
+    bool TypeValidator::validateBool(const std::string &value)
     {
-        return true;
+        std::istringstream iss(value);
+
+        bool b;
+        iss >> std::boolalpha >> b;
+        bool success = !iss.fail();
+        std::cout << "value " << value << " is bool=" << success << std::endl;
+        return success;
     }
 
-    bool TypeValidator::validateString(const std::string &)
+    bool TypeValidator::validateString(const std::string &value)
     {
-        return true;
+        return std::all_of(value.begin(), value.end(), ::isgraph);
     }
 }// namespace sfge::config

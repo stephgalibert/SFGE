@@ -16,29 +16,12 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include "sfge/exceptions/badtype.hpp"
 
-#include "types.hpp"
-
-#include <functional>
-#include <string>
-#include <unordered_map>
-
-namespace sfge::config
+namespace sfge::exception
 {
-    class TypeValidator
+    BadType::BadType(const std::string &msg)
+        : Exception(msg)
     {
-    public:
-        bool operator()(Type type, const std::string &value) const;
-
-    private:
-        static bool validateInt(const std::string &value);
-        static bool validateFloat(const std::string &value);
-        static bool validateDouble(const std::string &value);
-        static bool validateBool(const std::string &value);
-        static bool validateString(const std::string &value);
-
-    private:
-        static const std::unordered_map<Type, std::function<bool(const std::string &)>> Validators;
-    };
-}// namespace sfge::config
+    }
+}// namespace sfge::exception

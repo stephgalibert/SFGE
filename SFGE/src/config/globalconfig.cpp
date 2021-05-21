@@ -17,30 +17,15 @@
 //
 
 #include "globalconfig.hpp"
+#include <iostream>
+
+#define LOGGING_FILE_PATH_KEY_NAME "LoggingFilePath"
 
 namespace sfge::config
 {
-    std::string Global::KeyToString(Key key)
-    {
-        static const std::unordered_map<Key, std::string> map = {
-                {{Key::LoggingFile}, {"LoggingFile"}}};
-        return map.at(key);
-    }
-
     Global::Global()
     {
         reset();
-    }
-
-    void Global::setValue(const std::string &key, const std::string &value)
-    {
-    }
-
-    void Global::reset()
-    {
-        static const std::unordered_map<std::string, std::string> values = {
-                {{KeyToString(Key::LoggingFile)}, {"logs/log.txt"}}};
-        m_values = values;
     }
 
     std::string Global::getName() const
@@ -48,29 +33,24 @@ namespace sfge::config
         return "Global";
     }
 
-    const std::unordered_map<std::string, std::string> &Global::getKeysValues() const
+    void Global::setLoggingFilePath(const std::string &value)
     {
-        return m_values;
+        const bool ret = setValue(LOGGING_FILE_PATH_KEY_NAME, value);
+        if (!ret) {
+            std::cout << "failed to set logging file path, value=" << value << std::endl;
+        }
     }
 
-    std::string Global::getValue(Key key) const
+    std::string Global::getLoggingFilePath() const
     {
-        return m_values.at(KeyToString(key));
+        return getValueString(LOGGING_FILE_PATH_KEY_NAME);
     }
 
-    void Global::setValue(Key key, int value)
+    const std::set<KeyInfo> &Global::getKeys() const
     {
-        setValue(KeyToString(key), std::to_string(value));
-    }
-
-    void Global::setValue(Key key, float value)
-    {
-        setValue(KeyToString(key), std::to_string(value));
-    }
-
-    void Global::setValue(Key key, const std::string &value)
-    {
-        setValue(KeyToString(key), value);
+        static const std::set<KeyInfo> keys = {
+                {{LOGGING_FILE_PATH_KEY_NAME, Type::String, "logs/log.txt"}}};
+        return keys;
     }
 
 }// namespace sfge::config

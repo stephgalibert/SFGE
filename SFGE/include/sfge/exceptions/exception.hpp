@@ -18,18 +18,13 @@
 
 #pragma once
 
-#include <exception>
+#include <stdexcept>
 
 namespace sfge::exception
 {
-    class Exception : public std::exception
+    class Exception : public std::runtime_error
     {
     public:
-        explicit Exception(const char *msg);
-
-        [[nodiscard]] const char *what() const noexcept override;
-
-    private:
-        const char *m_msg;
+        explicit Exception(const std::string &msg);
     };
 }// namespace sfge::exception

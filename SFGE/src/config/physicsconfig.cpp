@@ -17,16 +17,12 @@
 //
 
 #include "physicsconfig.hpp"
+#include <iostream>
+
+#define PIXELS_PER_METER_KEY_NAME "PixelsPerMeter"
 
 namespace sfge::config
 {
-    ConfigKey Physics::KeyToString(Key key)
-    {
-        static const std::unordered_map<Key, ConfigKey> map = {
-                {{Key::PixelsPerMeter}, {"PixelsPerMeter", Type::Float}}};
-        return map.at(key);
-    }
-
     Physics::Physics()
     {
         reset();
@@ -37,45 +33,23 @@ namespace sfge::config
         return "Physics";
     }
 
-    const std::unordered_map<std::string, std::string> &Physics::getKeysValues() const
+    void Physics::setPixelsPerMeter(float value)
     {
-        return m_values;
+        const bool ret = setValue(PIXELS_PER_METER_KEY_NAME, value);
+        if (!ret) {
+            std::cout << "failed to set pixels per meter, value=" << value << std::endl;
+        }
     }
 
-    void Physics::setValue(const std::string &key, const std::string &value)
+    float Physics::getPixelsPerMeter() const
     {
-        // TODO: Check type matching key here. If error, throw an exception.
-        //   - Using Design pattern Decorator?
-        //   - Define which exception to be thrown.
-
-
-        m_values[key] = value;
+        return getValueFloat(PIXELS_PER_METER_KEY_NAME);
     }
 
-    void Physics::reset()
+    const std::set<KeyInfo> &Physics::getKeys() const
     {
-        static const std::unordered_map<std::string, std::string> values = {
-                {{KeyToString(Key::PixelsPerMeter).name}, {"50.0"}}};
-        m_values = values;
-    }
-
-    std::string Physics::getValue(Key key) const
-    {
-        return m_values.at(KeyToString(key).name);
-    }
-
-    void Physics::setValue(Key key, int value)
-    {
-        setValue(KeyToString(key).name, std::to_string(value));
-    }
-
-    void Physics::setValue(Key key, float value)
-    {
-        setValue(KeyToString(key).name, std::to_string(value));
-    }
-
-    void Physics::setValue(Key key, const std::string &value)
-    {
-        setValue(KeyToString(key).name, value);
+        static const std::set<KeyInfo> keys = {
+                {{PIXELS_PER_METER_KEY_NAME, Type::Float, "50.0"}}};
+        return keys;
     }
 }// namespace sfge::config

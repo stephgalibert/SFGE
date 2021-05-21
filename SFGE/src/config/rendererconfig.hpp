@@ -18,64 +18,36 @@
 
 #pragma once
 
-#include "iconfiguration.hpp"
-
+#include "aconfiguration.hpp"
 
 namespace sfge::config
 {
-    class Renderer : public IConfiguration
+    class Renderer : public AConfiguration
     {
-    public:
-        enum class Key : int32_t
-        {
-            Width = 0,
-            Height,
-            AntiAliasing,
-            MaxFps,
-            VSync,
-            TextureSmooth
-        };
-
     public:
         Renderer();
 
-        void setValue(const std::string &key, const std::string &value) override;
-        void reset() override;
-
         [[nodiscard]] std::string getName() const override;
-        const std::unordered_map<std::string, std::string> &getKeysValues() const override;
 
-        [[nodiscard]] std::string getValue(Key key) const;
-        void setValue(Key key, int value);
-        void setValue(Key key, float value);
-        void setValue(Key key, const std::string &value);
+        void setWidth(int value);
+        int getWidth() const;
 
-    public:
-        template<typename T>
-        typename std::enable_if_t<std::is_same_v<int, T>, T>
-        getValue(Key key) const
-        {
-            return std::stoi(m_values.at(KeyToString(key)));
-        }
+        void setHeight(int value);
+        int getHeight() const;
 
-        template<typename T>
-        typename std::enable_if_t<std::is_same_v<float, T>, T>
-        getValue(Key key) const
-        {
-            return std::stof(m_values.at(KeyToString(key)));
-        }
+        void setAntiAliasing(int value);
+        int getAntiAliasing() const;
 
-        template<typename T>
-        typename std::enable_if_t<std::is_same_v<bool, T>, T>
-        getValue(Key key) const
-        {
-            return std::stoi(m_values.at(KeyToString(key))) != 0;
-        }
+        void setMaxFps(int value);
+        int getMaxFps() const;
 
-    private:
-        [[nodiscard]] static std::string KeyToString(Key key);
+        void setVSync(bool value);
+        bool getVSync() const;
 
-    private:
-        std::unordered_map<std::string, std::string> m_values;
+        void setTextureSmooth(bool value);
+        bool getTextureSmooth() const;
+
+    protected:
+        const std::set<KeyInfo> &getKeys() const override;
     };
 }// namespace sfge::config

@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "iconfiguration.hpp"
+#include "aconfiguration.hpp"
 
 #include "services/iconfigurationmanagerservice.h"
 #include "sfge/logger/logger.hpp"
@@ -30,7 +30,6 @@ namespace sfge::config
 {
     class IniConfig;
 
-    // TODO: Type/Value validator
     class ConfigurationManager : public services::IConfigurationManagerService
     {
     public:
@@ -47,7 +46,7 @@ namespace sfge::config
     private:
         std::string m_path;
         std::shared_ptr<ILogger> m_logger;
-        std::vector<std::shared_ptr<IConfiguration>> m_configurations;
+        std::vector<std::shared_ptr<AConfiguration>> m_configurations;
         std::shared_ptr<Global> m_globalConfig;
         std::shared_ptr<Renderer> m_rendererConfig;
         std::shared_ptr<Physics> m_physicsConfig;

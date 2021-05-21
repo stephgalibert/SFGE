@@ -24,15 +24,26 @@ namespace sfge::config
 {
     enum class Type : int
     {
-        Int = 0,
+        String = 0,
+        Int,
         Float,
         Double,
-        Bool,
-        String
+        Bool
     };
 
-    struct ConfigKey {
-        std::string name;
-        Type type = Type::Int;
-    };
+    inline std::string toString(Type type)
+    {
+        switch (type) {
+            case Type::Int:
+                return "Int";
+            case Type::Float:
+                return "Float";
+            case Type::Double:
+                return "Double";
+            case Type::Bool:
+                return "Bool";
+            default:
+                return "String";
+        }
+    }
 }// namespace sfge::config

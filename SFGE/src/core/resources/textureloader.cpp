@@ -34,9 +34,9 @@ namespace sfge::resources
 
         const auto config = services::ServiceLocator::Get<services::IConfigurationManagerService>();
         const auto globalConfig = config->getGlobal();
-        m_logger->addLoggingFile(globalConfig->getValue(config::Global::Key::LoggingFile));
+        m_logger->addLoggingFile(globalConfig->getLoggingFilePath());
         const auto renderConfig = config->getRenderer();
-        m_smoothing = renderConfig->getValue<bool>(config::Renderer::Key::TextureSmooth);
+        m_smoothing = renderConfig->getTextureSmooth();
 
         m_logger->info("init: Smoothing=" + std::to_string(m_smoothing));
         return true;
