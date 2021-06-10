@@ -97,15 +97,15 @@ namespace sfge::config
         return getValueBool(TEXTURE_SMOOTH_KEY_NAME);
     }
 
-    const std::set<KeyInfo> &Renderer::getKeys() const
+    const std::set<KeyDefinition> &Renderer::getKeyDefinitions() const
     {
-        static const std::set<KeyInfo> keys = {
-                {{WIDTH_KEY_NAME, Type::Int, "1280"},
-                 {HEIGHT_KEY_NAME, Type::Int, "720"},
-                 {ANTI_ALIASING_KEY_NAME, Type::Int, "8"},
-                 {MAX_FPS_KEY_NAME, Type::Int, "60"},
-                 {VSYNC_KEY_NAME, Type::Bool, "true"},
-                 {TEXTURE_SMOOTH_KEY_NAME, Type::Bool, "true"}}};
+        static const std::set<KeyDefinition> keys = {
+                {{WIDTH_KEY_NAME, Type::Int, 1280},
+                 {HEIGHT_KEY_NAME, Type::Int, 720},
+                 {ANTI_ALIASING_KEY_NAME, Type::Int, 8},
+                 {MAX_FPS_KEY_NAME, Type::Int, 60},
+                 {VSYNC_KEY_NAME, Type::Bool, true},
+                 {TEXTURE_SMOOTH_KEY_NAME, Type::Bool, true}}};
         return keys;
     }
 }// namespace sfge::config

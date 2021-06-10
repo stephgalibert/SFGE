@@ -46,10 +46,10 @@ namespace sfge::config
         return getValueFloat(PIXELS_PER_METER_KEY_NAME);
     }
 
-    const std::set<KeyInfo> &Physics::getKeys() const
+    const std::set<KeyDefinition> &Physics::getKeyDefinitions() const
     {
-        static const std::set<KeyInfo> keys = {
-                {{PIXELS_PER_METER_KEY_NAME, Type::Float, "50.0"}}};
+        static const std::set<KeyDefinition> keys = {
+                {{PIXELS_PER_METER_KEY_NAME, Type::Float, 50.0f}}};
         return keys;
     }
 }// namespace sfge::config

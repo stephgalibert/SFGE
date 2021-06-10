@@ -44,7 +44,7 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/core/ecs/components/camera.cpp 			src/core/renderer/mainrenderer.cpp
 		src/core/gameobject/camera.cpp				src/random/cavegeneration.cpp
 		src/random/lehmer32.cpp 					src/config/typevalidator.cpp
-		src/exceptions/exception.cpp				src/exceptions/badtype.cpp src/config/aconfiguration.cpp src/config/key.hpp)
+		src/exceptions/exception.cpp				src/exceptions/badtype.cpp src/config/aconfiguration.cpp src/config/keydefinition.hpp src/config/typeparser.cpp src/config/typeparser.hpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 

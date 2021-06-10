@@ -18,21 +18,25 @@
 
 #pragma once
 
-#include "aconfiguration.hpp"
+#include "types.hpp"
+#include <any>
+#include <string>
 
 namespace sfge::config
 {
-    class Global : public AConfiguration
+    class TypeParser
     {
     public:
-        Global();
+        void setValue(const std::string &value);
+        void setValue(const std::any &value);
+        void setType(Type type);
 
-        [[nodiscard]] std::string getName() const override;
+        [[nodiscard]] std::string toString() const;
+        [[nodiscard]] std::any toAny() const;
 
-        void setLoggingFilePath(const std::string &value);
-        std::string getLoggingFilePath() const;
-
-    protected:
-        const std::set<KeyDefinition> &getKeyDefinitions() const override;
+    private:
+        std::string m_valueStr;
+        std::any m_valueAny;
+        Type m_type;
     };
 }// namespace sfge::config

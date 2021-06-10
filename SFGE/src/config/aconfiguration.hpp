@@ -23,7 +23,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "key.hpp"
+#include "keydefinition.hpp"
 #include "sfge/exceptions/badtype.hpp"
 
 namespace sfge::config
@@ -35,6 +35,7 @@ namespace sfge::config
 
         [[nodiscard]] virtual std::string getName() const = 0;
 
+        bool initValue(const std::string &key, const std::string &value);
         void reset();
 
         bool setValue(const std::string &key, const std::string &value);
@@ -49,23 +50,15 @@ namespace sfge::config
         double getValueDouble(const std::string &key) const;
         bool getValueBool(const std::string &key) const;
 
-        [[nodiscard]] const std::unordered_map<std::string, std::string> &getKeysValues() const;
+        [[nodiscard]] std::unordered_map<std::string, std::string> retrieveNormalizedValues() const;
 
     protected:
-        virtual const std::set<KeyInfo> &getKeys() const = 0;
+        virtual const std::set<KeyDefinition> &getKeyDefinitions() const = 0;
 
     private:
-        template<Type KeyType>
-        static void ensureType(Type type)
-        {
-            if (KeyType != type) {
-                const std::string msg(toString(type) + " is not a " + toString(KeyType));
-                throw exception::BadType(msg.c_str());
-            }
-        }
+        const Type *getKeyType(const std::string &key) const;
 
     private:
-        std::unordered_map<std::string, std::string> m_values;
-        // std::unordered_map<std::string, std::any> m_values;
+        std::unordered_map<std::string, std::any> m_values;
     };
 }// namespace sfge::config

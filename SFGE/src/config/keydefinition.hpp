@@ -18,28 +18,26 @@
 
 #pragma once
 
+#include <any>
 #include <string>
 
 #include "types.hpp"
 
 namespace sfge::config
 {
-    struct KeyInfo {
+    struct KeyDefinition {
         std::string name;
         Type type = Type::Int;
-        std::string defaultValue = "0";
+        std::any defaultValue = 0;
     };
 
-    inline bool operator<(const KeyInfo &lhs, const KeyInfo &rhs)
+    inline bool operator<(const KeyDefinition &lhs, const KeyDefinition &rhs)
     {
         return lhs.name < rhs.name;
     }
 
-    inline std::set<KeyInfo>::const_iterator findKey(const std::set<KeyInfo> &keys, const std::string &name)
+    inline std::set<KeyDefinition>::const_iterator findKeyDefinition(const std::set<KeyDefinition> &keys, const std::string &name)
     {
-        //        KeyInfo toFind;
-        //        toFind.name = name;
         return keys.find({name});
     }
-
 }// namespace sfge::config

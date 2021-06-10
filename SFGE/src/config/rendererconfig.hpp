@@ -48,6 +48,6 @@ namespace sfge::config
         bool getTextureSmooth() const;
 
     protected:
-        const std::set<KeyInfo> &getKeys() const override;
+        const std::set<KeyDefinition> &getKeyDefinitions() const override;
     };
 }// namespace sfge::config

@@ -26,6 +26,7 @@
 #include "rendererconfig.hpp"
 
 #include "iniconfig.hpp"
+#include "typeparser.hpp"
 
 namespace sfge::config
 {
@@ -60,13 +61,13 @@ namespace sfge::config
         if (success) {
             m_logger->info("Using saved configuration");
             for (const auto &config : m_configurations) {
-                const auto &keysValues = config->getKeysValues();
+                const auto &keysValues = config->retrieveNormalizedValues();
                 for (const auto &keyValue : keysValues) {
                     try {
                         const std::string &key = keyValue.first;
                         const std::string path = config->getName() + "." + key;
                         const auto value = iniFile.get<std::string>(path);
-                        config->setValue(key, value);
+                        config->initValue(key, value);
                         m_logger->info(path + ": " + value);
                     } catch (const std::exception &exception) {
                         m_logger->warning(exception.what());
@@ -85,10 +86,11 @@ namespace sfge::config
         IniConfig iniConfig;
         m_logger->info("Saving configuration");
         for (const auto &config : m_configurations) {
-            const auto &keysValues = config->getKeysValues();
+            const auto &keysValues = config->retrieveNormalizedValues();
             for (const auto &keyValue : keysValues) {
-                const std::string &value = keyValue.second;
                 const std::string path = config->getName() + "." + keyValue.first;
+                const std::string &value = keyValue.second;
+
                 m_logger->info(path + ": " + value);
                 iniConfig.put(path, value);
             }

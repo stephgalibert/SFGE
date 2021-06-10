@@ -46,10 +46,10 @@ namespace sfge::config
         return getValueString(LOGGING_FILE_PATH_KEY_NAME);
     }
 
-    const std::set<KeyInfo> &Global::getKeys() const
+    const std::set<KeyDefinition> &Global::getKeyDefinitions() const
     {
-        static const std::set<KeyInfo> keys = {
-                {{LOGGING_FILE_PATH_KEY_NAME, Type::String, "logs/log.txt"}}};
+        static const std::set<KeyDefinition> keys = {
+                {{LOGGING_FILE_PATH_KEY_NAME, Type::String, std::string("logs/log.txt")}}};
         return keys;
     }
 
