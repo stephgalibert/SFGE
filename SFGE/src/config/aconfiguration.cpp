@@ -65,8 +65,8 @@ namespace sfge::config
         if (!type || *type != Type::String) {
             return false;
         }
-        const auto [_, success] = m_values.insert({key, value});
-        return success;
+        m_values[key] = value;
+        return true;
     }
 
     bool AConfiguration::setValue(const std::string &key, int value)
@@ -75,8 +75,8 @@ namespace sfge::config
         if (!type || *type != Type::Int) {
             return false;
         }
-        const auto [_, success] = m_values.insert({key, value});
-        return success;
+        m_values[key] = value;
+        return true;
     }
 
     bool AConfiguration::setValue(const std::string &key, float value)
@@ -85,8 +85,8 @@ namespace sfge::config
         if (!type || *type != Type::Float) {
             return false;
         }
-        const auto [_, success] = m_values.insert({key, value});
-        return success;
+        m_values[key] = value;
+        return true;
     }
 
     bool AConfiguration::setValue(const std::string &key, double value)
@@ -95,8 +95,8 @@ namespace sfge::config
         if (!type || *type != Type::Double) {
             return false;
         }
-        const auto [_, success] = m_values.insert({key, value});
-        return success;
+        m_values[key] = value;
+        return true;
     }
 
     bool AConfiguration::setValue(const std::string &key, bool value)
@@ -105,8 +105,8 @@ namespace sfge::config
         if (!type || *type != Type::Bool) {
             return false;
         }
-        const auto [_, success] = m_values.insert({key, value});
-        return success;
+        m_values[key] = value;
+        return true;
     }
 
     std::unordered_map<std::string, std::string> AConfiguration::retrieveNormalizedValues() const

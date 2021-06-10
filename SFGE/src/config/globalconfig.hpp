@@ -25,14 +25,15 @@ namespace sfge::config
     class Global : public AConfiguration
     {
     public:
+        static std::string GetLoggingFilePathKeyName();
+
+    public:
         Global();
 
         [[nodiscard]] std::string getName() const override;
+        [[nodiscard]] const std::set<KeyDefinition> &getKeyDefinitions() const override;
 
         void setLoggingFilePath(const std::string &value);
         std::string getLoggingFilePath() const;
-
-    protected:
-        const std::set<KeyDefinition> &getKeyDefinitions() const override;
     };
 }// namespace sfge::config

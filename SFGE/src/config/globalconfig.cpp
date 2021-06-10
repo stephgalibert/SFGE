@@ -19,10 +19,13 @@
 #include "globalconfig.hpp"
 #include <iostream>
 
-#define LOGGING_FILE_PATH_KEY_NAME "LoggingFilePath"
-
 namespace sfge::config
 {
+    std::string Global::GetLoggingFilePathKeyName()
+    {
+        return "LoggingFilePath";
+    }
+
     Global::Global()
     {
         reset();
@@ -35,7 +38,7 @@ namespace sfge::config
 
     void Global::setLoggingFilePath(const std::string &value)
     {
-        const bool ret = setValue(LOGGING_FILE_PATH_KEY_NAME, value);
+        const bool ret = setValue(GetLoggingFilePathKeyName(), value);
         if (!ret) {
             std::cout << "failed to set logging file path, value=" << value << std::endl;
         }
@@ -43,13 +46,13 @@ namespace sfge::config
 
     std::string Global::getLoggingFilePath() const
     {
-        return getValueString(LOGGING_FILE_PATH_KEY_NAME);
+        return getValueString(GetLoggingFilePathKeyName());
     }
 
     const std::set<KeyDefinition> &Global::getKeyDefinitions() const
     {
         static const std::set<KeyDefinition> keys = {
-                {{LOGGING_FILE_PATH_KEY_NAME, Type::String, std::string("logs/log.txt")}}};
+                {{GetLoggingFilePathKeyName(), Type::String, std::string("logs/log.txt")}}};
         return keys;
     }
 

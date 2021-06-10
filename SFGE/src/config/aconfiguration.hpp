@@ -34,6 +34,7 @@ namespace sfge::config
         virtual ~AConfiguration() = default;
 
         [[nodiscard]] virtual std::string getName() const = 0;
+        [[nodiscard]] virtual const std::set<KeyDefinition> &getKeyDefinitions() const = 0;
 
         bool initValue(const std::string &key, const std::string &value);
         void reset();
@@ -51,9 +52,6 @@ namespace sfge::config
         bool getValueBool(const std::string &key) const;
 
         [[nodiscard]] std::unordered_map<std::string, std::string> retrieveNormalizedValues() const;
-
-    protected:
-        virtual const std::set<KeyDefinition> &getKeyDefinitions() const = 0;
 
     private:
         const Type *getKeyType(const std::string &key) const;

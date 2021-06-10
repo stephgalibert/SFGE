@@ -18,7 +18,25 @@
 
 #include <gtest/gtest.h>
 
-TEST(ConfigTest, t1)
+#include "config/globalconfig.hpp"
+
+class ConfigGlobalTest : public testing::Test
 {
-    EXPECT_EQ(10, 10);
+protected:
+    sfge::config::Global globalConfig;
+};
+
+TEST_F(ConfigGlobalTest, LoggingFilePathDefaultValue)
+{
+    const auto &def = globalConfig.getKeyDefinitions();
+    const auto it = sfge::config::findKeyDefinition(def, sfge::config::Global::GetLoggingFilePathKeyName());
+    EXPECT_TRUE(it != def.end());
+    EXPECT_EQ(globalConfig.getLoggingFilePath(), std::any_cast<std::string>(it->defaultValue));
+}
+
+TEST_F(ConfigGlobalTest, SetLoggingFilePath)
+{
+    const std::string loggingPath = "/path/to/file";
+    globalConfig.setLoggingFilePath(loggingPath);
+    EXPECT_EQ(loggingPath, globalConfig.getLoggingFilePath());
 }

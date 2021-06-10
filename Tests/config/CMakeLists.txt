@@ -22,5 +22,9 @@ set (TARGET "config_tests")
 set (SRCS configglobal_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
-target_link_libraries (${TARGET} PUBLIC "gmock" "gtest" "gmock_main")
+
+target_link_libraries (${TARGET} PUBLIC ${PROJECT_NAME} "gmock" "gtest" "gmock_main")
+# Inject SFGE private libraries into the test suite includes tree
+target_include_directories(${TARGET} PRIVATE ${SFGE_PRIVATE_INCLUDES})
+
 add_test(NAME ${TARGET} COMMAND "${TARGET}")
