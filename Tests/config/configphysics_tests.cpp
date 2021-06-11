@@ -40,3 +40,9 @@ TEST_F(ConfigPhysicsTest, SetPixelsPerMeter)
     physicsConfig.setPixelsPerMeter(value);
     EXPECT_EQ(value, physicsConfig.getPixelsPerMeter());
 }
+
+TEST_F(ConfigPhysicsTest, NormalizedValues)
+{
+    const auto normalizedValues = physicsConfig.retrieveNormalizedValues();
+    EXPECT_EQ(std::to_string(physicsConfig.getPixelsPerMeter()), normalizedValues.at(sfge::config::Physics::GetPixelsPerMeterKeyName()));
+}

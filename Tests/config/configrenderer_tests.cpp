@@ -20,6 +20,8 @@
 
 #include "config/rendererconfig.hpp"
 
+#include <sstream>
+
 class ConfigRendererTest : public testing::Test
 {
 protected:
@@ -72,4 +74,22 @@ TEST_F(ConfigRendererTest, TextureSmoothDefaultValue)
     const auto it = sfge::config::findKeyDefinition(def, sfge::config::Renderer::GetTextureSmoothKeyName());
     EXPECT_TRUE(it != def.end());
     EXPECT_EQ(rendererConfig.getTextureSmooth(), std::any_cast<bool>(it->defaultValue));
+}
+
+TEST_F(ConfigRendererTest, NormalizedValues)
+{
+    const auto normalizedValues = rendererConfig.retrieveNormalizedValues();
+    EXPECT_EQ(std::to_string(rendererConfig.getWidth()), normalizedValues.at(sfge::config::Renderer::GetWidthKeyName()));
+    EXPECT_EQ(std::to_string(rendererConfig.getHeight()), normalizedValues.at(sfge::config::Renderer::GetHeightKeyName()));
+    EXPECT_EQ(std::to_string(rendererConfig.getAntiAliasing()), normalizedValues.at(sfge::config::Renderer::GetAntiAliasingKeyName()));
+    EXPECT_EQ(std::to_string(rendererConfig.getMaxFps()), normalizedValues.at(sfge::config::Renderer::GetMaxFpsKeyName()));
+
+    std::ostringstream oss;
+    oss << std::boolalpha << rendererConfig.getVSync();
+    EXPECT_EQ(oss.str(), normalizedValues.at(sfge::config::Renderer::GetVSyncKeyName()));
+
+    oss.str("");
+    oss.clear();
+    oss << std::boolalpha << rendererConfig.getTextureSmooth();
+    EXPECT_EQ(oss.str(), normalizedValues.at(sfge::config::Renderer::GetTextureSmoothKeyName()));
 }

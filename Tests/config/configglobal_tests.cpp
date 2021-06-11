@@ -40,3 +40,9 @@ TEST_F(ConfigGlobalTest, SetLoggingFilePath)
     globalConfig.setLoggingFilePath(loggingPath);
     EXPECT_EQ(loggingPath, globalConfig.getLoggingFilePath());
 }
+
+TEST_F(ConfigGlobalTest, NormalizedValues)
+{
+    const auto normalizedValues = globalConfig.retrieveNormalizedValues();
+    EXPECT_EQ(globalConfig.getLoggingFilePath(), normalizedValues.at(sfge::config::Global::GetLoggingFilePathKeyName()));
+}

@@ -37,6 +37,9 @@ namespace sfge::config
         [[nodiscard]] virtual const std::set<KeyDefinition> &getKeyDefinitions() const = 0;
 
         bool initValue(const std::string &key, const std::string &value);
+        [[nodiscard]] std::unordered_map<std::string, std::string> retrieveNormalizedValues() const;
+
+    protected:
         void reset();
 
         bool setValue(const std::string &key, const std::string &value);
@@ -50,8 +53,6 @@ namespace sfge::config
         float getValueFloat(const std::string &key) const;
         double getValueDouble(const std::string &key) const;
         bool getValueBool(const std::string &key) const;
-
-        [[nodiscard]] std::unordered_map<std::string, std::string> retrieveNormalizedValues() const;
 
     private:
         const Type *getKeyType(const std::string &key) const;
