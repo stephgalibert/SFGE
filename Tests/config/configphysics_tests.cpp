@@ -16,24 +16,27 @@
 // along with SFGE. If not, see <https://www.gnu.org/licenses/>.
 //
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include "aconfiguration.hpp"
+#include "config/physicsconfig.hpp"
 
-namespace sfge::config
+class ConfigPhysicsTest : public testing::Test
 {
-    class Physics : public AConfiguration
-    {
-    public:
-        static std::string GetPixelsPerMeterKeyName();
+protected:
+    sfge::config::Physics physicsConfig;
+};
 
-    public:
-        Physics();
+TEST_F(ConfigPhysicsTest, PixelsPerMetterDefaultValue)
+{
+    const auto &def = physicsConfig.getKeyDefinitions();
+    const auto it = sfge::config::findKeyDefinition(def, sfge::config::Physics::GetPixelsPerMeterKeyName());
+    EXPECT_TRUE(it != def.end());
+    EXPECT_EQ(physicsConfig.getPixelsPerMeter(), std::any_cast<float>(it->defaultValue));
+}
 
-        [[nodiscard]] std::string getName() const override;
-        const std::set<KeyDefinition> &getKeyDefinitions() const override;
-
-        void setPixelsPerMeter(float value);
-        float getPixelsPerMeter() const;
-    };
-}// namespace sfge::config
+TEST_F(ConfigPhysicsTest, SetPixelsPerMeter)
+{
+    const float value = 68.5f;
+    physicsConfig.setPixelsPerMeter(value);
+    EXPECT_EQ(value, physicsConfig.getPixelsPerMeter());
+}

@@ -18,15 +18,38 @@
 
 #include "rendererconfig.hpp"
 
-#define WIDTH_KEY_NAME "Width"
-#define HEIGHT_KEY_NAME "Height"
-#define ANTI_ALIASING_KEY_NAME "AntiAliasing"
-#define MAX_FPS_KEY_NAME "MaxFps"
-#define VSYNC_KEY_NAME "VSync"
-#define TEXTURE_SMOOTH_KEY_NAME "TextureSmooth"
-
 namespace sfge::config
 {
+    std::string Renderer::GetWidthKeyName()
+    {
+        return "Width";
+    }
+
+    std::string Renderer::GetHeightKeyName()
+    {
+        return "Height";
+    }
+
+    std::string Renderer::GetAntiAliasingKeyName()
+    {
+        return "AntiAliasing";
+    }
+
+    std::string Renderer::GetMaxFpsKeyName()
+    {
+        return "MaxFps";
+    }
+
+    std::string Renderer::GetVSyncKeyName()
+    {
+        return "VSync";
+    }
+
+    std::string Renderer::GetTextureSmoothKeyName()
+    {
+        return "TextureSmooth";
+    }
+
     Renderer::Renderer()
     {
         reset();
@@ -39,73 +62,73 @@ namespace sfge::config
 
     void Renderer::setWidth(int value)
     {
-        setValue(WIDTH_KEY_NAME, value);
+        setValue(GetWidthKeyName(), value);
     }
 
     int Renderer::getWidth() const
     {
-        return getValueInt(WIDTH_KEY_NAME);
+        return getValueInt(GetWidthKeyName());
     }
 
     void Renderer::setHeight(int value)
     {
-        setValue(HEIGHT_KEY_NAME, value);
+        setValue(GetHeightKeyName(), value);
     }
 
     int Renderer::getHeight() const
     {
-        return getValueInt(HEIGHT_KEY_NAME);
+        return getValueInt(GetHeightKeyName());
     }
 
     void Renderer::setAntiAliasing(int value)
     {
-        setValue(ANTI_ALIASING_KEY_NAME, value);
+        setValue(GetAntiAliasingKeyName(), value);
     }
 
     int Renderer::getAntiAliasing() const
     {
-        return getValueInt(ANTI_ALIASING_KEY_NAME);
+        return getValueInt(GetAntiAliasingKeyName());
     }
 
     void Renderer::setMaxFps(int value)
     {
-        setValue(MAX_FPS_KEY_NAME, value);
+        setValue(GetMaxFpsKeyName(), value);
     }
 
     int Renderer::getMaxFps() const
     {
-        return getValueInt(MAX_FPS_KEY_NAME);
+        return getValueInt(GetMaxFpsKeyName());
     }
 
     void Renderer::setVSync(bool value)
     {
-        setValue(VSYNC_KEY_NAME, value);
+        setValue(GetVSyncKeyName(), value);
     }
 
     bool Renderer::getVSync() const
     {
-        return getValueBool(VSYNC_KEY_NAME);
+        return getValueBool(GetVSyncKeyName());
     }
 
     void Renderer::setTextureSmooth(bool value)
     {
-        setValue(TEXTURE_SMOOTH_KEY_NAME, value);
+        setValue(GetTextureSmoothKeyName(), value);
     }
 
     bool Renderer::getTextureSmooth() const
     {
-        return getValueBool(TEXTURE_SMOOTH_KEY_NAME);
+        return getValueBool(GetTextureSmoothKeyName());
     }
 
     const std::set<KeyDefinition> &Renderer::getKeyDefinitions() const
     {
         static const std::set<KeyDefinition> keys = {
-                {{WIDTH_KEY_NAME, Type::Int, 1280},
-                 {HEIGHT_KEY_NAME, Type::Int, 720},
-                 {ANTI_ALIASING_KEY_NAME, Type::Int, 8},
-                 {MAX_FPS_KEY_NAME, Type::Int, 60},
-                 {VSYNC_KEY_NAME, Type::Bool, true},
-                 {TEXTURE_SMOOTH_KEY_NAME, Type::Bool, true}}};
+                {{GetWidthKeyName(), Type::Int, 1280},
+                 {GetHeightKeyName(), Type::Int, 720},
+                 {GetAntiAliasingKeyName(), Type::Int, 8},
+                 {GetMaxFpsKeyName(), Type::Int, 60},
+                 {GetVSyncKeyName(), Type::Bool, true},
+                 {GetTextureSmoothKeyName(), Type::Bool, true}}};
         return keys;
     }
 }// namespace sfge::config

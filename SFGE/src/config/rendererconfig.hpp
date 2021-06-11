@@ -25,9 +25,18 @@ namespace sfge::config
     class Renderer : public AConfiguration
     {
     public:
+        static std::string GetWidthKeyName();
+        static std::string GetHeightKeyName();
+        static std::string GetAntiAliasingKeyName();
+        static std::string GetMaxFpsKeyName();
+        static std::string GetVSyncKeyName();
+        static std::string GetTextureSmoothKeyName();
+
+    public:
         Renderer();
 
         [[nodiscard]] std::string getName() const override;
+        const std::set<KeyDefinition> &getKeyDefinitions() const override;
 
         void setWidth(int value);
         int getWidth() const;
@@ -46,8 +55,5 @@ namespace sfge::config
 
         void setTextureSmooth(bool value);
         bool getTextureSmooth() const;
-
-    protected:
-        const std::set<KeyDefinition> &getKeyDefinitions() const override;
     };
 }// namespace sfge::config

@@ -19,10 +19,13 @@
 #include "physicsconfig.hpp"
 #include <iostream>
 
-#define PIXELS_PER_METER_KEY_NAME "PixelsPerMeter"
-
 namespace sfge::config
 {
+    std::string Physics::GetPixelsPerMeterKeyName()
+    {
+        return "PixelsPerMeter";
+    }
+
     Physics::Physics()
     {
         reset();
@@ -35,7 +38,7 @@ namespace sfge::config
 
     void Physics::setPixelsPerMeter(float value)
     {
-        const bool ret = setValue(PIXELS_PER_METER_KEY_NAME, value);
+        const bool ret = setValue(GetPixelsPerMeterKeyName(), value);
         if (!ret) {
             std::cout << "failed to set pixels per meter, value=" << value << std::endl;
         }
@@ -43,13 +46,13 @@ namespace sfge::config
 
     float Physics::getPixelsPerMeter() const
     {
-        return getValueFloat(PIXELS_PER_METER_KEY_NAME);
+        return getValueFloat(GetPixelsPerMeterKeyName());
     }
 
     const std::set<KeyDefinition> &Physics::getKeyDefinitions() const
     {
         static const std::set<KeyDefinition> keys = {
-                {{PIXELS_PER_METER_KEY_NAME, Type::Float, 50.0f}}};
+                {{GetPixelsPerMeterKeyName(), Type::Float, 50.0f}}};
         return keys;
     }
 }// namespace sfge::config

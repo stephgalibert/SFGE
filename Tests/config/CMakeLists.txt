@@ -19,7 +19,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 set (TARGET "config_tests")
-set (SRCS configglobal_tests.cpp)
+set (SRCS configglobal_tests.cpp configphysics_tests.cpp configrenderer_tests.cpp)
 
 add_executable (${TARGET} ${SRCS})
 
