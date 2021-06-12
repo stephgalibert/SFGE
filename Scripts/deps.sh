@@ -73,3 +73,15 @@ sudo apt-get -y install doxygen graphviz
 sudo apt-get -y install libsfml-dev
 sudo apt-get -y install libboost-all-dev
 sudo pip3 install gcovr
+
+# Installs TGUI
+echo "----------- Installing TGUI -----------"
+git clone --depth 1 --branch v0.9.1 https://github.com/texus/TGUI.git
+cd TGUI && mkdir build && cd build
+cmake ../
+make
+sudo make install
+cd ../../
+rm -rf TGUI
+
+sudo ldconfig

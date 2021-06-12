@@ -29,21 +29,20 @@ namespace sfge::config
 {
     bool AConfiguration::initValue(const std::string &key, const std::string &value)
     {
-        const std::set<KeyDefinition> &keys = getKeyDefinitions();
-        const auto keyDefinitionFound = findKeyDefinition(keys, key);
-        if (keyDefinitionFound == keys.end()) {
+        const Type *type = getKeyType(key);
+        if (!type) {
             return false;
         }
 
         const TypeValidator typeValidator;
-        if (!typeValidator(keyDefinitionFound->type, value)) {
+        if (!typeValidator(*type, value)) {
             std::ostringstream oss;
-            oss << key << ": " << value << " is not a " << toString(keyDefinitionFound->type);
+            oss << key << ": " << value << " is not a " << toString(*type);
             throw exception::BadType(oss.str());
         }
 
         TypeParser typeParser;
-        typeParser.setType(keyDefinitionFound->type);
+        typeParser.setType(*type);
         typeParser.setValue(value);
         m_values[key] = typeParser.toAny();
         return true;

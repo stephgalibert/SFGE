@@ -28,14 +28,16 @@
 #include "config/rendererconfig.hpp"
 #include "core/input/eventprocessor.hpp"
 #include "core/renderer/mainrenderer.hpp"
+#include "core/resources/musicloader.hpp"
 #include "core/resources/soundloader.hpp"
 #include "core/resources/textureloader.hpp"
-#include "core/resources/musicloader.hpp"
 #include "core/scene/scenemanager.hpp"
 
 #include "services/iconfigurationmanagerservice.h"
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
+
 #include <iostream>
 
 namespace sfge
@@ -74,6 +76,7 @@ namespace sfge
 
         auto mainRenderer = services::ServiceLocator::Get<services::IMainRendererService>();
         std::unique_ptr<sf::RenderWindow> &window = mainRenderer->renderer();
+        tgui::GuiSFML gui(*window.get());
 
         sf::Clock clock;
         PIMPL_D(BaseApplication);
@@ -85,7 +88,8 @@ namespace sfge
             while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window->close();
-                d->m_eventProcessor->process(event);
+                if (!gui.handleEvent(event))
+                    d->m_eventProcessor->process(event);
             }
 
             // 2. Update logics
@@ -94,6 +98,7 @@ namespace sfge
             // 3. Draw
             window->clear();
             d->m_sceneManager->draw();
+            gui.draw();
             window->display();
         }
         return 0;

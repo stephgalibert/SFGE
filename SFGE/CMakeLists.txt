@@ -64,5 +64,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVE
 
 target_link_libraries (${PROJECT_NAME} PUBLIC
 		sfml-system sfml-graphics sfml-window sfml-audio
+		tgui
 		Boost::system
 		box2d spdlog::spdlog)
