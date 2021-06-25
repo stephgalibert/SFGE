@@ -35,10 +35,13 @@ namespace sfge::input
     };
 
     struct MouseMoveEvent {
+        int x = 0;
+        int y = 0;
     };
 
     struct WindowResizedEvent {
-        sf::Vector2i size;
+        unsigned int width;
+        unsigned int height;
     };
 
     struct FocusChangedEvent {

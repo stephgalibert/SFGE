@@ -26,25 +26,46 @@ find_package (spdlog 1.8.2 REQUIRED)
 find_package (Boost 1.71 REQUIRED COMPONENTS system)
 
 set (SRCS src/core/application/baseapplication.cpp
-		src/logger/logger.cpp 						src/logger/spdloglogger.cpp
-		src/config/iniconfig.cpp 					src/config/configurationmanager.cpp
-		src/config/rendererconfig.cpp 				src/config/physicsconfig.cpp
-		src/config/globalconfig.cpp 				src/core/collisions/contactlistener.cpp
-		src/core/input/eventprocessor.cpp 			src/core/gameobject/agameobject.cpp
-		src/core/scene/scenemanager.cpp				src/core/scene/ascene.cpp
-		src/core/scene/scenegraph.cpp 				src/core/ecs/events/componentsevents.cpp
-        src/core/ecs/systems/camerasystem.cpp 		src/core/ecs/systems/scriptsystem.cpp
-		src/core/ecs/systems/inputsystem.cpp		src/core/ecs/systems/physicssystem.cpp
-		src/core/ecs/components/component.cpp		src/core/ecs/components/transformable.cpp
-		src/core/ecs/components/renderable.cpp 		src/core/ecs/components/rigidbody.cpp
-		src/core/ecs/components/scriptable.cpp		src/core/ecs/components/ascript.cpp
-		src/core/ecs/components/input.cpp 			src/core/resources/textureloader.cpp
-		src/core/resources/fontloader.cpp 			src/core/resources/musicloader.cpp
-		src/core/resources/soundloader.cpp 			src/services/servicelocator.cpp
-		src/core/ecs/components/camera.cpp 			src/core/renderer/mainrenderer.cpp
-		src/core/gameobject/camera.cpp				src/random/cavegeneration.cpp
-		src/random/lehmer32.cpp 					src/config/typevalidator.cpp
-		src/exceptions/exception.cpp				src/exceptions/badtype.cpp src/config/aconfiguration.cpp src/config/keydefinition.hpp src/config/typeparser.cpp src/config/typeparser.hpp)
+		src/logger/logger.cpp
+		src/logger/spdloglogger.cpp
+		src/config/iniconfig.cpp
+		src/config/configurationmanager.cpp
+		src/config/rendererconfig.cpp
+		src/config/physicsconfig.cpp
+		src/config/globalconfig.cpp
+		src/core/collisions/contactlistener.cpp
+        src/core/application/eventprocessor.cpp
+		src/core/gameobject/agameobject.cpp
+		src/core/scene/scenemanager.cpp
+		src/core/scene/ascene.cpp
+		src/core/scene/scenegraph.cpp
+		src/core/ecs/events/componentsevents.cpp
+        src/core/ecs/systems/camerasystem.cpp
+		src/core/ecs/systems/scriptsystem.cpp
+		src/core/ecs/systems/inputsystem.cpp
+		src/core/ecs/systems/physicssystem.cpp
+		src/core/ecs/components/component.cpp
+		src/core/ecs/components/transformable.cpp
+		src/core/ecs/components/renderable.cpp
+		src/core/ecs/components/rigidbody.cpp
+		src/core/ecs/components/scriptable.cpp
+		src/core/ecs/components/ascript.cpp
+		src/core/ecs/components/input.cpp
+		src/core/resources/textureloader.cpp
+		src/core/resources/fontloader.cpp
+		src/core/resources/musicloader.cpp
+		src/core/resources/soundloader.cpp
+		src/services/servicelocator.cpp
+		src/core/ecs/components/camera.cpp
+		src/core/renderer/mainrenderer.cpp
+		src/core/gameobject/camera.cpp
+		src/random/cavegeneration.cpp
+		src/random/lehmer32.cpp
+		src/config/typevalidator.cpp
+		src/exceptions/exception.cpp
+		src/exceptions/badtype.cpp
+		src/config/aconfiguration.cpp
+		src/config/typeparser.cpp)
 
 add_library (${PROJECT_NAME} SHARED ${SRCS})
 
@@ -64,6 +85,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVE
 
 target_link_libraries (${PROJECT_NAME} PUBLIC
 		sfml-system sfml-graphics sfml-window sfml-audio
-		tgui
+		tgui box2d
 		Boost::system
-		box2d spdlog::spdlog)
+		spdlog::spdlog)

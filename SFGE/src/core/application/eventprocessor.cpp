@@ -18,19 +18,22 @@
 
 #include "eventprocessor.hpp"
 
-#include "eventlistener.hpp"
+#include "core/application/eventlistener.hpp"
 #include "sfge/event.hpp"
 
 namespace sfge::input
 {
-    EventProcessor::EventProcessor(EventListener *listener)
+    EventProcessor::EventProcessor(EventHandler *listener)
         : m_events({
                   {sf::Event::KeyPressed, [this](const sf::Event &event) { onKeyboardEvent(event); }},
                   {sf::Event::KeyReleased, [this](const sf::Event &event) { onKeyboardEvent(event); }},
                   {sf::Event::Closed, [this](const sf::Event &event) { onWindowClosing(event); }},
                   {sf::Event::MouseButtonPressed, [this](const sf::Event &event) { onMouseButtonEvent(event); }},
                   {sf::Event::MouseButtonReleased, [this](const sf::Event &event) { onMouseButtonEvent(event); }},
-                  {sf::Event::MouseMoved, [this](const sf::Event &event) { ; }},
+                  {sf::Event::MouseMoved, [this](const sf::Event &event) { onMouseMoveEvent(event); }},
+                  {sf::Event::Resized, [this](const sf::Event &event) { onWindowResized(event); }},
+                  {sf::Event::GainedFocus, [this](const sf::Event &event) { onFocusChanged(true); }},
+                  {sf::Event::LostFocus, [this](const sf::Event &event) { onFocusChanged(false); }},
           }),
           m_listener(listener)
     {
@@ -63,13 +66,16 @@ namespace sfge::input
 
     void EventProcessor::onMouseMoveEvent(const sf::Event &event)
     {
+        m_listener->onMouseMoveEvent({event.mouseMove.x, event.mouseMove.y});
     }
 
     void EventProcessor::onWindowResized(const sf::Event &event)
     {
+        m_listener->onWindowResized({event.size.width, event.size.height});
     }
 
-    void EventProcessor::onFocusChanged(const sf::Event &event)
+    void EventProcessor::onFocusChanged(bool value)
     {
+        m_listener->onFocusChanged({value});
     }
 }// namespace sfge::input

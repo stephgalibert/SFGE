@@ -26,7 +26,7 @@
 
 #include "config/configurationmanager.hpp"
 #include "config/rendererconfig.hpp"
-#include "core/input/eventprocessor.hpp"
+#include "eventprocessor.hpp"
 #include "core/renderer/mainrenderer.hpp"
 #include "core/resources/musicloader.hpp"
 #include "core/resources/soundloader.hpp"
@@ -45,13 +45,16 @@ namespace sfge
     BaseApplicationPrivate::BaseApplicationPrivate(BaseApplication *qq)
         : q_ptr(qq),
           m_sceneManager(new SceneManager),
-          m_eventProcessor(new input::EventProcessor(m_sceneManager.get()))
+          m_eventProcessor(new input::EventProcessor(m_sceneManager.get())),
+          m_isDebugMode(false)
     {
     }
 
-    BaseApplication::BaseApplication()
+    BaseApplication::BaseApplication(bool isDebugMode)
         : BaseApplication(new BaseApplicationPrivate(this))
     {
+        PIMPL_D(BaseApplication);
+        d->m_isDebugMode = isDebugMode;
     }
 
     BaseApplication::BaseApplication(BaseApplicationPrivate *dd)
@@ -65,7 +68,12 @@ namespace sfge
 
     bool BaseApplication::init()
     {
+        PIMPL_D(BaseApplication);
+
         LoadServices();
+        if (d->m_isDebugMode) {
+            // TODO: add debug scene
+        }
         return true;
     }
 
@@ -76,12 +84,30 @@ namespace sfge
 
         auto mainRenderer = services::ServiceLocator::Get<services::IMainRendererService>();
         std::unique_ptr<sf::RenderWindow> &window = mainRenderer->renderer();
-        tgui::GuiSFML gui(*window.get());
+        tgui::GuiSFML gui(*window);
+
+        auto button = tgui::Button::create("Button");
+        button->setSize(100, 25);
+        button->setPosition(50, 50);
+        button->onClick([] { std::cout << "clicked!" << std::endl; });
+        gui.add(button);
+
+        //        auto panel = tgui::ScrollablePanel::create();
+        //        panel->setPosition(300, 300);
+        //        panel->setSize(200, 200);
+        //        panel->setHorizontalScrollbarPolicy(tgui::Scrollbar::Policy::Never);
+        //        gui.add(panel);
+
+        auto canvas = tgui::Canvas::create({200, 200});
+        canvas->setPosition(300, 300);
+        canvas->clear(tgui::Color(255, 0, 0, 128));
+        canvas->display();
+        gui.add(canvas);
 
         sf::Clock clock;
         PIMPL_D(BaseApplication);
         while (window->isOpen()) {
-            float dt = clock.restart().asSeconds();
+            const float dt = clock.restart().asSeconds();
 
             // 1. Retrieve and process input(s)
             sf::Event event{};
@@ -92,7 +118,7 @@ namespace sfge
                     d->m_eventProcessor->process(event);
             }
 
-            // 2. Update logics
+            // 2. Update logic
             d->m_sceneManager->update(dt);
 
             // 3. Draw
@@ -107,13 +133,13 @@ namespace sfge
     void BaseApplication::loadScene(std::unique_ptr<AScene> scene)
     {
         PIMPL_D(BaseApplication);
-        d->m_sceneManager->setScene(std::move(scene));
+        d->m_sceneManager->addScene(std::move(scene));
     }
 
     bool BaseApplication::isRunnable() const
     {
         const PIMPL_D(BaseApplication);
-        if (!d->m_sceneManager->scene()) {
+        if (d->m_sceneManager->getSceneCount() == 0) {
             std::cerr << "There is no active scene. Terminating application." << std::endl;
             return false;
         }

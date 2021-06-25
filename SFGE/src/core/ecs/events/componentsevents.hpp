@@ -65,4 +65,10 @@ namespace sfge::ecs
     private:
         RigidbodyEventsCallbacks *m_callbacks = nullptr;
     };
+
+    //    class UiEvents
+    //    {
+    //    public:
+    //        void created(entt::registry &registry, entt::entity entity) const;
+    //    };
 }// namespace sfge::ecs

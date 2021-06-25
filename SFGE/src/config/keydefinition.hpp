@@ -28,7 +28,7 @@ namespace sfge::config
     struct KeyDefinition {
         std::string name;
         Type type = Type::Int;
-        std::any defaultValue = 0;
+        std::any defaultValue;
     };
 
     inline bool operator<(const KeyDefinition &lhs, const KeyDefinition &rhs)

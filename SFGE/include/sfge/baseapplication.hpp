@@ -33,7 +33,7 @@ namespace sfge
     class BaseApplication
     {
     public:
-        BaseApplication();
+        explicit BaseApplication(bool isDebugMode = false);
         virtual ~BaseApplication();
 
         virtual bool init();

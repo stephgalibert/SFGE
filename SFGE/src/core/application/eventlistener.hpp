@@ -21,30 +21,23 @@
 #include <SFML/Graphics.hpp>
 
 #include <functional>
-#include <unordered_map>
 
 namespace sfge::input
 {
-    struct EventListener;
+    struct KeyboardEvent;
+    struct MouseButtonEvent;
+    struct MouseMoveEvent;
+    struct WindowResizedEvent;
+    struct FocusChangedEvent;
 
-    class EventProcessor
-    {
-    public:
-        explicit EventProcessor(EventListener *listener);
-        ~EventProcessor() = default;
+    struct EventHandler {
+        virtual ~EventHandler() = default;
 
-        void process(const sf::Event &event);
-
-    private:
-        void onWindowClosing(const sf::Event &event);
-        void onKeyboardEvent(const sf::Event &event);
-        void onMouseButtonEvent(const sf::Event &event);
-        void onMouseMoveEvent(const sf::Event &event);
-        void onWindowResized(const sf::Event &event);
-        void onFocusChanged(const sf::Event &event);
-
-    private:
-        std::unordered_map<sf::Event::EventType, std::function<void(const sf::Event &)>> m_events;
-        EventListener *m_listener;
+        virtual void onWindowClosing() = 0;
+        virtual void onKeyboardEvent(const KeyboardEvent &event) = 0;
+        virtual void onMouseButtonEvent(const MouseButtonEvent &event) = 0;
+        virtual void onMouseMoveEvent(const MouseMoveEvent &event) = 0;
+        virtual void onWindowResized(const WindowResizedEvent &event) = 0;
+        virtual void onFocusChanged(const FocusChangedEvent &event) = 0;
     };
 }// namespace sfge::input

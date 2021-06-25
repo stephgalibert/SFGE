@@ -26,38 +26,55 @@ namespace sfge
 {
     void SceneManager::onWindowClosing()
     {
-        m_currentScene->destroy();
+        for (auto &scene : m_scenes)
+            scene->destroy();
     }
 
     void SceneManager::onKeyboardEvent(const input::KeyboardEvent &event)
     {
-        m_currentScene->onKeyboardEvent(event);
+        for (auto &scene : m_scenes)
+            scene->onKeyboardEvent(event);
     }
 
     void SceneManager::onMouseButtonEvent(const input::MouseButtonEvent &event)
     {
-        m_currentScene->onMouseButtonEvent(event);
+        for (auto &scene : m_scenes)
+            scene->onMouseButtonEvent(event);
+    }
+
+    void SceneManager::onMouseMoveEvent(const input::MouseMoveEvent &event)
+    {
+    }
+
+    void SceneManager::onWindowResized(const input::WindowResizedEvent &event)
+    {
+    }
+
+    void SceneManager::onFocusChanged(const input::FocusChangedEvent &event)
+    {
     }
 
     void SceneManager::update(float dt)
     {
-        m_currentScene->update(dt);
+        for (auto &scene : m_scenes)
+            scene->update(dt);
     }
 
     void SceneManager::draw()
     {
-        m_currentScene->draw();
+        for (auto &scene : m_scenes)
+            scene->draw();
     }
 
-    void SceneManager::setScene(std::unique_ptr<AScene> scene)
+    void SceneManager::addScene(std::unique_ptr<AScene> scene)
     {
         // TODO: push into a build queue and only then, set m_currentScene
-        m_currentScene = std::move(scene);
-        m_currentScene->init();
+        scene->init();
+        m_scenes.push_back(std::move(scene));
     }
 
-    const std::unique_ptr<AScene> &SceneManager::scene() const
+    unsigned int SceneManager::getSceneCount() const
     {
-        return m_currentScene;
+        return m_scenes.size();
     }
 }// namespace sfge
