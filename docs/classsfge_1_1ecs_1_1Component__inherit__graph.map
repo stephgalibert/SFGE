@@ -1,0 +1,9 @@
+<map id="sfge::ecs::Component" name="sfge::ecs::Component">
+<area shape="rect" id="node1" title=" " alt="" coords="5,132,168,159"/>
+<area shape="rect" id="node2" href="$classsfge_1_1ecs_1_1Camera.html" title=" " alt="" coords="237,5,376,32"/>
+<area shape="rect" id="node3" href="$classsfge_1_1ecs_1_1Input.html" title=" " alt="" coords="246,56,367,83"/>
+<area shape="rect" id="node4" href="$classsfge_1_1ecs_1_1Renderable.html" title=" " alt="" coords="225,107,388,133"/>
+<area shape="rect" id="node5" href="$classsfge_1_1ecs_1_1RigidBody.html" title=" " alt="" coords="229,157,384,184"/>
+<area shape="rect" id="node6" href="$classsfge_1_1ecs_1_1Scriptable.html" title=" " alt="" coords="230,208,383,235"/>
+<area shape="rect" id="node7" href="$classsfge_1_1ecs_1_1Transformable.html" title=" " alt="" coords="216,259,397,285"/>
+</map>
