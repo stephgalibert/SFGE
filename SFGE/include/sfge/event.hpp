@@ -21,7 +21,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-namespace sfge::input
+namespace sfge::event
 {
     struct KeyboardEvent {
         sf::Keyboard::Key key;
@@ -47,4 +47,4 @@ namespace sfge::input
     struct FocusChangedEvent {
         bool focused;
     };
-}// namespace sfge::input
+}// namespace sfge::event

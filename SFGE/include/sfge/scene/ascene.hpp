@@ -18,24 +18,18 @@
 
 #pragma once
 
+#include "sfge/components/rigidbody.hpp"
 #include "sfge/components/transformable.hpp"
 #include "sfge/pimpl.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <box2d/b2_body.h>
 #include <entt/entt.hpp>
 
-#include <box2d/b2_body.h>
 #include <memory>
-#include <sfge/components/rigidbody.hpp>
 
 namespace sfge
 {
-    namespace input
-    {
-        struct KeyboardEvent;
-        struct MouseButtonEvent;
-    }// namespace input
-
     class AScenePrivate;
     class AGameObject;
 
@@ -47,10 +41,7 @@ namespace sfge
 
         virtual void init();
 
-        void destroy();
-        void onKeyboardEvent(const input::KeyboardEvent &event);
-        void onMouseButtonEvent(const input::MouseButtonEvent &event);
-
+        void onEvent(const sf::Event &event);
         void update(float dt);
         void draw();
 
@@ -63,7 +54,6 @@ namespace sfge
         PIMPL_DECLARE_PRIVATE(AScene);
         void addGameObject(const std::shared_ptr<AGameObject> &obj);
     };
-
 
     template<typename T, typename... Args>
     std::shared_ptr<T> AScene::instantiate(Args &&... args)

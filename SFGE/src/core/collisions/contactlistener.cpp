@@ -22,8 +22,6 @@
 
 #include <box2d/b2_contact.h>
 
-#include <iostream>
-
 namespace sfge
 {
     void ContactListener::BeginContact(b2Contact *contact)

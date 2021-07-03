@@ -65,7 +65,7 @@ void TestScript::onDestroy()
     m_logger->info("onDestroy");
 }
 
-void TestScript::onKeyboardEvent(const sfge::input::KeyboardEvent &event)
+void TestScript::onKeyboardEvent(const sfge::event::KeyboardEvent &event)
 {
     sfge::AGameObject *gameObject = getGameObject();
     assert(gameObject);

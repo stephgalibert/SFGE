@@ -18,35 +18,51 @@
 
 #include "sfge/components/input.hpp"
 
+#define BIT_EVENT_KBD_IDX 1
+#define BIT_EVENT_MOUSE_BTN_IDX 2
+#define BIT_EVENT_MOUSE_MOV_IDX 4
+
 namespace sfge::ecs
 {
     void Input::setMouseMove(bool value)
     {
-        m_mouseMove = value;
+        if (value) {
+            m_capacitive |= BIT_EVENT_MOUSE_MOV_IDX;
+        } else {
+            m_capacitive = ~(m_capacitive & BIT_EVENT_MOUSE_MOV_IDX);
+        }
     }
 
     void Input::setMouseButton(bool value)
     {
-        m_mouseButton = value;
+        if (value) {
+            m_capacitive |= BIT_EVENT_MOUSE_BTN_IDX;
+        } else {
+            m_capacitive = ~(m_capacitive & BIT_EVENT_MOUSE_BTN_IDX);
+        }
     }
 
     void Input::setKeyboardButton(bool value)
     {
-        m_keyboardButton = value;
+        if (value) {
+            m_capacitive |= BIT_EVENT_KBD_IDX;
+        } else {
+            m_capacitive = ~(m_capacitive & BIT_EVENT_KBD_IDX);
+        }
     }
 
     bool Input::getMouseMove() const
     {
-        return m_mouseMove;
+        return m_capacitive & BIT_EVENT_MOUSE_MOV_IDX;
     }
 
     bool Input::getMouseButton() const
     {
-        return m_mouseButton;
+        return m_capacitive & BIT_EVENT_MOUSE_BTN_IDX;
     }
 
     bool Input::getKeyboardButton() const
     {
-        return m_keyboardButton;
+        return m_capacitive & BIT_EVENT_KBD_IDX;
     }
 }// namespace sfge::ecs

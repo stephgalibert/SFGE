@@ -20,23 +20,38 @@
 
 #include "isystem.hpp"
 
+#include "sfge/components/input.hpp"
+#include "sfge/components/scriptable.hpp"
 #include "sfge/event.hpp"
 
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
+#include <functional>
 #include <queue>
+#include <unordered_map>
 
 namespace sfge::ecs
 {
     class InputSystem : public ISystem
     {
     public:
+        InputSystem();
+
         void update(entt::registry &registry, float dt) override;
 
-        void push(const input::KeyboardEvent &event);
-        void push(const input::MouseButtonEvent &event);
+        void push(const sf::Event &event);
 
     private:
-        std::queue<input::KeyboardEvent> m_keyboardEvents;
+        static void onWindowClosing(const sf::Event &event, const Input &input, Scriptable &scriptable);
+        static void onKeyboardEvent(const sf::Event &event, const Input &input, Scriptable &scriptable);
+        static void onMouseButtonEvent(const sf::Event &event, const Input &input, Scriptable &scriptable);
+        static void onMouseMoveEvent(const sf::Event &event, const Input &input, Scriptable &scriptable);
+        static void onWindowResized(const sf::Event &event, const Input &input, Scriptable &scriptable);
+        static void onFocusChanged(bool value);
+
+    private:
+        const std::unordered_map<sf::Event::EventType, std::function<void(const sf::Event &, const Input &, Scriptable &)>> m_eventCallbacks;
+        std::queue<sf::Event> m_events;
     };
 }// namespace sfge::ecs

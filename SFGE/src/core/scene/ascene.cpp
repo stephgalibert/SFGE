@@ -35,6 +35,7 @@
 namespace sfge
 {
     /** Private implementation **/
+
     AScenePrivate::AScenePrivate(AScene *qq)
         : q_ptr(qq)
     {
@@ -99,26 +100,25 @@ namespace sfge
         d->m_logger->info("Init");
     }
 
-    void AScene::destroy()
-    {
-        PIMPL_D(AScene);
-        d->m_logger->info("Destroy");
+    //    void AScene::onWindowClosing()
+    //    {
+    //        PIMPL_D(AScene);
+    //        d->m_logger->info("Destroy");
+    //
+    //        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
+    //        loggerService->removeLogger(d->m_logger);
+    //    }
+    //
+    //    void AScene::onKeyboardEvent(const input::KeyboardEvent &events)
+    //    {
+    //        PIMPL_D(AScene);
+    //        d->m_inputSystem->push(events);
+    //    }
 
-        auto loggerService = services::ServiceLocator::Get<services::ILoggerService>();
-        loggerService->removeLogger(d->m_logger);
-    }
-
-    void AScene::onKeyboardEvent(const input::KeyboardEvent &event)
+    void AScene::onEvent(const sf::Event &event)
     {
         PIMPL_D(AScene);
         d->m_inputSystem->push(event);
-    }
-
-    void AScene::onMouseButtonEvent(const input::MouseButtonEvent &event)
-    {
-        PIMPL_D(AScene);
-        d->m_logger->info("onMouseButtonEvent");
-        // d->m_inputSystem->push(btn, x, y, pressed);
     }
 
     void AScene::update(float dt)

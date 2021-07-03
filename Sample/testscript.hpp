@@ -31,7 +31,7 @@ public:
     void onCollisionEnter(sfge::AGameObject *collided) override;
     void onCollisionExit(sfge::AGameObject *collided) override;
 
-    void onKeyboardEvent(const sfge::input::KeyboardEvent &event) override;
+    void onKeyboardEvent(const sfge::event::KeyboardEvent &event) override;
 
     void onAwake() override;
     void onUpdate(float dt) override;

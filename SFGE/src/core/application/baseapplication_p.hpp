@@ -38,7 +38,6 @@ namespace sfge
         PIMPL_DECLARE_PUBLIC(BaseApplication);
 
         std::unique_ptr<SceneManager> m_sceneManager;
-        std::unique_ptr<input::EventProcessor> m_eventProcessor;
         bool m_isDebugMode;
     };
 }// namespace sfge

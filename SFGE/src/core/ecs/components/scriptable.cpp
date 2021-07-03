@@ -48,14 +48,14 @@ namespace sfge::ecs
         }
     }
 
-    void Scriptable::onKeyboardEvent(const input::KeyboardEvent &event)
+    void Scriptable::onKeyboardEvent(const event::KeyboardEvent &event)
     {
         for (auto &script : m_scripts) {
             script->onKeyboardEvent(event);
         }
     }
 
-    void Scriptable::onMouseButtonEvent(const input::MouseButtonEvent &event)
+    void Scriptable::onMouseButtonEvent(const event::MouseButtonEvent &event)
     {
         for (auto &script : m_scripts) {
             script->onMouseButtonEvent(event);

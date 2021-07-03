@@ -19,6 +19,8 @@
 #include "sfge/components/base/ascript.hpp"
 #include "sfge/common.hpp"
 
+#include <iostream>
+
 namespace sfge::ecs
 {
     void AScript::attachGameObject(AGameObject *gameObject)
@@ -41,13 +43,14 @@ namespace sfge::ecs
         SFGE_UNUSED(collided);
     }
 
-    void AScript::onKeyboardEvent(const input::KeyboardEvent &event)
+    void AScript::onKeyboardEvent(const event::KeyboardEvent &event)
     {
         SFGE_UNUSED(event);
     }
 
-    void AScript::onMouseButtonEvent(const input::MouseButtonEvent &event)
+    void AScript::onMouseButtonEvent(const event::MouseButtonEvent &event)
     {
         SFGE_UNUSED(event);
+        std::cout << "mouse button event" << std::endl;
     }
 }// namespace sfge::ecs

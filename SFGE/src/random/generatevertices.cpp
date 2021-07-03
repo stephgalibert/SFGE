@@ -68,12 +68,12 @@ Sample
 //    while (window.isOpen()) {
 //        const float dt = clock.restart().asMilliseconds();
 //
-//        sf::Event event;
-//        while (window.pollEvent(event)) {
-//            if (event.type == sf::Event::Closed) {
+//        sf::Event events;
+//        while (window.pollEvent(events)) {
+//            if (events.type == sf::Event::Closed) {
 //                window.close();
-//            } else if (event.type == sf::Event::Resized) {
-//                view.setSize(event.size.width, event.size.height);
+//            } else if (events.type == sf::Event::Resized) {
+//                view.setSize(events.size.width, events.size.height);
 //                window.setView(view);
 //            }
 //        }

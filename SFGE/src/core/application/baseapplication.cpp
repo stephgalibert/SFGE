@@ -26,7 +26,6 @@
 
 #include "config/configurationmanager.hpp"
 #include "config/rendererconfig.hpp"
-#include "eventprocessor.hpp"
 #include "core/renderer/mainrenderer.hpp"
 #include "core/resources/musicloader.hpp"
 #include "core/resources/soundloader.hpp"
@@ -45,7 +44,6 @@ namespace sfge
     BaseApplicationPrivate::BaseApplicationPrivate(BaseApplication *qq)
         : q_ptr(qq),
           m_sceneManager(new SceneManager),
-          m_eventProcessor(new input::EventProcessor(m_sceneManager.get())),
           m_isDebugMode(false)
     {
     }
@@ -109,13 +107,13 @@ namespace sfge
         while (window->isOpen()) {
             const float dt = clock.restart().asSeconds();
 
-            // 1. Retrieve and process input(s)
+            // 1. Retrieve input(s)
             sf::Event event{};
             while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window->close();
                 if (!gui.handleEvent(event))
-                    d->m_eventProcessor->process(event);
+                    d->m_sceneManager->onEvent(event);
             }
 
             // 2. Update logic

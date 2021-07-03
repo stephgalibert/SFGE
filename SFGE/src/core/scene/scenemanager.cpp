@@ -24,34 +24,16 @@
 
 namespace sfge
 {
-    void SceneManager::onWindowClosing()
+    //    void SceneManager::onWindowClosing()
+    //    {
+    //        for (auto &scene : m_scenes)
+    //            scene->onWindowClosing();
+    //    }
+
+    void SceneManager::onEvent(const sf::Event &event)
     {
         for (auto &scene : m_scenes)
-            scene->destroy();
-    }
-
-    void SceneManager::onKeyboardEvent(const input::KeyboardEvent &event)
-    {
-        for (auto &scene : m_scenes)
-            scene->onKeyboardEvent(event);
-    }
-
-    void SceneManager::onMouseButtonEvent(const input::MouseButtonEvent &event)
-    {
-        for (auto &scene : m_scenes)
-            scene->onMouseButtonEvent(event);
-    }
-
-    void SceneManager::onMouseMoveEvent(const input::MouseMoveEvent &event)
-    {
-    }
-
-    void SceneManager::onWindowResized(const input::WindowResizedEvent &event)
-    {
-    }
-
-    void SceneManager::onFocusChanged(const input::FocusChangedEvent &event)
-    {
+            scene->onEvent(event);
     }
 
     void SceneManager::update(float dt)

@@ -24,11 +24,11 @@
 #include <memory>
 #include <vector>
 
-namespace sfge::input
+namespace sfge::event
 {
     struct KeyboardEvent;
     struct MouseButtonEvent;
-}// namespace sfge::input
+}// namespace sfge::event
 
 namespace sfge::ecs
 {
@@ -41,8 +41,8 @@ namespace sfge::ecs
         void update(float dt);
         void destroy();
 
-        void onKeyboardEvent(const input::KeyboardEvent &event);
-        void onMouseButtonEvent(const input::MouseButtonEvent &event);
+        void onKeyboardEvent(const event::KeyboardEvent &event);
+        void onMouseButtonEvent(const event::MouseButtonEvent &event);
 
         [[nodiscard]] std::size_t getSize() const;
 

@@ -34,8 +34,7 @@ set (SRCS src/core/application/baseapplication.cpp
 		src/config/physicsconfig.cpp
 		src/config/globalconfig.cpp
 		src/core/collisions/contactlistener.cpp
-        src/core/application/eventprocessor.cpp
-		src/core/gameobject/agameobject.cpp
+        src/core/gameobject/agameobject.cpp
 		src/core/scene/scenemanager.cpp
 		src/core/scene/ascene.cpp
 		src/core/scene/scenegraph.cpp

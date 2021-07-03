@@ -24,11 +24,11 @@ namespace sfge
 {
     class AGameObject;
 
-    namespace input
+    namespace event
     {
         struct KeyboardEvent;
         struct MouseButtonEvent;
-    }// namespace input
+    }// namespace event
 }// namespace sfge
 
 namespace sfge::ecs
@@ -48,8 +48,8 @@ namespace sfge::ecs
         virtual void onUpdate(float dt) = 0;
         virtual void onDestroy() = 0;
 
-        virtual void onKeyboardEvent(const input::KeyboardEvent &event);
-        virtual void onMouseButtonEvent(const input::MouseButtonEvent &event);
+        virtual void onKeyboardEvent(const event::KeyboardEvent &event);
+        virtual void onMouseButtonEvent(const event::MouseButtonEvent &event);
 
     private:
         AGameObject *m_gameObject = nullptr;

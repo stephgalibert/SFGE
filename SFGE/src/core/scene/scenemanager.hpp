@@ -18,8 +18,6 @@
 
 #pragma once
 
-#include "core/application/eventlistener.hpp"
-
 #include <SFML/Graphics.hpp>
 
 #include <memory>
@@ -28,15 +26,10 @@ namespace sfge
 {
     class AScene;
 
-    class SceneManager : public input::EventHandler
+    class SceneManager
     {
     public:
-        void onWindowClosing() override;
-        void onKeyboardEvent(const input::KeyboardEvent &event) override;
-        void onMouseButtonEvent(const input::MouseButtonEvent &event) override;
-        void onMouseMoveEvent(const input::MouseMoveEvent &event) override;
-        void onWindowResized(const input::WindowResizedEvent &event) override;
-        void onFocusChanged(const input::FocusChangedEvent &event) override;
+        void onEvent(const sf::Event &event);
 
         void update(float dt);
         void draw();
